@@ -1,0 +1,14 @@
+{
+  "features": {
+    "ghcr.io/cirolosapio/devcontainers-features/alpine-bash:0": {
+      "version": "0.0.2",
+      "resolved": "ghcr.io/cirolosapio/devcontainers-features/alpine-bash@sha256:9098c6b0bc75c850bb1cf455d39a26fcd23d14397a13312af8c35b59369995c0",
+      "integrity": "sha256:9098c6b0bc75c850bb1cf455d39a26fcd23d14397a13312af8c35b59369995c0"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "1.3.5",
+      "resolved": "ghcr.io/devcontainers/features/git@sha256:27905dc196c01f77d6ba8709cb82eeaf330b3b108772e2f02d1cd0d826de1251",
+      "integrity": "sha256:27905dc196c01f77d6ba8709cb82eeaf330b3b108772e2f02d1cd0d826de1251"
+    }
+  }
+}

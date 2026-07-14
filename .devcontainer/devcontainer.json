@@ -1,0 +1,34 @@
+{
+  "name": "ESN Åbo Site",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/cirolosapio/devcontainers-features/alpine-bash:0": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "github.copilot",
+        "eamodio.gitlens",
+        "formulahendry.auto-complete-tag",
+        "ecmel.vscode-html-css",
+        "ms-vscode.vscode-typescript-next",
+        "christian-kohler.path-intellisense",
+        "christian-kohler.npm-intellisense",
+        "github.copilot-chat",
+        "mechatroner.rainbow-csv",
+        "ritwickdey.liveserver",
+        "ms-vscode-remote.remote-containers",
+        "prisma.prisma",
+        "anthropic.claude-code"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+  "forwardPorts": [3000]
+}

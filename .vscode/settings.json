@@ -1,0 +1,13 @@
+{
+  "prettier.bracketSameLine": true,
+  "editor.formatOnSave": true,
+  "editor.indentSize": 2,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "prettier.endOfLine": "lf",
+  "files.eol": "\n",
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+  }
+}

@@ -1,0 +1,287 @@
+import {
+  Box,
+  Grid,
+  Heading,
+  HStack,
+  Icon,
+  Text,
+  VStack,
+  For,
+  Card,
+} from "@chakra-ui/react";
+import {
+  CheckCircle2,
+  MapPin,
+  Clock,
+  Handshake,
+  Heart,
+  Crown,
+} from "lucide-react";
+import Section from "@/components/ui/section";
+import { AboutHero } from "@/components/ui/hero";
+
+const STATS = [
+  { number: "1994", label: "ESN ÅA founded" },
+  { number: "2nd", label: "oldest ESN section in Finland" },
+];
+
+const OBJECTIVES = [
+  "Works in the interest of international students",
+  "Improves social & practical integration",
+  "Represents student needs & rights, locally, nationally, and internationally",
+  "Provides information about mobility programmes",
+  "Motivates students to study abroad",
+  "Supports reintegration of homecoming students",
+  "Improves accessibility of student mobility",
+  "Cares about its members",
+  "Values volunteering & active citizenship",
+];
+
+const BOARD = [
+  { name: "Ida Samadova", role: "President", color: "esn.magenta" },
+  { name: "Kim-Mikael Pekkonen", role: "Vice-President", color: "esn.cyan" },
+  { name: "Haroon Riasat", role: "Trip Manager", color: "esn.green" },
+  { name: "Kinshuk Dubey", role: "Event Coordinator", color: "esn.orange" },
+  { name: "Muhammad Aziz Ullah", role: "Treasurer", color: "esn.darkBlue" },
+  {
+    name: "Yasith Hirimbuergama",
+    role: "Partnership Manager",
+    color: "esn.magenta",
+  },
+  {
+    name: "Ashir Kulshreshtha",
+    role: "Acting IT & Web Project Manager",
+    color: "esn.cyan",
+  },
+];
+
+const MEMBERSHIP_BENEFITS = [
+  "Free entrance to themed parties and social gatherings",
+  "Opportunities to join group trips and adventures",
+  "Access to cultural events, workshops, and performances",
+  "Networking with like-minded exchange students",
+  "Priority updates on upcoming activities",
+  "Volunteer work that looks good on job applications",
+];
+
+function initials(name: string) {
+  const parts = name.split(" ");
+  return `${parts[0][0]}${parts[parts.length - 1][0]}`;
+}
+
+export default function AboutPage() {
+  return (
+    <>
+      <Section backgroundColor="bg.alternate" py="12">
+        <AboutHero stats={STATS} />
+      </Section>
+
+      <Section py="12">
+        <Grid
+          w="full"
+          gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
+          gap="8">
+          <VStack alignItems="flex-start" gap="4">
+            <Heading as="h2" size="xl">
+              What ESN does
+            </Heading>
+            <Text color="fg.muted">
+              The Erasmus Student Network was founded in 1989 and is one of the
+              biggest student associations in Europe, active on local, national,
+              and international levels, with around 15,000 active members
+              supporting international students through buddy sections like
+              ours.
+            </Text>
+          </VStack>
+          <Grid
+            gridTemplateColumns={{ base: "1fr", sm: "repeat(2, 1fr)" }}
+            gap="3"
+            alignSelf="center">
+            <For each={OBJECTIVES}>
+              {(objective) => (
+                <HStack key={objective} alignItems="flex-start" gap="2">
+                  <Icon boxSize="4" color="esn.green" mt="1" flexShrink="0">
+                    <CheckCircle2 />
+                  </Icon>
+                  <Text fontSize="sm" color="fg.muted">
+                    {objective}
+                  </Text>
+                </HStack>
+              )}
+            </For>
+          </Grid>
+        </Grid>
+      </Section>
+
+      <Section backgroundColor="bg.alternate" py="12">
+        <VStack alignItems="flex-start" gap="4" maxW="3xl">
+          <Heading as="h2" size="xl">
+            ESN Åbo Akademi
+          </Heading>
+          <Text color="fg.muted">
+            ESN vid Åbo Akademi r.f. is the official ESN section at Åbo Akademi
+            University, the only Swedish-speaking multidisciplinary university
+            in Finland. Together with ESN Uni Turku, it&apos;s one of two ESN
+            sections active in Turku.
+          </Text>
+          <Text color="fg.muted">
+            We help exchange students get enjoyable cultural and social
+            experiences while they&apos;re here, foster inclusivity in student
+            circles, and help exchange students in any way we can.
+          </Text>
+        </VStack>
+      </Section>
+
+      <Section py="12">
+        <VStack alignItems="flex-start" gap="8" w="full">
+          <Heading as="h2" size="xl">
+            Our board, spring 2026
+          </Heading>
+          <Grid
+            w="full"
+            gridTemplateColumns={{
+              base: "1fr",
+              sm: "repeat(2, 1fr)",
+              lg: "repeat(4, 1fr)",
+            }}
+            gap="4">
+            <For each={BOARD}>
+              {(member) => (
+                <Card.Root key={member.name}>
+                  <Card.Body alignItems="center" textAlign="center" gap="2">
+                    <Box
+                      w="14"
+                      h="14"
+                      borderRadius="full"
+                      bg={member.color}
+                      color="white"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      fontWeight="bold">
+                      {initials(member.name)}
+                    </Box>
+                    <Text fontWeight="bold">{member.name}</Text>
+                    <Text fontSize="sm" color="fg.muted">
+                      {member.role}
+                    </Text>
+                  </Card.Body>
+                </Card.Root>
+              )}
+            </For>
+            <Card.Root colorPalette="esn.green">
+              <Card.Body alignItems="center" textAlign="center" gap="2">
+                <Box
+                  w="14"
+                  h="14"
+                  borderRadius="full"
+                  bg="colorPalette.solid"
+                  color="white"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center">
+                  <Icon boxSize="6">
+                    <Crown />
+                  </Icon>
+                </Box>
+                <Text fontWeight="bold">Aura the Almighty</Text>
+                <Text fontSize="sm" color="fg.muted">
+                  Monarch (our resident swan)
+                </Text>
+              </Card.Body>
+            </Card.Root>
+          </Grid>
+        </VStack>
+      </Section>
+
+      <Section backgroundColor="bg.alternate" py="12">
+        <Grid
+          w="full"
+          gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
+          gap="8">
+          <VStack alignItems="flex-start" gap="3">
+            <HStack gap="2" color="esn.darkBlue">
+              <Icon boxSize="5">
+                <MapPin />
+              </Icon>
+              <Heading as="h2" size="lg">
+                Visit us
+              </Heading>
+            </HStack>
+            <Text color="fg.muted">
+              Geologicum, Tuomiokirkontori 1, 2nd floor, 20500 Turku. About 800
+              meters (10 minutes on foot) from the Åbo Akademi campus.
+            </Text>
+          </VStack>
+          <VStack alignItems="flex-start" gap="3">
+            <HStack gap="2" color="esn.darkBlue">
+              <Icon boxSize="5">
+                <Clock />
+              </Icon>
+              <Heading as="h2" size="lg">
+                Office hours
+              </Heading>
+            </HStack>
+            <Text color="fg.muted">
+              Weekly office hours, plus a bi-weekly game night. Come by to
+              become a member, buy overalls, or just say hi.
+            </Text>
+          </VStack>
+        </Grid>
+      </Section>
+
+      <Section py="12">
+        <Grid
+          w="full"
+          gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
+          gap="8">
+          <VStack alignItems="flex-start" gap="4">
+            <HStack gap="2" color="esn.darkBlue">
+              <Icon boxSize="5">
+                <Heart />
+              </Icon>
+              <Heading as="h2" size="lg">
+                Become an active member
+              </Heading>
+            </HStack>
+            <VStack alignItems="flex-start" gap="2">
+              <For each={MEMBERSHIP_BENEFITS}>
+                {(benefit) => (
+                  <HStack key={benefit} alignItems="flex-start" gap="2">
+                    <Icon boxSize="4" color="esn.green" mt="1" flexShrink="0">
+                      <CheckCircle2 />
+                    </Icon>
+                    <Text fontSize="sm" color="fg.muted">
+                      {benefit}
+                    </Text>
+                  </HStack>
+                )}
+              </For>
+            </VStack>
+          </VStack>
+          <VStack
+            alignItems="flex-start"
+            gap="3"
+            bg="colorPalette.solid"
+            colorPalette="esn.darkBlue"
+            borderRadius="lg"
+            p="6">
+            <HStack gap="2" color="colorPalette.contrast">
+              <Icon boxSize="5">
+                <Handshake />
+              </Icon>
+              <Heading as="h3" size="lg" color="colorPalette.contrast">
+                Join the board
+              </Heading>
+            </HStack>
+            <Text color="colorPalette.subtle">
+              We hold a general meeting every January to elect the next board.
+              Send in your CV and a note on why you&apos;d be a good fit for a
+              position, then follow our Instagram for the announcement.
+            </Text>
+          </VStack>
+        </Grid>
+      </Section>
+    </>
+  );
+}

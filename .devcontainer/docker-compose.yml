@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  app:
+    image: node:lts-alpine3.22
+    container_name: esn-abo
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    environment:
+      DATABASE_HOST: db
+    ports:
+      - "1337:1337"
+    networks:
+      - esn-abo-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:18.3-alpine3.22
+    container_name: esn-abo-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      PGTZ: UTC
+      TZ: UTC
+    volumes:
+      - esn-abo-data:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+    networks:
+      - esn-abo-network
+
+volumes:
+  esn-abo-data:
+
+
+networks:
+  esn-abo-network:
