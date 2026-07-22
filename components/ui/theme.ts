@@ -365,5 +365,3 @@ const config = defineConfig({
 });
 
 export const system = createSystem(defaultConfig, config);
-
-console.log(system);

@@ -9,7 +9,12 @@ export default function Footer() {
         <Text flex="1" fontSize="sm" color="fg.muted">
           ESN Åbo Akademi · Tuomiokirkontori 1 (Geologicum), 20500 Turku
         </Text>
-        <Socials h="8" gap="3" />
+        <HStack gap="4">
+          <Text asChild fontSize="sm" color="link" fontWeight="semibold">
+            <a href="mailto:board@esnabo.org">Email the board</a>
+          </Text>
+          <Socials h="8" gap="3" />
+        </HStack>
       </HStack>
     </Section>
   );

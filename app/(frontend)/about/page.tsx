@@ -37,6 +37,33 @@ const OBJECTIVES = [
   "Values volunteering & active citizenship",
 ];
 
+const ESN_HISTORY = [
+  {
+    year: "1987",
+    title: "Erasmus opens new doors",
+    description:
+      "The European Community approved the Erasmus programme, giving more students the opportunity to study abroad.",
+  },
+  {
+    year: "1989",
+    title: "Students helping students",
+    description:
+      "At an evaluation meeting in Ghent, 32 former Erasmus students identified the practical problems exchange students faced. Their answer became ESN's guiding idea: students helping students.",
+  },
+  {
+    year: "16 Oct 1989",
+    title: "The first ESN section",
+    description:
+      "The first section to use the name Erasmus Student Network was founded in Utrecht, the Netherlands.",
+  },
+  {
+    year: "1990",
+    title: "ESN International is founded",
+    description:
+      "Representatives met in Copenhagen to establish ESN International as a legal association, connecting the growing network across Europe.",
+  },
+];
+
 const BOARD = [
   { name: "Ida Samadova", role: "President", color: "esn.magenta" },
   { name: "Kim-Mikael Pekkonen", role: "Vice-President", color: "esn.cyan" },
@@ -114,6 +141,78 @@ export default function AboutPage() {
       </Section>
 
       <Section backgroundColor="bg.alternate" py="12">
+        <VStack alignItems="flex-start" gap="8" w="full">
+          <VStack alignItems="flex-start" gap="3" maxW="3xl">
+            <Text
+              color="esn.magenta"
+              fontSize="sm"
+              fontWeight="bold"
+              textTransform="uppercase"
+              letterSpacing="wide">
+              Part of a bigger story
+            </Text>
+            <Heading as="h2" size="xl">
+              How the Erasmus Student Network began
+            </Heading>
+            <Text color="fg.muted">
+              ESN&apos;s History Book tells how a small group of former Erasmus
+              students turned one practical idea into an international
+              volunteer network: help future exchange students make the most
+              of their experience. ESN Åbo Akademi carries that idea forward
+              here in Turku.
+            </Text>
+          </VStack>
+
+          <Grid
+            w="full"
+            gridTemplateColumns={{
+              base: "1fr",
+              sm: "repeat(2, 1fr)",
+              lg: "repeat(4, 1fr)",
+            }}
+            gap="4">
+            <For each={ESN_HISTORY}>
+              {(milestone) => (
+                <Card.Root key={milestone.year} h="full">
+                  <Card.Body gap="3">
+                    <Text
+                      color="esn.darkBlue"
+                      fontSize="sm"
+                      fontWeight="bold">
+                      {milestone.year}
+                    </Text>
+                    <Card.Title>{milestone.title}</Card.Title>
+                    <Card.Description fontSize="sm">
+                      {milestone.description}
+                    </Card.Description>
+                  </Card.Body>
+                </Card.Root>
+              )}
+            </For>
+          </Grid>
+
+          <HStack gap="4" flexWrap="wrap">
+            <Text asChild color="link" fontSize="sm" fontWeight="bold">
+              <a
+                href="https://www.esn.org/news/celebrating-36-years-students-helping-students-esn-history-book"
+                target="_blank"
+                rel="noreferrer">
+                Explore the ESN History Book
+              </a>
+            </Text>
+            <Text asChild color="link" fontSize="sm" fontWeight="bold">
+              <a
+                href="https://esn.org/history"
+                target="_blank"
+                rel="noreferrer">
+                Read ESN&apos;s official history
+              </a>
+            </Text>
+          </HStack>
+        </VStack>
+      </Section>
+
+      <Section py="12">
         <VStack alignItems="flex-start" gap="4" maxW="3xl">
           <Heading as="h2" size="xl">
             ESN Åbo Akademi
@@ -132,7 +231,7 @@ export default function AboutPage() {
         </VStack>
       </Section>
 
-      <Section py="12">
+      <Section backgroundColor="bg.alternate" py="12">
         <VStack alignItems="flex-start" gap="8" w="full">
           <Heading as="h2" size="xl">
             Our board, spring 2026
@@ -194,7 +293,7 @@ export default function AboutPage() {
         </VStack>
       </Section>
 
-      <Section backgroundColor="bg.alternate" py="12">
+      <Section py="12">
         <Grid
           w="full"
           gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
@@ -230,7 +329,7 @@ export default function AboutPage() {
         </Grid>
       </Section>
 
-      <Section py="12">
+      <Section backgroundColor="bg.alternate" py="12">
         <Grid
           w="full"
           gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}

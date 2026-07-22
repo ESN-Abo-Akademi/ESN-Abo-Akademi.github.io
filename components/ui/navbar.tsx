@@ -15,6 +15,7 @@ const NAVIGATIONS = [
   { name: "Trips", path: "/trips" },
   { name: "Events", path: "/events" },
   { name: "Membership", path: "/membership" },
+  { name: "ESNcard", path: "/esncard" },
   { name: "About", path: "/about" },
 ];
 
@@ -23,7 +24,7 @@ export default function Navbar({ ...props }: ContainerProps) {
     <Section backgroundColor="bg.default" {...props} py="0">
       <HStack as="nav" justifyContent="space-between" h="16">
         <Link href="/">
-          <Image src="esn-åbo.png" alt="ESN Åbo Akademi" h="20" />
+          <Image src="/esn-abo.png" alt="ESN Åbo Akademi" h="20" />
         </Link>
         <List.Root
           as="ul"
@@ -43,8 +44,8 @@ export default function Navbar({ ...props }: ContainerProps) {
             )}
           </For>
         </List.Root>
-        <Button colorPalette="esn.darkBlue" borderRadius="md">
-          Join Us
+        <Button asChild colorPalette="esn.darkBlue" borderRadius="md">
+          <Link href="/membership">Join Us</Link>
         </Button>
       </HStack>
     </Section>

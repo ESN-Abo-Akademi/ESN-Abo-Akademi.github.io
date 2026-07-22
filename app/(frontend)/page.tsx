@@ -7,11 +7,10 @@ import {
   Grid,
   For,
   Card,
-  Separator,
 } from "@chakra-ui/react";
 import Section from "@/components/ui/section";
 import HomeHero from "@/components/ui/hero";
-import { CTACard, PartnerCard, TripCard } from "@/components/ui/card";
+import { CTACard, TripCard } from "@/components/ui/card";
 
 const STATS = [
   { number: "100+", label: "events per year" },
@@ -59,23 +58,23 @@ const TRIPS = [
 
 const EVENTS = [
   {
-    date: "Apr 3 · 19:30",
-    title: "International Pub Night",
+    date: "Aug 22–23 · 11:00–15:00",
+    title: "Welcome Booth · Assarin",
     dot: "esn.cyan",
   },
   {
-    date: "Apr 7 · 18:30",
-    title: "Retro Sitsfest",
+    date: "Aug 22–23 · 11:00–16:00",
+    title: "Welcome Booth · TYS",
     dot: "esn.magenta",
   },
   {
-    date: "Apr 10 · 16:00",
-    title: "City Tour Turku",
+    date: "Aug 24 · 12:00–16:00",
+    title: "Welcome Booth · Educarium",
     dot: "esn.green",
   },
   {
-    date: "Apr 15 · 18:00",
-    title: "Board Game Night",
+    date: "Aug 27 · from 15:00",
+    title: "Welcome Picnic",
     dot: "esn.orange",
   },
 ];
@@ -108,11 +107,10 @@ export default function Home() {
               {(trip, index) => (
                 <TripCard
                   key={`${trip.title}-${index}`}
-                  badges={["Test", "Run"]}
-                  color={"red"}
-                  title="ssdsd"
-                  tripStart={new Date("10 March 2026")}
-                  tripEnd={new Date("12 March 2026")}
+                  badges={[trip.type, trip.duration]}
+                  color={trip.color}
+                  title={trip.title}
+                  detail="See the trips page for dates and availability"
                 />
               )}
             </For>
@@ -159,21 +157,6 @@ export default function Home() {
       <Section py="12">
         <VStack alignItems="center" gap="4">
           <CTACard />
-          <Separator size="md" w="90%" my="4"></Separator>
-          <VStack alignItems="flex-start" gap="8" w="full">
-            <Heading as="h4" color="fg.subtle">
-              Our Partners
-            </Heading>
-            <HStack
-              gap="8"
-              wrap="wrap"
-              alignItems="center"
-              justifyContent="center">
-              <For each={[0, 1, , 2, 3, 4]}>
-                {(val) => <PartnerCard key={val} w=""></PartnerCard>}
-              </For>
-            </HStack>
-          </VStack>
         </VStack>
       </Section>
     </>

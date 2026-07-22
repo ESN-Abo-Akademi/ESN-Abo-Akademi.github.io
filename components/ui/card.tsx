@@ -20,25 +20,24 @@ export type TripCardProps = {
   title: string;
   color: string;
   badges: string[];
-  tripStart: Date;
-  tripEnd: Date;
+  detail: string;
 } & CardRootProps;
 
 export function TripCard({
   title,
   color,
   badges,
-  tripStart,
-  tripEnd,
+  detail,
   ...props
 }: TripCardProps) {
   return (
     <Card.Root
       key={title}
-      colorPalette={`esn.${color}`}
+      colorPalette={color}
       position="relative"
       zIndex="0"
-      overflow="hidden">
+      overflow="hidden"
+      {...props}>
       <Box
         position="absolute"
         zIndex="-1"
@@ -71,14 +70,16 @@ export function TripCard({
       </Card.Body>
       <Card.Footer flexDirection="column" alignItems="flex-start">
         <Text fontSize="sm" color="fg.muted">
-          12 March to 13 March
+          {detail}
         </Text>
         <HStack w="full" justifyContent="space-between" mt="2">
-          <Button size="sm" variant="ghost">
-            Book Now{" "}
-            <Icon>
-              <ExternalLinkIcon />
-            </Icon>
+          <Button asChild size="sm" variant="ghost">
+            <NextLink href="/trips">
+              View trip details{" "}
+              <Icon>
+                <ExternalLinkIcon />
+              </Icon>
+            </NextLink>
           </Button>
         </HStack>
       </Card.Footer>
@@ -102,8 +103,10 @@ export function CTACard({ ...props }: CardRootProps) {
             </Card.Description>
           </VStack>
           <VStack justifyContent="center">
-            <Button size="lg" colorPalette="esn.cyan">
-              Follow us on Kide.app
+            <Button asChild size="lg" colorPalette="esn.cyan">
+              <NextLink href="/membership">
+                Get your membership
+              </NextLink>
             </Button>
           </VStack>
         </HStack>

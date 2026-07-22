@@ -7,7 +7,9 @@ import {
   Text,
   For,
   Stack,
+  Image,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
 export type HeroProps = {
   stats: { number: string; label: string }[];
@@ -38,11 +40,11 @@ export default function HomeHero({ stats }: HeroProps) {
           students at Åbo Akademi University.
         </Text>
         <HStack gap="4">
-          <Button colorPalette="esn.darkBlue" size="lg">
-            Get your ESNcard
+          <Button asChild colorPalette="esn.darkBlue" size="lg">
+            <Link href="/esncard">Get your ESNcard</Link>
           </Button>
-          <Button variant="outline" colorPalette="blue" size="lg">
-            Explore trips
+          <Button asChild variant="outline" colorPalette="blue" size="lg">
+            <Link href="/trips">Explore trips</Link>
           </Button>
         </HStack>
         <HStack gap="8" mt="8" alignItems="flex-start">
@@ -69,7 +71,14 @@ export default function HomeHero({ stats }: HeroProps) {
           bg="#00aeef1a"
           h={{ base: "200px", md: "400px" }}
           w={{ base: "200px", md: "400px" }}
-        />
+          display="grid"
+          placeItems="center">
+          <Image
+            src="/esn-abo-logo.png"
+            alt="ESN star logo"
+            w={{ base: "120px", md: "240px" }}
+          />
+        </Box>
       </VStack>
     </Stack>
   );

@@ -1,4 +1,4 @@
-import { HStack, VStack, Text, Icon, For } from "@chakra-ui/react";
+import { VStack, For } from "@chakra-ui/react";
 import {
   Dog,
   Mountain,
@@ -19,7 +19,6 @@ import {
   Building,
   Compass,
   Map,
-  Ticket,
   Anchor,
 } from "lucide-react";
 import Section from "@/components/ui/section";

@@ -12,7 +12,7 @@ import {
   For,
   type StackProps,
 } from "@chakra-ui/react";
-import { MapPin, Star, Ticket, type LucideIcon } from "lucide-react";
+import { MapPin, Star, type LucideIcon } from "lucide-react";
 
 export type TripHighlight = {
   icon: LucideIcon;
