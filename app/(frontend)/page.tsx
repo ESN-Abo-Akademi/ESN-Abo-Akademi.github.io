@@ -16,8 +16,8 @@ import HomeHero from "@/components/ui/hero";
 import { CTACard, TripCard } from "@/components/ui/card";
 
 const STATS = [
-  { number: "1989", label: "students helping students since" },
-  { number: "45", label: "countries in the ESN network" },
+  { number: "32", label: "years in Turku (Åbo)" },
+  { number: "2nd", label: "oldest ESN section in Finland" },
   { number: "100%", label: "volunteer-run, non-profit" },
 ];
 
