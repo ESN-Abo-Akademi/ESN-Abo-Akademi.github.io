@@ -37,6 +37,7 @@ import Link from "next/link";
 
 const NAVIGATIONS = [
   { name: "Home", path: "/" },
+  { name: "Arriving", path: "/arriving" },
   { name: "Trips", path: "/trips" },
   { name: "Events", path: "/events" },
   { name: "Membership", path: "/membership" },
