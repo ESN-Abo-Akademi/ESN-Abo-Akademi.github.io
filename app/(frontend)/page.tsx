@@ -15,8 +15,11 @@ import Section from "@/components/ui/section";
 import HomeHero from "@/components/ui/hero";
 import { CTACard, TripCard } from "@/components/ui/card";
 
+// Evaluated at build time; rerunning the build keeps it current.
+const YEARS_IN_TURKU = new Date().getFullYear() - 1994;
+
 const STATS = [
-  { number: "32", label: "years in Turku (Åbo)" },
+  { number: `${YEARS_IN_TURKU}`, label: "years in Turku (Åbo)" },
   { number: "2nd", label: "oldest ESN section in Finland" },
   { number: "100%", label: "volunteer-run, non-profit" },
 ];
