@@ -23,7 +23,7 @@ export type TripDetailProps = {
   index: number;
   color: string;
   gradient: string;
-  imageURL: string;
+  imageURL?: string;
   location: string;
   title: string;
   dateRange: string;
@@ -34,6 +34,7 @@ export type TripDetailProps = {
   highlights: TripHighlight[];
   organizer: string;
   ctaLabel: string;
+  ctaHref?: string;
 } & StackProps;
 
 export function TripDetail({
@@ -51,6 +52,7 @@ export function TripDetail({
   highlights,
   organizer,
   ctaLabel,
+  ctaHref,
   ...props
 }: TripDetailProps) {
   const flipped = index % 2 === 0;
@@ -61,6 +63,18 @@ export function TripDetail({
       colorPalette={color}
       gap="0"
       w="full"
+      borderRadius="lg"
+      transition="transform 0.3s ease, box-shadow 0.3s ease"
+      _hover={{
+        transform: "perspective(1200px) rotateX(1.5deg) translateY(-8px)",
+        boxShadow: "2xl",
+      }}
+      css={{
+        "@media (prefers-reduced-motion: reduce)": {
+          transition: "none",
+          "&:hover": { transform: "none" },
+        },
+      }}
       {...props}>
       <Box
         position="relative"
@@ -73,15 +87,17 @@ export function TripDetail({
         justifyContent="flex-end"
         background={gradient}
         order={{ base: 1, md: flipped ? 2 : 1 }}>
-        <Image
-          alt=""
-          position="absolute"
-          inset="0"
-          w="full"
-          h="full"
-          fit="cover"
-          src={imageURL}
-        />
+        {imageURL && (
+          <Image
+            alt=""
+            position="absolute"
+            inset="0"
+            w="full"
+            h="full"
+            fit="cover"
+            src={imageURL}
+          />
+        )}
         <Box
           position="absolute"
           inset="0"
@@ -177,9 +193,17 @@ export function TripDetail({
           <Text>{organizer}</Text>
         </HStack>
         <VStack w="full" gap="2">
-          <Button w="full" colorPalette="esn.darkBlue">
-            {ctaLabel} →
-          </Button>
+          {ctaHref ? (
+            <Button asChild w="full" colorPalette="esn.darkBlue">
+              <a href={ctaHref} target="_blank" rel="noreferrer">
+                {ctaLabel} →
+              </a>
+            </Button>
+          ) : (
+            <Button w="full" colorPalette="esn.darkBlue">
+              {ctaLabel} →
+            </Button>
+          )}
         </VStack>
       </VStack>
     </Stack>

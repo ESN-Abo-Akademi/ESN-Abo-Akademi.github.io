@@ -54,7 +54,9 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         <Stripe />
         <Navbar borderBottom="1px solid" borderBottomColor="gray.200" />
       </Container>
-      {children}
+      <Box flex="1" w="full">
+        {children}
+      </Box>
       <Footer />
       <Stripe />
     </VStack>

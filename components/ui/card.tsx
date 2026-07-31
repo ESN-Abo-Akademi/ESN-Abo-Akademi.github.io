@@ -21,6 +21,7 @@ export type TripCardProps = {
   color: string;
   badges: string[];
   detail: string;
+  imageSrc?: string;
 } & CardRootProps;
 
 export function TripCard({
@@ -28,6 +29,7 @@ export function TripCard({
   color,
   badges,
   detail,
+  imageSrc,
   ...props
 }: TripCardProps) {
   return (
@@ -50,7 +52,10 @@ export function TripCard({
           width="100%"
           height="100%"
           fit="cover"
-          src="https://images.unsplash.com/photo-1604614006904-49e3b710eeb8?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={
+            imageSrc ??
+            "https://images.unsplash.com/photo-1604614006904-49e3b710eeb8?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          }
         />
         <Box
           position="absolute"
@@ -185,12 +190,12 @@ export function FlagshipTripCard({
           <Stack direction={{ base: "row", md: "column" }} gap="2">
             <Button asChild size="lg" colorPalette="esn.cyan">
               <ChakraLink asChild textDecoration="none">
-                <NextLink href={buyTicketsLink}>
+                <a href={buyTicketsLink} target="_blank" rel="noreferrer">
                   <Icon>
                     <Ticket />
                   </Icon>
                   Get your ticket
-                </NextLink>
+                </a>
               </ChakraLink>
             </Button>
             <Button
@@ -201,30 +206,13 @@ export function FlagshipTripCard({
               color="white"
               _hover={{ color: "colorPalette.fg" }}>
               <ChakraLink asChild textDecoration="none">
-                <NextLink href={learnMoreLink}>Learn more</NextLink>
+                <a href={learnMoreLink} target="_blank" rel="noreferrer">
+                  Learn more
+                </a>
               </ChakraLink>
             </Button>
           </Stack>
         </Stack>
-      </Card.Body>
-    </Card.Root>
-  );
-}
-
-export function PartnerCard({ ...props }: CardRootProps) {
-  return (
-    <Card.Root variant="outline" {...props}>
-      <Card.Body
-        gap="1"
-        p="4"
-        alignItems="center"
-        justifyContent="center"
-        minW="32"
-        minH="32">
-        <Image src="Linux.png" alt="Some Image" maxW="16" maxH="16" />
-        <Card.Title color="fg.subtle" fontSize="sm">
-          ESN ÅA
-        </Card.Title>
       </Card.Body>
     </Card.Root>
   );

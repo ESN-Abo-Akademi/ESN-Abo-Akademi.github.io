@@ -1,7 +1,21 @@
 import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 
 const config = defineConfig({
+  globalCss: {
+    "h1, h2, h3, h4": {
+      fontWeight: "800",
+      letterSpacing: "-0.02em",
+    },
+  },
   theme: {
+    keyframes: {
+      patchIn: {
+        from: {
+          opacity: "0",
+          transform: "translateY(14px) rotate(0deg) scale(0.94)",
+        },
+      },
+    },
     tokens: {
       colors: {
         esn: {
@@ -70,8 +84,8 @@ const config = defineConfig({
         black: { value: "#000000" },
       },
       fonts: {
-        body: { value: "'Kelson Sans', sans-serif" },
-        heading: { value: "'Kelson Sans', sans-serif" },
+        body: { value: "var(--font-lato), 'Kelson Sans', sans-serif" },
+        heading: { value: "var(--font-archivo), 'Kelson Sans', sans-serif" },
         mono: { value: "JetBrains Mono, monospace" },
       },
     },

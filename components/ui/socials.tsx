@@ -3,7 +3,7 @@ import { HStack, Link, type StackProps, For, Text } from "@chakra-ui/react";
 const SOCIALS = [
   { name: "Facebook", link: "https://www.facebook.com/EsnAboAkademi" },
   { name: "Instagram", link: "https://www.instagram.com/esnaboakademi/" },
-  { name: "Contact", link: "" },
+  { name: "Contact", link: "mailto:board@esnabo.org" },
 ];
 
 export default function Socials({ h = "10", gap = "4", ...props }: StackProps) {
