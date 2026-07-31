@@ -233,8 +233,8 @@ export default function HomeHero({ stats }: HeroProps) {
             </Heading>
             <Text color="whiteAlpha.900">
               Sauna nights, themed sitz parties, food nights, and trips across
-              Finland and Europe, organised by exchange students, for exchange
-              students at Åbo Akademi University.
+              Finland and Europe, organised by students, for students in Turku
+              (Åbo).
             </Text>
             <HStack gap="4">
               <Button asChild colorPalette="esn.cyan" size="lg">

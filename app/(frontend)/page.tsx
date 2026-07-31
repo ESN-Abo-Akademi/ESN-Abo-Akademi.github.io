@@ -16,9 +16,9 @@ import HomeHero from "@/components/ui/hero";
 import { CTACard, TripCard } from "@/components/ui/card";
 
 const STATS = [
-  { number: "100+", label: "events per year" },
-  { number: "2000+", label: "ESNcard discounts" },
-  { number: "10+", label: "trips across Europe" },
+  { number: "1989", label: "students helping students since" },
+  { number: "45", label: "countries in the ESN network" },
+  { number: "100%", label: "volunteer-run, non-profit" },
 ];
 
 const TRIPS = [
