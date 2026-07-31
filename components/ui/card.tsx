@@ -67,7 +67,11 @@ export function TripCard({
         <VStack h="24" justifyContent="space-between" alignItems="flex-start">
           <HStack>
             <For each={badges}>
-              {(badge, index) => <Badge key={`badge-${index}`}>{badge}</Badge>}
+              {(badge, index) => (
+                <Badge key={`badge-${index}`} variant="solid">
+                  {badge}
+                </Badge>
+              )}
             </For>
           </HStack>
           <Card.Title mt="auto">{title}</Card.Title>

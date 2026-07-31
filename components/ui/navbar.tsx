@@ -51,7 +51,7 @@ export default function Navbar({ ...props }: ContainerProps) {
     <Section backgroundColor="bg.default" {...props} py="0">
       <HStack as="nav" justifyContent="space-between" h="20" gap="4">
         <Link href="/" onClick={() => setOpen(false)}>
-          <Image src="/esn-abo.png" alt="ESN Åbo Akademi" h="16" />
+          <Image src="/esn-abo.png" alt="ESN Åbo Akademi" h="72px" />
         </Link>
         <List.Root
           as="ul"

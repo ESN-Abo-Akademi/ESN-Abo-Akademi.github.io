@@ -21,7 +21,7 @@ const HOME_PATCHES: Patch[] = [
     left: "8%",
     w: "62%",
     h: "48%",
-    rotate: -4,
+    rotate: 0,
   },
   {
     bg: "esn.cyan.500",

@@ -1,12 +1,12 @@
-import { Archivo, Lato } from "next/font/google";
+import { Lato, Oswald } from "next/font/google";
 
-// ESN's official licensed display face (Kelson Sans) cannot be self-hosted,
-// so the site pairs Lato — ESN's official secondary font — with Archivo at
-// heavy weights for display. Both are self-hosted by next/font at build time,
-// so the static export ships its own font files.
-export const archivo = Archivo({
+// ESN Visual Identity Manual typography (p10): Kelson Sans for display,
+// Lato for body. Kelson Sans is licensed and lives in the ESN Brand Package;
+// Oswald is the VIM's approved alternative and is self-hosted here by
+// next/font, so the static export ships its own font files.
+export const oswald = Oswald({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-archivo",
+  variable: "--font-oswald",
 });
 
 export const lato = Lato({

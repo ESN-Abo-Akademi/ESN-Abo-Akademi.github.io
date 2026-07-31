@@ -33,7 +33,7 @@ export default function Footer() {
         <VStack alignItems="flex-start" gap="2">
           <HStack gap="2">
             <Image src="/aura-swan.png" alt="" h="7" />
-            <Text fontFamily="heading" fontWeight="800" fontSize="lg">
+            <Text fontFamily="heading" fontWeight="700" fontSize="lg">
               ESN Åbo Akademi
             </Text>
           </HStack>

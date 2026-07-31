@@ -3,8 +3,8 @@ import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 const config = defineConfig({
   globalCss: {
     "h1, h2, h3, h4": {
-      fontWeight: "800",
-      letterSpacing: "-0.02em",
+      fontWeight: "700",
+      letterSpacing: "0.01em",
     },
   },
   theme: {
@@ -85,7 +85,7 @@ const config = defineConfig({
       },
       fonts: {
         body: { value: "var(--font-lato), 'Kelson Sans', sans-serif" },
-        heading: { value: "var(--font-archivo), 'Kelson Sans', sans-serif" },
+        heading: { value: "'Kelson Sans', var(--font-oswald), sans-serif" },
         mono: { value: "JetBrains Mono, monospace" },
       },
     },

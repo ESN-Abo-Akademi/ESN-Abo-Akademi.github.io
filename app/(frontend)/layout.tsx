@@ -1,6 +1,6 @@
 import { Provider } from "@/components/ui/provider";
 import { LayoutWrapper } from "@/components/ui/layout-wrapper";
-import { archivo, lato } from "@/components/ui/fonts";
+import { oswald, lato } from "@/components/ui/fonts";
 import type { Metadata } from "next";
 import "./globals.scss";
 
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html
       suppressHydrationWarning
-      className={`${archivo.variable} ${lato.variable}`}>
+      className={`${oswald.variable} ${lato.variable}`}>
       <body>
         <Provider>
           <LayoutWrapper>{children}</LayoutWrapper>

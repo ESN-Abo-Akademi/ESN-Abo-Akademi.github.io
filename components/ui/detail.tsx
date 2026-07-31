@@ -12,6 +12,7 @@ import {
   For,
   type StackProps,
 } from "@chakra-ui/react";
+import { HeroVideo } from "./herovideo";
 import { MapPin, Star, type LucideIcon } from "lucide-react";
 
 export type TripHighlight = {
@@ -35,6 +36,7 @@ export type TripDetailProps = {
   organizer: string;
   ctaLabel: string;
   ctaHref?: string;
+  videoURL?: string;
 } & StackProps;
 
 export function TripDetail({
@@ -53,6 +55,7 @@ export function TripDetail({
   organizer,
   ctaLabel,
   ctaHref,
+  videoURL,
   ...props
 }: TripDetailProps) {
   const flipped = index % 2 === 0;
@@ -87,16 +90,20 @@ export function TripDetail({
         justifyContent="flex-end"
         background={gradient}
         order={{ base: 1, md: flipped ? 2 : 1 }}>
-        {imageURL && (
-          <Image
-            alt=""
-            position="absolute"
-            inset="0"
-            w="full"
-            h="full"
-            fit="cover"
-            src={imageURL}
-          />
+        {videoURL ? (
+          <HeroVideo src={videoURL} poster={imageURL ?? ""} />
+        ) : (
+          imageURL && (
+            <Image
+              alt=""
+              position="absolute"
+              inset="0"
+              w="full"
+              h="full"
+              fit="cover"
+              src={imageURL}
+            />
+          )
         )}
         <Box
           position="absolute"
@@ -176,6 +183,7 @@ export function TripDetail({
                 <Badge
                   key={highlight.label}
                   borderRadius="full"
+                  color="fg"
                   px="3"
                   py="1"
                   gap="1">

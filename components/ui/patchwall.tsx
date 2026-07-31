@@ -90,7 +90,7 @@ export function PatchWall({
           {patch.label && (
             <Text
               fontFamily="heading"
-              fontWeight="800"
+              fontWeight="700"
               textTransform="uppercase"
               letterSpacing="wider"
               lineHeight="short"

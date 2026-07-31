@@ -272,7 +272,7 @@ export default function Home() {
             rel="noreferrer"
             color="fg"
             fontFamily="heading"
-            fontWeight="800"
+            fontWeight="700"
             fontSize={{ base: "lg", md: "xl" }}
             _hover={{ color: "esn.magenta.500", textDecoration: "none" }}>
             @esnaboakademi
