@@ -23,9 +23,9 @@ import {
 import Section from "@/components/ui/section";
 
 export const metadata: Metadata = {
-  title: "Membership | ESN Åbo Akademi",
+  title: "Membership",
   description:
-    "Join ESN Åbo Akademi, purchase your membership and collect your ESNcard in Turku.",
+    "Join ESN Åbo Akademi, purchase your membership and collect your ESNcard in Turku (Åbo).",
 };
 
 const KIDE_URL =
@@ -44,7 +44,7 @@ const PURCHASE_STEPS = [
     number: "02",
     title: "Keep your confirmation",
     description:
-      "Save the purchase confirmation on your phone. Bring identification and proof that you are a student or intern in Turku or Southwest Finland.",
+      "Save the purchase confirmation on your phone. Bring identification and proof that you are a student or intern in Turku (Åbo) or Southwest Finland.",
     icon: CreditCard,
   },
   {
@@ -70,7 +70,7 @@ export default function MembershipPage() {
               Membership + ESNcard
             </Badge>
             <Heading as="h1" size="5xl">
-              Join your international community in Turku
+              Join your international community in Turku (Åbo)
             </Heading>
             <Text color="fg.muted" fontSize="lg">
               Membership connects you with ESN Åbo Akademi and includes an
@@ -171,7 +171,7 @@ export default function MembershipPage() {
               </HStack>
               <Card.Description fontSize="md">
                 ESN Åbo Akademi, Geologicum, Tuomiokirkontori 1, 2nd floor,
-                20500 Turku.
+                20500 Turku (Åbo).
               </Card.Description>
               <Text fontSize="sm" color="fg.muted">
                 Check the latest office hours before visiting. If the announced

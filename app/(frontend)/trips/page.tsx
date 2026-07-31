@@ -1,24 +1,18 @@
-import { VStack, For } from "@chakra-ui/react";
+import type { Metadata } from "next";
+import { VStack, For, Text, Link as ChakraLink } from "@chakra-ui/react";
 import {
-  Dog,
   Mountain,
   Sparkles,
   Waves,
-  Flame,
-  Gauge,
+  Snowflake,
   Footprints,
   Fish,
-  Sun,
   Landmark,
   Castle,
   Drama,
   Beer,
   Utensils,
-  Sailboat,
-  Leaf,
-  Building,
   Compass,
-  Map,
   Anchor,
 } from "lucide-react";
 import Section from "@/components/ui/section";
@@ -26,81 +20,47 @@ import { TripsHero } from "@/components/ui/hero";
 import { TripDetail, type TripDetailProps } from "@/components/ui/detail";
 import { FlagshipTripCard } from "@/components/ui/card";
 
+export const metadata: Metadata = {
+  title: "Trips",
+  description:
+    "Autumn 2026 student trips from Turku (Åbo): Lofoten, Iceland, the Baltic capitals, and Northern Lapland, plus the Pirates of the Baltic Sea cruise.",
+};
+
 const REGIONS = [
-  { label: "Lapland", color: "esn.cyan" },
   { label: "Lofoten", color: "esn.green" },
+  { label: "Iceland", color: "esn.magenta" },
   { label: "Baltic Countries", color: "esn.orange" },
-  { label: "Åland", color: "esn.darkBlue" },
+  { label: "Northern Lapland", color: "esn.cyan" },
   { label: "Pirates of the Baltic Sea", color: "esn.magenta" },
 ];
 
+const CATALOG_URL =
+  "https://www.timetravels.com/student-trips/finland/esn-finland/esn-abo-akademi.html";
+
 const TRIPS: Omit<TripDetailProps, "index">[] = [
-  {
-    color: "esn.cyan",
-    gradient: "linear-gradient(170deg, #0a1828 0%, #0d2540 45%, #1a3a5a 100%)",
-    imageURL:
-      "https://images.unsplash.com/photo-1579863197600-9f2bc8b3e66a?q=80&w=1738&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    location: "Saariselkä, Finland",
-    title: "Lapland\nSaariselkä",
-    dateRange: "Feb 19 – 25",
-    duration: "6 days · 5 nights",
-    featured: true,
-    eyebrow: "Winter · Timetravels",
-    description:
-      "Go beyond the Arctic Circle to stunning Saariselkä. Experience the real Finnish winter with huskies, skiing, arctic swimming, and cosy cottages with private saunas. Local guides are on hand throughout, and with any luck, the Northern Lights will put on a show.",
-    highlights: [
-      { icon: Dog, label: "Huskies" },
-      { icon: Mountain, label: "Skiing" },
-      { icon: Sparkles, label: "Northern Lights" },
-      { icon: Waves, label: "Arctic swimming" },
-      { icon: Flame, label: "Private sauna" },
-    ],
-    organizer: "Organised by Timetravels in partnership with ESN ÅA",
-    ctaLabel: "Book on Timetravels",
-  },
-  {
-    color: "esn.cyan",
-    gradient: "linear-gradient(170deg, #0f1e32 0%, #1a2e4a 45%, #223858 100%)",
-    imageURL:
-      "https://images.unsplash.com/photo-1742639008233-6747489ba7a4?q=80&w=654&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    location: "Levi, Finland",
-    title: "Lapland\nLevi",
-    dateRange: "Jan 15 – 19",
-    duration: "4 days · 3 nights",
-    eyebrow: "Winter · Ski resort · Timetravels",
-    description:
-      "Levi is one of Finland's premier ski resorts, sitting well above the Arctic Circle. From ice go-karts to husky safaris, Levi packs an absurd amount of adventure into just four days. Snowshoe hikes through the wilderness, downhill runs, and a sauna under the stars.",
-    highlights: [
-      { icon: Gauge, label: "Ice go-karts" },
-      { icon: Mountain, label: "Downhill skiing" },
-      { icon: Dog, label: "Husky safari" },
-      { icon: Footprints, label: "Snowshoe hike" },
-      { icon: Sparkles, label: "Northern Lights" },
-    ],
-    organizer: "Organised by Timetravels in partnership with ESN ÅA",
-    ctaLabel: "Book on Timetravels",
-  },
   {
     color: "esn.green",
     gradient: "linear-gradient(170deg, #0a1e14 0%, #0d2a1a 45%, #1a3a28 100%)",
-    imageURL:
-      "https://images.unsplash.com/photo-1703356225451-e70d724c1926?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    location: "Svolvær, Norway",
+    imageURL: "/scenery/ai-lofoten.jpg",
+    location: "Henningsvær & Kabelvåg, Norway",
     title: "Lofoten\nIslands",
-    dateRange: "May 1 – 7",
-    duration: "6 days · 5 nights",
-    eyebrow: "Spring · Adventure · Timetravels",
+    dateRange: "29 Sep – 5 Oct 2026",
+    duration: "6 nights · from €475",
+    featured: true,
+    eyebrow: "Autumn · Adventure · Timetravels",
     description:
-      "The Lofoten archipelago is one of the most dramatic landscapes in Europe, with jagged peaks rising straight from the Arctic sea and red fishing cabins clinging to the shoreline. This spring trip combines outdoor adventure with the unique culture of Norway's far north under the midnight sun.",
+      "The Lofoten archipelago is one of the most dramatic landscapes in Europe: jagged peaks rising straight from the Arctic sea, and red fishing cabins clinging to the shoreline in Henningsvær and Kabelvåg. As autumn darkness returns, so do the Northern Lights.",
     highlights: [
       { icon: Mountain, label: "Dramatic fjords" },
       { icon: Fish, label: "Fishing villages" },
-      { icon: Sun, label: "Midnight sun" },
       { icon: Footprints, label: "Hiking trails" },
-      { icon: Waves, label: "Sea kayaking" },
+      { icon: Sparkles, label: "Northern Lights" },
+      { icon: Waves, label: "Arctic sea" },
     ],
     organizer: "Organised by Timetravels in partnership with ESN ÅA",
     ctaLabel: "Book on Timetravels",
+    ctaHref:
+      "https://www.timetravels.com/adventure-trip-to-lofoten-0126-nl4-00000163.html",
   },
   {
     color: "esn.orange",
@@ -108,10 +68,10 @@ const TRIPS: Omit<TripDetailProps, "index">[] = [
     imageURL:
       "https://images.unsplash.com/photo-1564951537954-29dd59397b90?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "Tallinn · Riga · Vilnius",
-    title: "Baltic\nCountries",
-    dateRange: "Apr 17 – 21",
-    duration: "4 days · 3 nights",
-    eyebrow: "Spring · City explorer · Timetravels",
+    title: "Baltic countries\nexplorer",
+    dateRange: "6 – 11 Oct 2026",
+    duration: "5 nights · from €339",
+    eyebrow: "Autumn · City explorer · Timetravels",
     description:
       "Three countries, three capitals, one unforgettable trip. Tallinn's fairy-tale medieval old town, Riga's grand art nouveau boulevards, and Vilnius's bohemian Užupis district: the Baltics pack history, culture, and incredible nightlife into one compact journey.",
     highlights: [
@@ -123,28 +83,52 @@ const TRIPS: Omit<TripDetailProps, "index">[] = [
     ],
     organizer: "Organised by Timetravels in partnership with ESN ÅA",
     ctaLabel: "Book on Timetravels",
+    ctaHref:
+      "https://www.timetravels.com/baltic-countries-explorer-0126-bah-00000131.html",
   },
   {
-    color: "esn.darkBlue",
-    gradient: "linear-gradient(170deg, #0d1a2e 0%, #162540 45%, #1e3050 100%)",
-    imageURL:
-      "https://images.unsplash.com/photo-1701466339485-3e6f08689304?q=80&w=562&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    location: "Mariehamn, Åland",
-    title: "Åland\nIslands",
-    dateRange: "May 2 – 4",
-    duration: "2 days · 1 night",
-    eyebrow: "Spring · ESN ÅA own trip",
+    color: "esn.cyan",
+    gradient: "linear-gradient(170deg, #0a1828 0%, #0d2540 45%, #1a3a5a 100%)",
+    imageURL: "/scenery/ai-kilpisjarvi.jpg",
+    location: "Rovaniemi · Kilpisjärvi · Levi, Finland",
+    title: "Northern Lapland\nKilpisjärvi",
+    dateRange: "21 – 27 Nov 2026",
+    duration: "6 nights · from €439",
+    eyebrow: "Winter · Two departures · Timetravels",
     description:
-      "Åland is a unique autonomous archipelago sitting between Finland and Sweden: Swedish-speaking, Finnish by law, and unlike anywhere else. Organised directly by ESN ÅA, this trip departs by Viking Line ferry from Turku harbour. A short but genuinely special trip.",
+      "Go far beyond the Arctic Circle to Kilpisjärvi at 69°N, in Finland's remote north-western arm, with stops in Rovaniemi and Levi along the way. Prime Northern Lights season, and a second departure runs 3–9 December if the first one fills up.",
     highlights: [
-      { icon: Sailboat, label: "Viking Line ferry" },
-      { icon: Leaf, label: "Nature walks" },
-      { icon: Building, label: "Mariehamn" },
-      { icon: Compass, label: "Unique culture" },
-      { icon: Map, label: "Island hopping" },
+      { icon: Sparkles, label: "Northern Lights" },
+      { icon: Mountain, label: "Arctic fells" },
+      { icon: Landmark, label: "Three-country cairn" },
+      { icon: Snowflake, label: "Polar night" },
     ],
-    organizer: "Organised directly by ESN Åbo Akademi",
-    ctaLabel: "Register on Kide.app",
+    organizer: "Organised by Timetravels in partnership with ESN ÅA",
+    ctaLabel: "Book on Timetravels",
+    ctaHref:
+      "https://www.timetravels.com/adventure-to-northern-lapland-kilpisjarvi-0126-lfkh-00000072.html",
+  },
+  {
+    color: "esn.magenta",
+    gradient: "linear-gradient(170deg, #1a0a20 0%, #2a0d30 45%, #3a1a45 100%)",
+    imageURL: "/scenery/ai-iceland.jpg",
+    location: "Reykjavik · Golden Circle · Snæfellsnes",
+    title: "Iceland\nAdventure",
+    dateRange: "1 – 6 Oct 2026",
+    duration: "5 nights · from €539",
+    eyebrow: "Autumn · ESN Finland trip · Timetravels",
+    description:
+      "Waterfalls and black-sand beaches on the South Coast, the geysers of the Golden Circle, and the Snæfellsnes peninsula. A second departure runs 8–13 October. Not on sale quite yet — check Timetravels for the sales opening.",
+    highlights: [
+      { icon: Waves, label: "Waterfalls" },
+      { icon: Mountain, label: "Volcanic landscapes" },
+      { icon: Compass, label: "Golden Circle" },
+      { icon: Sparkles, label: "Northern Lights" },
+    ],
+    organizer: "Organised by Timetravels with ESN Finland",
+    ctaLabel: "See dates on Timetravels",
+    ctaHref:
+      "https://www.timetravels.com/adventure-trip-to-iceland-0126a-is-00000029.html",
   },
 ];
 
@@ -157,6 +141,22 @@ export default function TripsPage() {
 
       <Section py="12">
         <VStack gap="8" w="full">
+          <VStack gap="1" textAlign="center">
+            <Text fontWeight="700" color="esn.orange.700">
+              Book before 1 September and enter Timetravels&apos; raffle to win
+              your money back.
+            </Text>
+            <Text fontSize="sm" color="fg.muted">
+              All departures and live availability:{" "}
+              <ChakraLink
+                href={CATALOG_URL}
+                target="_blank"
+                rel="noreferrer"
+                color="link">
+                ESN Åbo Akademi on Timetravels
+              </ChakraLink>
+            </Text>
+          </VStack>
           <For each={TRIPS}>
             {(trip, index) => (
               <TripDetail key={trip.title} index={index + 1} {...trip} />
@@ -171,15 +171,15 @@ export default function TripsPage() {
             icon={Anchor}
             eyebrow="ESN Finland flagship · Biannual · Spring & Autumn"
             title="Pirates of the Baltic Sea"
-            description="1,500+ students from all over Finland on one ship. A 40-hour cruise from Helsinki to Stockholm, the biggest ESN event in Finland, now in its 26th edition."
+            description="1,500+ students from all over Finland on one ship. A 40-hour cruise from Helsinki to Stockholm, the biggest ESN event in Finland, sailing every spring and autumn."
             highlights={[
               "Helsinki → Stockholm",
               "1,500+ students",
               "40 hours at sea",
-              "26th edition 2025",
+              "Spring & autumn sailings",
             ]}
-            learnMoreLink="/trips/pirates-of-the-baltic-sea"
-            buyTicketsLink="/trips/pirates-of-the-baltic-sea#esn-aa"
+            learnMoreLink="https://cruise.pobs.fi/"
+            buyTicketsLink="https://cruise.pobs.fi/sales/finland/esn-åbo-akademi"
           />
         </VStack>
       </Section>

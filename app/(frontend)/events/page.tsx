@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   Badge,
   Box,
@@ -34,6 +35,12 @@ import {
 import Section from "@/components/ui/section";
 import { EventsHero } from "@/components/ui/hero";
 import { TripDetail, type TripDetailProps } from "@/components/ui/detail";
+
+export const metadata: Metadata = {
+  title: "Events",
+  description:
+    "Sitz parties, sauna nights, food nights, bar crawls, and the full autumn 2026 event calendar for exchange students in Turku (Åbo).",
+};
 
 const CATEGORIES = [
   { label: "Sitz Parties", color: "esn.magenta" },
@@ -262,13 +269,13 @@ const SEPTEMBER_EVENTS: CalendarEvent[] = [
   {
     day: 29,
     days: [29, 30],
-    dateLabel: "29 September–5 October 2026 · proposed",
+    dateLabel: "29 September–5 October 2026",
     weekday: "Tuesday–Monday",
     title: "Lofoten Trip",
-    format: "7 days · booking to be confirmed",
-    detail: "Lofoten, Norway",
+    format: "6 nights · on sale now",
+    detail: "Henningsvær & Kabelvåg, Lofoten, Norway",
     description:
-      "A proposed student trip organised by TimeTravels. Final booking details will be published after confirmation.",
+      "An adventure trip to the Lofoten islands organised by Timetravels, from €475. Book on the Timetravels website — see our Trips page.",
     color: "esn.darkBlue",
   },
 ];
@@ -279,16 +286,15 @@ const EVENTS: Omit<TripDetailProps, "index">[] = [
   {
     color: "esn.magenta",
     gradient: "linear-gradient(170deg, #1a0a20 0%, #2a0d30 45%, #3a1a45 100%)",
-    imageURL:
-      "https://plus.unsplash.com/premium_photo-1681841766171-fdb1554c909d?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    location: "Various venues, Turku",
+    imageURL: "/scenery/ai-sitz-hall.jpg",
+    location: "Various venues, Turku (Åbo)",
     title: "Themed Sitz",
     dateRange: "Spring & Autumn",
     duration: "One evening · costumes on",
     featured: true,
-    eyebrow: "Themed dinner party · Twice a year",
+    eyebrow: "Themed sitz party · Twice a year",
     description:
-      "A sitz is a Nordic student-dinner tradition: a full sit-down dinner with songs, toasts, and a running order, all in costume. ESN Åbo Akademi runs a Disney sitz every spring and a Harry Potter sitz every autumn.",
+      "A sitz is a Nordic student-dinner tradition: a full sit-down dinner with songs, toasts, and a running order, all in costume. ESN Åbo Akademi runs a Disney sitz every spring and a Harry Potter sitz every autumn — and more sitzes are organised through the year, so keep an eye on our Instagram.",
     highlights: [
       { icon: Drama, label: "Costumes" },
       { icon: Utensils, label: "Formal dinner" },
@@ -297,19 +303,20 @@ const EVENTS: Omit<TripDetailProps, "index">[] = [
     ],
     organizer: "Organised by ESN Åbo Akademi",
     ctaLabel: "Follow for dates on Instagram",
+    ctaHref: "https://www.instagram.com/esnaboakademi/",
   },
   {
     color: "esn.orange",
     gradient: "linear-gradient(170deg, #1a1008 0%, #2a1a0d 45%, #301e10 100%)",
     imageURL:
       "https://plus.unsplash.com/premium_photo-1679072595330-67c13052bd1c?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    location: "Turku",
+    location: "Turku (Åbo)",
     title: "International\nFood Night",
     dateRange: "Every semester",
     duration: "One evening",
     eyebrow: "Cultural · Potluck",
     description:
-      "Bring a dish from home and taste the world without leaving Turku. Every exchange student's chance to show off (or discover) a national cuisine.",
+      "Bring a dish from home and taste the world without leaving Turku (Åbo). Every exchange student's chance to show off (or discover) a national cuisine.",
     highlights: [
       { icon: Utensils, label: "Potluck dinner" },
       { icon: Globe, label: "Cultures" },
@@ -317,19 +324,20 @@ const EVENTS: Omit<TripDetailProps, "index">[] = [
     ],
     organizer: "Organised by ESN Åbo Akademi",
     ctaLabel: "Follow for dates on Instagram",
+    ctaHref: "https://www.instagram.com/esnaboakademi/",
   },
   {
     color: "esn.cyan",
     gradient: "linear-gradient(170deg, #0a1828 0%, #0d2540 45%, #1a3a5a 100%)",
     imageURL:
       "https://images.unsplash.com/photo-1558210598-89ba75b1724e?q=80&w=1742&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    location: "Turku",
+    location: "Turku (Åbo)",
     title: "Bar Crawls &\nPub Nights",
     dateRange: "Monthly",
     duration: "One evening",
     eyebrow: "Nightlife · Social",
     description:
-      "A guided tour through Turku's bars with fellow exchange students: drink specials, new faces, and a proper introduction to the local nightlife.",
+      "A guided tour through Turku (Åbo)'s bars with fellow exchange students: drink specials, new faces, and a proper introduction to the local nightlife.",
     highlights: [
       { icon: Beer, label: "Drink specials" },
       { icon: Users, label: "New friends" },
@@ -337,13 +345,14 @@ const EVENTS: Omit<TripDetailProps, "index">[] = [
     ],
     organizer: "Organised by ESN Åbo Akademi",
     ctaLabel: "Follow for dates on Instagram",
+    ctaHref: "https://www.instagram.com/esnaboakademi/",
   },
   {
     color: "esn.green",
     gradient: "linear-gradient(170deg, #0a1e14 0%, #0d2a1a 45%, #1a3a28 100%)",
     imageURL:
       "https://images.unsplash.com/photo-1676452470766-6041f4f65c9b?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    location: "Turku",
+    location: "Turku (Åbo)",
     title: "Traditional Finnish\nSauna Night",
     dateRange: "Every semester",
     duration: "One evening",
@@ -357,19 +366,20 @@ const EVENTS: Omit<TripDetailProps, "index">[] = [
     ],
     organizer: "Organised by ESN Åbo Akademi",
     ctaLabel: "Follow for dates on Instagram",
+    ctaHref: "https://www.instagram.com/esnaboakademi/",
   },
   {
     color: "esn.darkBlue",
     gradient: "linear-gradient(170deg, #0d1a2e 0%, #162540 45%, #1e3050 100%)",
     imageURL:
       "https://images.unsplash.com/photo-1508059937316-a7ec25086d99?q=80&w=772&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    location: "Ahtela camping area",
-    title: "Ahtela Cottage\nWeekend",
+    location: "Southwest Finland coast",
+    title: "Cottage\nWeekend",
     dateRange: "End of April / June",
     duration: "Weekend · 2 nights",
     eyebrow: "Outdoors · Weekend trip",
     description:
-      "Over 40 hectares of cottages on the coast, with sauna, cottage olympic games, karaoke, and a dance party. Price includes transport from Turku, meals, and accommodation.",
+      "A weekend of cottages on the coast, with sauna, cottage olympic games, karaoke, and a dance party. Price includes transport from Turku (Åbo), meals, and accommodation.",
     highlights: [
       { icon: Flame, label: "Sauna" },
       { icon: Medal, label: "Cottage olympics" },
@@ -378,6 +388,7 @@ const EVENTS: Omit<TripDetailProps, "index">[] = [
     ],
     organizer: "Organised by ESN Åbo Akademi",
     ctaLabel: "Follow for dates on Instagram",
+    ctaHref: "https://www.instagram.com/esnaboakademi/",
   },
 ];
 
@@ -396,7 +407,7 @@ const REGULAR_HANGOUTS = [
   },
   {
     title: "Hiking & Outdoor Adventures",
-    description: "Escape Forest, mushroom picking, and day hikes near Turku.",
+    description: "Escape Forest, mushroom picking, and day hikes near Turku (Åbo).",
     icon: Trees,
     dot: "esn.green",
   },

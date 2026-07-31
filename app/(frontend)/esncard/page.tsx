@@ -29,7 +29,7 @@ import {
 import Section from "@/components/ui/section";
 
 export const metadata: Metadata = {
-  title: "ESNcard Benefits | ESN Åbo Akademi",
+  title: "ESNcard Benefits",
   description:
     "Learn about international and local ESNcard benefits available to ESN Åbo Akademi members.",
 };
@@ -71,7 +71,7 @@ const LOCAL_BENEFITS = [
   {
     title: "Events and community",
     description:
-      "Take part in social, cultural and wellbeing activities organised for Turku’s international community.",
+      "Take part in social, cultural and wellbeing activities organised for the international community of Turku (Åbo).",
     icon: CalendarDays,
   },
   {
@@ -174,7 +174,7 @@ export default function EsncardPage() {
                 <Users />
               </Icon>
               <Heading as="h2" size="2xl">
-                Local benefits in Turku
+                Local benefits in Turku (Åbo)
               </Heading>
             </HStack>
             <Text color="fg.muted">

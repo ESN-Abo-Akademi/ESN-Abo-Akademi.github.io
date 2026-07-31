@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
 import {
   Box,
   Grid,
   Heading,
   HStack,
   Icon,
+  Image,
   Text,
   VStack,
   For,
@@ -15,10 +17,15 @@ import {
   Clock,
   Handshake,
   Heart,
-  Crown,
 } from "lucide-react";
 import Section from "@/components/ui/section";
 import { AboutHero } from "@/components/ui/hero";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "ESN Åbo Akademi, founded 1994, is Finland's second-oldest ESN section — meet the board, find our office in Turku (Åbo), and learn how to get involved.",
+};
 
 const STATS = [
   { number: "1994", label: "ESN ÅA founded" },
@@ -65,21 +72,17 @@ const ESN_HISTORY = [
 ];
 
 const BOARD = [
-  { name: "Ida Samadova", role: "President", color: "esn.magenta" },
-  { name: "Kim-Mikael Pekkonen", role: "Vice-President", color: "esn.cyan" },
-  { name: "Haroon Riasat", role: "Trip Manager", color: "esn.green" },
-  { name: "Kinshuk Dubey", role: "Event Coordinator", color: "esn.orange" },
-  { name: "Muhammad Aziz Ullah", role: "Treasurer", color: "esn.darkBlue" },
+  { name: "Saida Samadova", role: "President", color: "esn.magenta" },
+  { name: "Kim Pekkonen", role: "Vice-President", color: "esn.cyan" },
+  { name: "Aziz Ullah", role: "Treasurer", color: "esn.darkBlue" },
   {
-    name: "Yasith Hirimbuergama",
+    name: "Yasith Hirimburegama",
     role: "Partnership Manager",
-    color: "esn.magenta",
+    color: "esn.green",
   },
-  {
-    name: "Ashir Kulshreshtha",
-    role: "Acting IT & Web Project Manager",
-    color: "esn.cyan",
-  },
+  { name: "Somoy Tunu", role: "Trips Manager", color: "esn.orange" },
+  { name: "Risti Rahaat", role: "Board Support", color: "esn.magenta" },
+  { name: "Krishmi Apsara", role: "Board Support", color: "esn.cyan" },
 ];
 
 const MEMBERSHIP_BENEFITS = [
@@ -159,7 +162,7 @@ export default function AboutPage() {
               students turned one practical idea into an international
               volunteer network: help future exchange students make the most
               of their experience. ESN Åbo Akademi carries that idea forward
-              here in Turku.
+              here in Turku (Åbo).
             </Text>
           </VStack>
 
@@ -221,12 +224,18 @@ export default function AboutPage() {
             ESN vid Åbo Akademi r.f. is the official ESN section at Åbo Akademi
             University, the only Swedish-speaking multidisciplinary university
             in Finland. Together with ESN Uni Turku, it&apos;s one of two ESN
-            sections active in Turku.
+            sections active in Turku (Åbo).
           </Text>
           <Text color="fg.muted">
             We help exchange students get enjoyable cultural and social
             experiences while they&apos;re here, foster inclusivity in student
             circles, and help exchange students in any way we can.
+          </Text>
+          <Text fontWeight="600">
+            And here&apos;s the part we&apos;re proudest of: ESN ÅA is a
+            non-profit association run entirely by volunteers. Nobody is paid —
+            every trip, sitz, and sauna night is organised by students who do
+            it for the love of it.
           </Text>
         </VStack>
       </Section>
@@ -234,7 +243,7 @@ export default function AboutPage() {
       <Section backgroundColor="bg.alternate" py="12">
         <VStack alignItems="flex-start" gap="8" w="full">
           <Heading as="h2" size="xl">
-            Our board, spring 2026
+            Our board, 2026
           </Heading>
           <Grid
             w="full"
@@ -268,24 +277,24 @@ export default function AboutPage() {
                 </Card.Root>
               )}
             </For>
-            <Card.Root colorPalette="esn.green">
+            <Card.Root colorPalette="esn.cyan" variant="elevated">
               <Card.Body alignItems="center" textAlign="center" gap="2">
                 <Box
                   w="14"
                   h="14"
                   borderRadius="full"
-                  bg="colorPalette.solid"
-                  color="white"
+                  bg="white"
+                  borderWidth="2px"
+                  borderColor="colorPalette.muted"
                   display="flex"
                   alignItems="center"
-                  justifyContent="center">
-                  <Icon boxSize="6">
-                    <Crown />
-                  </Icon>
+                  justifyContent="center"
+                  overflow="hidden">
+                  <Image src="/aura-swan.png" alt="Aura the swan mark" w="10" />
                 </Box>
                 <Text fontWeight="bold">Aura the Almighty</Text>
                 <Text fontSize="sm" color="fg.muted">
-                  Monarch (our resident swan)
+                  Monarch (our resident swan) — and the face of our old flag
                 </Text>
               </Card.Body>
             </Card.Root>
@@ -308,7 +317,7 @@ export default function AboutPage() {
               </Heading>
             </HStack>
             <Text color="fg.muted">
-              Geologicum, Tuomiokirkontori 1, 2nd floor, 20500 Turku. About 800
+              Geologicum, Tuomiokirkontori 1, 2nd floor, 20500 Turku (Åbo). About 800
               meters (10 minutes on foot) from the Åbo Akademi campus.
             </Text>
           </VStack>
@@ -370,13 +379,13 @@ export default function AboutPage() {
                 <Handshake />
               </Icon>
               <Heading as="h3" size="lg" color="colorPalette.contrast">
-                Join the board
+                Where volunteering leads
               </Heading>
             </HStack>
             <Text color="colorPalette.subtle">
-              We hold a general meeting every January to elect the next board.
-              Send in your CV and a note on why you&apos;d be a good fit for a
-              position, then follow our Instagram for the announcement.
+              Every board member started as a volunteer. Join in, find your
+              people — and once you&apos;ve volunteered with us and it feels
+              right, you can apply to join the board and help lead the section.
             </Text>
           </VStack>
         </Grid>
