@@ -870,6 +870,10 @@ function MonthCalendar({
   );
 }
 
+// Oct–Dec events are in the board sheet but not yet confirmed for publication.
+// Flip to true once the board signs them off.
+const SHOW_UNCONFIRMED_MONTHS = false;
+
 export default function EventsPage() {
   return (
     <>
@@ -904,45 +908,49 @@ export default function EventsPage() {
         description="Socials, student-culture events, an association fair, and a proposed Lofoten trip. Items marked provisional still need final confirmation from venues or partner organisations."
       />
 
-      <MonthCalendar
-        month="October"
-        year={2026}
-        daysInMonth={31}
-        events={OCTOBER_EVENTS}
-        leadingDays={[28, 29, 30]}
-        leadingMonth="September"
-        trailingDays={[1]}
-        trailingMonth="November"
-        badgeColor="esn.cyan"
-        description="Trips, a national ESN event, and the autumn's big themed sitz. Several venues are still being confirmed."
-      />
+      {SHOW_UNCONFIRMED_MONTHS && (
+        <>
+          <MonthCalendar
+            month="October"
+            year={2026}
+            daysInMonth={31}
+            events={OCTOBER_EVENTS}
+            leadingDays={[28, 29, 30]}
+            leadingMonth="September"
+            trailingDays={[1]}
+            trailingMonth="November"
+            badgeColor="esn.cyan"
+            description="Trips, a national ESN event, and the autumn's big themed sitz. Several venues are still being confirmed."
+          />
 
-      <MonthCalendar
-        month="November"
-        year={2026}
-        daysInMonth={30}
-        events={NOVEMBER_EVENTS}
-        leadingDays={[26, 27, 28, 29, 30, 31]}
-        leadingMonth="October"
-        trailingDays={[1, 2, 3, 4, 5, 6]}
-        trailingMonth="December"
-        badgeColor="esn.magenta"
-        backgroundColor="bg.alternate"
-        description="The national cruise, the Winter Sitz, and the Lapland trip — the heart of the winter season."
-      />
+          <MonthCalendar
+            month="November"
+            year={2026}
+            daysInMonth={30}
+            events={NOVEMBER_EVENTS}
+            leadingDays={[26, 27, 28, 29, 30, 31]}
+            leadingMonth="October"
+            trailingDays={[1, 2, 3, 4, 5, 6]}
+            trailingMonth="December"
+            badgeColor="esn.magenta"
+            backgroundColor="bg.alternate"
+            description="The national cruise, the Winter Sitz, and the Lapland trip — the heart of the winter season."
+          />
 
-      <MonthCalendar
-        month="December"
-        year={2026}
-        daysInMonth={31}
-        events={DECEMBER_EVENTS}
-        leadingDays={[30]}
-        leadingMonth="November"
-        trailingDays={[1, 2, 3]}
-        trailingMonth="January"
-        badgeColor="esn.cyan"
-        description="Winter hikes, sledging, and the farewell sitz that closes the semester."
-      />
+          <MonthCalendar
+            month="December"
+            year={2026}
+            daysInMonth={31}
+            events={DECEMBER_EVENTS}
+            leadingDays={[30]}
+            leadingMonth="November"
+            trailingDays={[1, 2, 3]}
+            trailingMonth="January"
+            badgeColor="esn.cyan"
+            description="Winter hikes, sledging, and the farewell sitz that closes the semester."
+          />
+        </>
+      )}
 
       <Section py="12">
         <VStack gap="8" w="full">
