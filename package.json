@@ -7,7 +7,8 @@
     "build": "next build --webpack",
     "build:static": "bash scripts/build-static.sh",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:facts": "node --test scripts/check-facts.test.mjs"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.34.0",

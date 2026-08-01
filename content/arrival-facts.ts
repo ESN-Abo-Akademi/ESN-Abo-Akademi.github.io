@@ -27,7 +27,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     id: "officeAddress",
     claim:
       "The ESN Åbo Akademi office is in Geologicum, Tuomiokirkontori 1, 20500 Turku, on the second floor, opposite the cathedral and next to Gripen. The main door needs the grey Åbo Akademi key.",
-    source: "https://esnabo.org/our-office",
+    source: "owner-confirmed:2026-08-01",
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
@@ -61,10 +61,21 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     audiences: ALL,
     status: "verified",
   },
-  orientationAutumn2026: {
-    id: "orientationAutumn2026",
+  arrivalAutumn2026: {
+    id: "arrivalAutumn2026",
     claim:
-      "Åbo Akademi orientation week for autumn 2026 runs 24 to 28 August 2026. Attendance is compulsory.",
+      "For autumn 2026 the official Arrival Day is 24 August 2026. The obligatory orientation week runs 25 to 28 August 2026. Classes begin 31 August 2026.",
+    source:
+      "https://www.abo.fi/en/study/study-abroad/exchange-students/information-for-accepted-exchange-students/before-the-exchange/",
+    checked: "2026-08-01",
+    expires: "2026-12-15",
+    audiences: ALL,
+    status: "verified",
+  },
+  arrivalSpring2027: {
+    id: "arrivalSpring2027",
+    claim:
+      "For spring 2027 the official Arrival Day is 4 January 2027. The obligatory orientation week runs 5 to 7 January 2027, with no programme on 6 January because it is a public holiday in Finland. Classes begin 8 January 2027.",
     source:
       "https://www.abo.fi/en/study/study-abroad/exchange-students/information-for-accepted-exchange-students/before-the-exchange/",
     checked: "2026-08-01",
@@ -227,11 +238,35 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
   },
 };
 
-export function getFact(id: string): Fact {
+/**
+ * Reads a fact of any status, including one still awaiting owner confirmation.
+ *
+ * Only the FactNote and FactSource components in components/ui/fact-note.tsx
+ * may call this. They are the two places that know how to render an
+ * unconfirmed fact safely, by showing a fallback and never the claim. Page
+ * code must use getFact, which refuses unconfirmed facts outright.
+ */
+export function readFactUnchecked(id: string): Fact {
   const fact = ARRIVAL_FACTS[id];
   if (!fact) {
     throw new Error(
       `Unknown fact id "${id}". Add it to content/arrival-facts.ts with a source.`,
+    );
+  }
+  return fact;
+}
+
+/**
+ * Reads a fact that is safe to publish as-is. Throws for a fact still awaiting
+ * owner confirmation, so `{getFact("x").claim}` cannot put an unconfirmed
+ * value on the page. The build fails loudly rather than publishing a guess.
+ */
+export function getFact(id: string): Fact {
+  const fact = readFactUnchecked(id);
+  if (fact.status === "owner-confirm") {
+    throw new Error(
+      `Fact "${id}" is awaiting owner confirmation and must not be published. ` +
+        `Render it with <FactNote id="${id}" fallback="..." /> instead of getFact("${id}").`,
     );
   }
   return fact;

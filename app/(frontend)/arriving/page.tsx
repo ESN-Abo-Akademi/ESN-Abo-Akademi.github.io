@@ -136,9 +136,13 @@ export default function ArrivingPage() {
               <Text as="span" fontWeight="bold">
                 Orientation.
               </Text>{" "}
-              {getFact("orientationAutumn2026").claim} Plan your travel so you
-              are here for it.
-              <FactSource id="orientationAutumn2026" />
+              {getFact("arrivalAutumn2026").claim}
+              <FactSource id="arrivalAutumn2026" />
+              <Text mt="2">
+                {getFact("arrivalSpring2027").claim} Plan your travel so you
+                are here for it.
+              </Text>
+              <FactSource id="arrivalSpring2027" />
             </List.Item>
             <List.Item>
               <Text as="span" fontWeight="bold">
@@ -248,8 +252,13 @@ export default function ArrivingPage() {
               are paid. Bring the receipts.
             </List.Item>
             <List.Item>
-              Come and see us for your ESNcard and a free SIM.{" "}
-              {getFact("dnaSim").claim}
+              Get your ESNcard. Buy the membership on Kide.app through our{" "}
+              <ChakraLink asChild variant="underline">
+                <NextLink href="/membership">membership page</NextLink>
+              </ChakraLink>
+              , then bring the purchase confirmation, identification and proof
+              of student status to the office and a board member will issue the
+              card. {getFact("dnaSim").claim}
             </List.Item>
             <List.Item>
               Sort out transport. Read the Föli eligibility rules before you
@@ -327,7 +336,7 @@ export default function ArrivingPage() {
           />
           <FactNote
             id="esncardPrice"
-            fallback="Ask at the office or on Instagram for the current ESNcard price. We would rather tell you the right number in person than print one that goes out of date."
+            fallback="The current membership price, what it includes and how to pay are on our membership page. Check there rather than relying on a number copied onto this page."
           />
           <HStack gap="3" flexWrap="wrap">
             <Button asChild colorPalette="esn.darkBlue" borderRadius="md">

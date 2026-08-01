@@ -1,5 +1,7 @@
 import { Text, Link as ChakraLink, Badge, VStack } from "@chakra-ui/react";
-import { getFact } from "@/content/arrival-facts";
+// These two components are the only sanctioned callers of readFactUnchecked.
+// Everything else must use getFact, which throws on an unconfirmed fact.
+import { readFactUnchecked } from "@/content/arrival-facts";
 
 interface FactNoteProps {
   id: string;
@@ -13,7 +15,7 @@ interface FactNoteProps {
  * the published page.
  */
 export function FactNote({ id, fallback }: FactNoteProps) {
-  const fact = getFact(id);
+  const fact = readFactUnchecked(id);
 
   if (fact.status === "owner-confirm") {
     return (
@@ -34,9 +36,13 @@ export function FactNote({ id, fallback }: FactNoteProps) {
   );
 }
 
-/** The "checked on, with source" line that every published number carries. */
+/**
+ * The "checked on, with source" line that every published number carries.
+ * A non-http source (for example "owner-confirmed:2026-08-01") renders the
+ * checked date with no link, because there is no public page to point at.
+ */
 export function FactSource({ id }: { id: string }) {
-  const fact = getFact(id);
+  const fact = readFactUnchecked(id);
   if (fact.status === "owner-confirm" || !fact.checked) return null;
 
   const isExternal = fact.source?.startsWith("http");
