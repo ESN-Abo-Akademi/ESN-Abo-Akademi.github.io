@@ -1,4 +1,5 @@
-import { Table, Box, Text, Heading, VStack } from "@chakra-ui/react";
+import { Table, Box, Text, Heading, HStack, VStack } from "@chakra-ui/react";
+import { FactSource } from "@/components/ui/fact-note";
 
 interface Row {
   topic: string;
@@ -7,6 +8,20 @@ interface Row {
   doctoral: string;
 }
 
+const TABLE_HEADING_ID = "audience-table-heading";
+
+// Each cell below is a deliberately terser summary of register entries in
+// content/arrival-facts.ts. The register is the source of truth; when it is
+// re-verified in December, update the matching rows here in the same pass.
+//
+//   Föli student travel card  ->  foliStudentCard
+//   Healthcare                ->  healthExchange, healthDegree, healthDoctoral
+//   Housing                   ->  tysApplication (Tavasthem has no entry yet)
+//   Student union membership  ->  studentUnion
+//   Banking                   ->  banking
+//
+// Any exact figure in a cell must also appear in the register, so that the
+// provenance line below the table covers it.
 const ROWS: Row[] = [
   {
     topic: "Föli student travel card",
@@ -54,7 +69,7 @@ const ROWS: Row[] = [
 export function AudienceTable() {
   return (
     <VStack alignItems="stretch" gap="4" w="full">
-      <Heading as="h2" size="xl">
+      <Heading as="h2" size="xl" id={TABLE_HEADING_ID}>
         First, which kind of student are you?
       </Heading>
       <Text color="fg.muted" maxW="3xl">
@@ -63,7 +78,11 @@ export function AudienceTable() {
         differ. Find your column and use that.
       </Text>
       <Box overflowX="auto" w="full">
-        <Table.Root size="sm" striped minW="720px">
+        <Table.Root
+          size="sm"
+          striped
+          minW="720px"
+          aria-labelledby={TABLE_HEADING_ID}>
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeader>Topic</Table.ColumnHeader>
@@ -84,6 +103,23 @@ export function AudienceTable() {
           </Table.Body>
         </Table.Root>
       </Box>
+      <VStack alignItems="flex-start" gap="1">
+        <Text fontSize="xs" color="fg.muted">
+          Where the rows with a rule or a figure in them come from:
+        </Text>
+        <HStack gap="2" alignItems="baseline">
+          <Text fontSize="xs" color="fg.muted">
+            Föli eligibility:
+          </Text>
+          <FactSource id="foliStudentCard" />
+        </HStack>
+        <HStack gap="2" alignItems="baseline">
+          <Text fontSize="xs" color="fg.muted">
+            Kela healthcare fee:
+          </Text>
+          <FactSource id="healthDegree" />
+        </HStack>
+      </VStack>
     </VStack>
   );
 }
