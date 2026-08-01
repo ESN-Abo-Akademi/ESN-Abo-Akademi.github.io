@@ -97,7 +97,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
     id: "arrival-night",
     title: "Arrival night",
     intro:
-      "Most guides stop at the airport. The hours between landing and getting inside your own room are where things actually go wrong, so plan that stretch as carefully as you planned the flight.",
+      "Your journey does not end at the airport. The hours between landing and getting inside your own room are where things actually go wrong, so plan that stretch as carefully as you planned the flight.",
     factIds: ["tysKeyLocker", "startingPackage", "emergency"],
     notes: [
       "Most students land at Helsinki-Vantaa rather than Turku, then take a train or a coach west. Buy the onward ticket before you land if you can, and give the connection more slack than the timetable suggests.",
@@ -170,7 +170,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
     id: "living-here",
     title: "Living here",
     intro:
-      "Your quarter is small. Almost everything you need day to day sits in the few streets around the Cathedral and the Åbo Akademi buildings, and learning that square properly is worth more than any list of places you would visit once.",
+      "Your quarter is small. Almost everything you need day to day sits in the few streets around the Cathedral and the Åbo Akademi buildings, and this section is about learning that square properly: the few minutes of walking you will do every day for a year.",
     factIds: [
       "library",
       "vaskiLibrary",
@@ -180,7 +180,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
     ],
     notes: [
       "Start with Kårkaféerna, the student union's own cafés. They are inside the quarter, they are run for students rather than for visitors, and you can sit in one with a laptop all afternoon.",
-      "Ask whoever is behind the counter what they would order, and ask the person next to you in the queue where they go on a Thursday. That finds better places than a printed list, and it never goes stale, which is why we do not print one.",
+      "Ask whoever is behind the counter what they would order, and ask the person next to you in the queue where they go on a Thursday. We do not print our own list of places here, because anything we printed would have moved on by the time you read it, and because asking is how you end up with company rather than an address.",
       "For what is on in the city, use Turku's own event listings. For what is on with us, our events page is the live one, and it is worth coming to the first few even when you are tired. The people you meet in your first weeks tend to be the people you travel with in spring.",
       "Bottles and cans carry a deposit called pantti that you get back at the shop. Reduced stickers go on food late in the day. Tipping is not expected.",
       {
