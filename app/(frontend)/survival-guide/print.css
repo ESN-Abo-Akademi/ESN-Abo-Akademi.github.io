@@ -46,6 +46,18 @@
  *   break-inside rule at all, only the orphans/widows backstop. The list
  *   inside it is free to break between items, which is what keeps this a
  *   genuinely multi-page document instead of one full of gaps.
+ *
+ * ALSO HANDLED HERE: `AudienceTable` (components/ui/audience-table.tsx),
+ * rendered near the top of this page, ships two renderings of the same
+ * `ROWS` data -- the ordinary horizontally-scrolling table (correct for
+ * screen, and shared with /arriving, which has no print stylesheet of its
+ * own) and a stacked, full-width layout meant for print, hidden on screen
+ * by the component's own base style. The rules below are what swap one
+ * for the other, and only while printing this page. See the comments on
+ * `.audience-table-scroll` / `.audience-table-print` for why: a table
+ * that must fit A4 and a table whose cells are full sentences do not mix,
+ * and the scrolling box that solves it on screen has no analogue on
+ * paper.
  */
 
 @media print {
@@ -76,6 +88,41 @@
   #survival-guide-print-page {
     padding: 0 !important;
     margin: 0 !important;
+  }
+
+  /* AudienceTable (rendered near the top of this page, before any
+     GUIDE_SECTIONS content) is also used on /arriving, so its on-screen
+     markup keeps the horizontally-scrolling table it has always had --
+     correct for a narrow screen, where the reader can scroll sideways.
+     Print has no scrolling: that box's fixed `minW` plus `overflowX:
+     auto` clipped the rightmost "Doctoral or licentiate" column off the
+     printed page, silently dropping every exclusion it carries (no Föli
+     card, no FSHS, no Kela meal subsidy). Swap it for the stacked,
+     full-width print rendering that components/ui/audience-table.tsx
+     renders alongside it (same `ROWS` data, so nothing here can diverge
+     from the table). Both class names are gated on this page's own
+     marker for the same defense-in-depth reason as the primary rule
+     above, even though route-level bundling already keeps this
+     stylesheet off /arriving. */
+  body:has(#survival-guide-print-page) .audience-table-scroll {
+    display: none !important;
+  }
+
+  body:has(#survival-guide-print-page) .audience-table-print {
+    display: block !important;
+  }
+
+  /* Keep one topic's heading-plus-three-lines together, and never strand
+     a line of it at a page edge, the same reasoning as
+     .guide-print-item and the orphans/widows backstop below. */
+  body:has(#survival-guide-print-page) .audience-table-print-row {
+    break-inside: avoid;
+  }
+
+  body:has(#survival-guide-print-page) .audience-table-print,
+  body:has(#survival-guide-print-page) .audience-table-print * {
+    orphans: 3;
+    widows: 3;
   }
 
   /* A section heading must never end up alone at the foot of a page with

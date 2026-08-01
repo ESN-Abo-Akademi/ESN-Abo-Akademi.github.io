@@ -98,7 +98,18 @@ export function AudienceTable() {
         international student gets the same answer. Several important ones
         differ. Find your column and use that.
       </Text>
-      <Box overflowX="auto" w="full">
+      {/* On-screen table, unchanged. `overflowX="auto"` plus the fixed
+          `minW` below is correct for screen, where the reader can scroll a
+          narrow viewport sideways -- that behaviour was reviewed and
+          approved separately and this fix does not touch it. Print has no
+          scrolling, so the same box would silently clip the rightmost
+          ("Doctoral or licentiate") column off the page. `audience-table-
+          scroll` is a print-only hook: app/(frontend)/survival-guide/
+          print.css hides this whole box when printing, and only when
+          printing, via that class name -- it has no effect on screen and no
+          effect at all on /arriving, which renders this same component but
+          never loads that stylesheet. */}
+      <Box overflowX="auto" w="full" className="audience-table-scroll">
         <Table.Root
           size="sm"
           striped
@@ -123,6 +134,57 @@ export function AudienceTable() {
             ))}
           </Table.Body>
         </Table.Root>
+      </Box>
+
+      {/* Print-only stacked replacement for the table above: one heading
+          per topic, then the same three cell strings as three labelled
+          lines, at full page width. Chosen over reflowing the four-column
+          table to page width because most cells here are full sentences
+          (see e.g. the "Healthcare" row), and a four-column table narrow
+          enough to fit A4 either wraps those sentences into a thin, hard-to
+          scan strip or forces a type size small enough to hurt legibility
+          on paper; a stacked layout reads like ordinary prose instead.
+          `display="none"` is this component's own base style, so the block
+          is hidden on screen -- and, just as importantly, hidden by default
+          on /arriving too, which renders this same component but has no
+          print stylesheet of its own to turn it back on. Only
+          survival-guide/print.css's `@media print` rule, gated on that
+          page's own marker, overrides it back to visible, and only when
+          printing. Built from the same `ROWS` data as the table above, so
+          there is exactly one copy of every cell's text -- nothing here can
+          drift from what the on-screen table says. */}
+      <Box display="none" className="audience-table-print">
+        <VStack alignItems="stretch" gap="6" w="full">
+          {ROWS.map((row) => (
+            <VStack
+              key={row.topic}
+              alignItems="stretch"
+              gap="1"
+              className="audience-table-print-row">
+              <Heading as="h3" size="sm">
+                {row.topic}
+              </Heading>
+              <Text>
+                <Text as="span" fontWeight="bold">
+                  Exchange:
+                </Text>{" "}
+                {row.exchange}
+              </Text>
+              <Text>
+                <Text as="span" fontWeight="bold">
+                  Degree:
+                </Text>{" "}
+                {row.degree}
+              </Text>
+              <Text>
+                <Text as="span" fontWeight="bold">
+                  Doctoral or licentiate:
+                </Text>{" "}
+                {row.doctoral}
+              </Text>
+            </VStack>
+          ))}
+        </VStack>
       </Box>
       <VStack alignItems="flex-start" gap="3">
         <Text fontSize="xs" color="fg.muted">
