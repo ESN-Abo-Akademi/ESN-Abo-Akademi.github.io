@@ -88,9 +88,12 @@ export default function ArrivingPage() {
             </Button>
           </HStack>
           <Text fontSize="xs" color="fg.muted">
-            Facts on this page were last checked on {LAST_CHECKED}. Anything we
-            do not control is linked to its source rather than copied, because
-            opening hours and prices change.
+            Facts on this page were last checked on {LAST_CHECKED}. Facts
+            outside our control are linked to their source rather than
+            copied, because opening hours and prices elsewhere change. Facts
+            about ESN Åbo Akademi itself, such as our office address and the
+            ESNcard price, are printed directly with the date checked,
+            because we are the source.
           </Text>
         </VStack>
       </Section>
