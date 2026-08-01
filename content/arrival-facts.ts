@@ -264,7 +264,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: [],
+    usedIn: ["arriving"],
   },
   studentUnion: {
     id: "studentUnion",

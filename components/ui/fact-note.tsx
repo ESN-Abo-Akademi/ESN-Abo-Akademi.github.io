@@ -1,6 +1,12 @@
 import { Text, Link as ChakraLink, Badge, VStack } from "@chakra-ui/react";
-// These two components are the only sanctioned callers of readFactUnchecked.
-// Everything else must use getFact, which throws on an unconfirmed fact.
+// FactNote and FactSource below are the only sanctioned callers of
+// readFactUnchecked that render a claim, and they do so safely: a fact still
+// awaiting owner confirmation shows only the fallback, never the claim.
+// components/ui/audience-table.tsx also calls readFactUnchecked directly, but
+// only to confirm a factId still exists in the register at module scope; it
+// discards the return value rather than rendering it, so it does not need
+// this file's fallback handling. Anywhere that wants to render a claim must
+// use getFact, which throws on an unconfirmed fact.
 import { readFactUnchecked } from "@/content/arrival-facts";
 
 interface FactNoteProps {
