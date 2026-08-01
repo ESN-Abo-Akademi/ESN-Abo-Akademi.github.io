@@ -1,0 +1,1 @@
+@media print{@page{size:A4;margin:12mm}body>div:has(#checklist-print-page)>:not(:has(#checklist-print-page)){display:none!important}body:has(#checklist-print-page) [style*=linear-gradient],body:has(#checklist-print-page) nav{display:none!important}#checklist-print-page{padding:0!important;margin:0!important}}
