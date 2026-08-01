@@ -15,9 +15,13 @@ import {
 } from "@chakra-ui/react";
 import { ArrowRight } from "lucide-react";
 import Section from "@/components/ui/section";
-import { AudienceTable } from "@/components/ui/audience-table";
+import {
+  AudienceTable,
+  AUDIENCE_TABLE_FACT_IDS,
+} from "@/components/ui/audience-table";
 import { GuideSection } from "@/components/ui/guide-section";
 import { GUIDE_SECTIONS } from "@/content/guide-copy";
+import { checkedSummary } from "@/content/arrival-facts";
 import "./print.css";
 
 export const metadata: Metadata = {
@@ -27,9 +31,39 @@ export const metadata: Metadata = {
 };
 
 const EDITION = "Edition 1";
-const LAST_CHECKED = "1 August 2026";
+
+/**
+ * Where the live guide lives, spelled out rather than linked, because the
+ * copy that actually circulates is a PDF or a screenshot in a group chat: it
+ * outlives its own facts by years, and a reader holding one needs a route
+ * back to the current edition that survives being printed on paper. Kept on
+ * the edition line so it is the first thing on page one and cannot be trimmed
+ * away with a hero box.
+ */
+const LIVE_EDITION_URL = "esnabo.org/survival-guide";
 
 const PRINT_PAGE_ID = "survival-guide-print-page";
+
+/**
+ * The edition line's date, derived from every register entry this page
+ * renders rather than written down here, for the same reason the audience
+ * table's provenance line is derived: a hardcoded date outlives the facts it
+ * describes. Once any of them lapses the line says so instead of naming a
+ * date at all.
+ */
+function editionDateLine(): string {
+  const summary = checkedSummary([
+    ...AUDIENCE_TABLE_FACT_IDS,
+    ...GUIDE_SECTIONS.flatMap((section) => section.factIds),
+  ]);
+
+  if (summary.expired || !summary.earliest || !summary.latest) {
+    return "Some facts are awaiting re-verification";
+  }
+  return summary.earliest === summary.latest
+    ? `Facts checked ${summary.earliest}`
+    : `Facts checked between ${summary.earliest} and ${summary.latest}`;
+}
 
 export default function SurvivalGuidePage() {
   const lastSection = GUIDE_SECTIONS[GUIDE_SECTIONS.length - 1];
@@ -59,7 +93,8 @@ export default function SurvivalGuidePage() {
             marker.
           </Text>
           <Text fontSize="sm" fontWeight="bold" color="fg.muted">
-            {EDITION} · Facts checked {LAST_CHECKED}
+            {EDITION} · {editionDateLine()} · Current version:{" "}
+            {LIVE_EDITION_URL}
           </Text>
           <HStack gap="3" flexWrap="wrap">
             <Button asChild colorPalette="esn.darkBlue" borderRadius="md">
@@ -117,7 +152,15 @@ export default function SurvivalGuidePage() {
       </Section>
 
       <Section backgroundColor="bg.alternate" py="12">
+        {/* `guide-closing-print` is a print-only hook (see print.css): an A4
+            page box is narrower than the `md` breakpoint, so in print this
+            grid would otherwise stack and push the closing photo onto a
+            thirteenth sheet of its own, which is a page that says nothing.
+            The rule puts the photo back beside the closing block, where it
+            belongs, and ends the document on the same page. No effect on
+            screen. */}
         <Grid
+          className="guide-closing-print"
           gridTemplateColumns={{ base: "1fr", md: "3fr 2fr" }}
           gap="8"
           w="full"

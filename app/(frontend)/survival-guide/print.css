@@ -159,6 +159,23 @@
     widows: 3;
   }
 
+  /* The closing block ("Still stuck? Come and find us" plus the closing
+     photo) is laid out as a two-column grid from the `md` breakpoint up. A
+     printed page box is narrower than that breakpoint, so on paper it
+     stacked, and the photo alone did not fit under the text: it was deferred
+     to a thirteenth sheet that carried one image, one caption line and
+     nothing else. Restoring the two-column layout for print puts the photo
+     back beside the text it belongs to and ends the guide on the page its
+     closing words are on. `break-inside: avoid` then keeps the two halves
+     from being split apart again; this block is a bounded one (a heading,
+     one paragraph, two buttons and one image), so it is always small enough
+     for Chrome to honour that, unlike the guide sections themselves (see the
+     header of this file). */
+  body:has(#survival-guide-print-page) .guide-closing-print {
+    grid-template-columns: 3fr 2fr !important;
+    break-inside: avoid;
+  }
+
   /* The "Åbo Akademi" marker (components/ui/fact-note.tsx) tells a reader
      at another institution which claims are not about them. The PDF is the
      copy that actually circulates, so the marker has to survive printing,

@@ -45,8 +45,11 @@
 // mention, no competing cafe, nightlife, restaurant or day-trip lists, no
 // advice stated as universal where the register branches it by student type,
 // and the other Turku sections are never named or counted. Naming other
-// institutions and their student unions (TYY, Novium, TUAS) is fine and is
-// required by the rule above; that last rule is about ESN sections only.
+// institutions and their student unions is fine and is required by the rule
+// above; that last rule is about ESN sections only. Name them accurately or
+// not at all: TUAS is an institution and TYY and Novium are student unions,
+// and a pointer that tells a reader to go and find their own union is the
+// worst possible place to blur the two.
 //
 // See docs/superpowers/specs/2026-08-01-esn-aa-arrival-content-design.md
 
@@ -170,7 +173,17 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       "Write down who to ask for what: your tutor for daily questions, the international coordinators for courses and credits, your housing provider for the flat, and us for the rest.",
       "Bring your receipts when you collect the starting package, on paper or as a screenshot that opens without WiFi.",
       {
-        text: "Every institution has its own student system, its own IT account and its own campus WiFi. Peppi and Eduroam are Åbo Akademi's. Whatever yours are called, you get them at orientation and almost everything else digital hangs off them, so log in on the first day rather than the day you need them. Your own international office, not ours, is the one that signs your paperwork.",
+        // Careful here. This pointer used to say "Peppi and Eduroam are Åbo
+        // Akademi's", which is two false claims in one line: other
+        // institutions in the city run Peppi as well, and eduroam is a global
+        // federation that belongs to no institution at all. A reader
+        // elsewhere was told the system they will actually use is somebody
+        // else's, and sent looking for a differently named one that does not
+        // exist. Say what a new student can rely on (you are given these at
+        // orientation, whatever they are called where you study) and what we
+        // can re-verify (what Åbo Akademi's are called). Never assert what
+        // another institution's are, or are not.
+        text: "Wherever you study, you are given an IT account, a student system and campus WiFi at orientation, whatever they are called at your institution. At Åbo Akademi they are the ones above: your ÅAU credentials, Peppi and Eduroam. Log in on the first day rather than the day you need them, because almost everything else digital hangs off them. Your own international office, not ours, is the one that signs your paperwork.",
         after: "exchangeContact",
       },
       {
@@ -178,7 +191,13 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         after: "studentUnion",
       },
       {
-        text: "Åbo Akademi's student union is ÅAS. Every institution in the city has its own, and TYY, Novium and TUAS are the three that run the starting package store together with ÅAS. Find yours, because your membership, your fee and your student card come from it and not from us.",
+        // TUAS is an institution, not a student union: its union has its own
+        // name, which this line deliberately does not guess at. The
+        // `startingPackage` entry in the register states exactly who runs the
+        // store, in the source's own careful wording, and renders it earlier
+        // in the guide, so this pointer does not need to restate it and must
+        // not blur it. Name only what we are sure of.
+        text: "Åbo Akademi's student union is ÅAS, and every institution in the city has its own, TYY and Novium among them. Find yours, because your membership, your fee and your student card come from it and not from us.",
         after: "studentUnion",
       },
       {
@@ -216,7 +235,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         text: "Every institution in Turku (Åbo) has its own library and its own course book collection, and Arken and Astra are Åbo Akademi's. Find yours in the first week. A course book you borrow is a course book you did not buy, and the reading lists all assume you found the shelf.",
         after: "library",
       },
-      "Start with Kårkaféerna, the student union's own cafés. They are inside the quarter, they are run for students rather than for visitors, and you can sit in one with a laptop all afternoon.",
+      "Start with Kårkaféerna, the Åbo Akademi student union's own cafés. They are inside the quarter, they are run for students rather than for visitors, and you can sit in one with a laptop all afternoon.",
       "Ask whoever is behind the counter what they would order, and ask the person next to you in the queue where they go on a Thursday. We do not print our own list of places here, because anything we printed would have moved on by the time you read it, and because asking is how you end up with company rather than an address.",
       "For what is on in the city, use Turku's own event listings. For what is on with us, our events page is the live one, and it is worth coming to the first few even when you are tired. The people you meet in your first weeks tend to be the people you travel with in spring.",
       "Bottles and cans carry a deposit called pantti that you get back at the shop. Reduced stickers go on food late in the day. Tipping is not expected.",

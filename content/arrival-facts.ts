@@ -717,6 +717,85 @@ export function isFactExpired(
   return new Date(fact.expires) < now;
 }
 
+const MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+/**
+ * Formats a register date ("2026-08-01") the way the guide prints it
+ * ("1 August 2026").
+ *
+ * Parsed field by field rather than through `Date`, deliberately. An ISO date
+ * string parses as UTC midnight, so putting it through a local-time formatter
+ * renders the previous day anywhere west of UTC. A `checked` value is a
+ * calendar day, not an instant, and has to read as the same day wherever the
+ * site is built.
+ */
+export function formatCheckedDate(iso: string): string {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  const month = match ? MONTH_NAMES[Number(match[2]) - 1] : undefined;
+  if (!match || !month) {
+    throw new Error(
+      `Register date "${iso}" is not a YYYY-MM-DD calendar date and cannot be published.`,
+    );
+  }
+  return `${Number(match[3])} ${month} ${match[1]}`;
+}
+
+/** What a surface needs to state its own provenance in one line. */
+export interface CheckedSummary {
+  /** True if any of the summarised facts is past its `expires` date. */
+  expired: boolean;
+  /** Earliest `checked` date among them, formatted, or null if none has one. */
+  earliest: string | null;
+  /** Latest `checked` date among them, formatted, or null if none has one. */
+  latest: string | null;
+}
+
+/**
+ * Summarises the provenance of a set of register entries so a surface that
+ * paraphrases several facts at once (the audience table, the guide's edition
+ * line) can state when they were checked WITHOUT hardcoding a date.
+ *
+ * A hardcoded date is the failure this exists to prevent: it survives the
+ * fact it describes going stale, so the page keeps asserting a lapsed claim
+ * under a date that no longer means anything. `expired` is computed with the
+ * same `isFactExpired` the per-fact "Awaiting re-verification" badge uses, so
+ * a summary and the facts under it can never disagree.
+ *
+ * Unknown ids throw, via readFactUnchecked, which is also what makes a call
+ * to this function double as the build-time check that a summarising row
+ * still cites a live register entry.
+ */
+export function checkedSummary(
+  ids: string[],
+  now: Date = new Date(),
+): CheckedSummary {
+  const facts = ids.map(readFactUnchecked);
+  // ISO dates sort lexicographically in date order, so no parsing needed.
+  const dates = facts
+    .map((fact) => fact.checked)
+    .filter((checked): checked is string => checked !== null)
+    .sort();
+
+  return {
+    expired: facts.some((fact) => isFactExpired(fact, now)),
+    earliest: dates.length ? formatCheckedDate(dates[0]) : null,
+    latest: dates.length ? formatCheckedDate(dates[dates.length - 1]) : null,
+  };
+}
+
 /** Serialises the register so scripts/check-facts.mjs can validate the real data. */
 export function factsAsJson(): string {
   return JSON.stringify(ARRIVAL_FACTS, null, 2);

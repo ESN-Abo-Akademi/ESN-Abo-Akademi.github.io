@@ -86,10 +86,16 @@ export function GuideSection({ section }: GuideSectionProps) {
             {block.kind === "note" ? (
               <Text as="span">{block.text}</Text>
             ) : block.fallback !== undefined ? (
-              <>
-                <FactNote id={block.id} fallback={block.fallback} />
-                <InstitutionMarker id={block.id} />
-              </>
+              // `withMarker` rather than an <InstitutionMarker> of our own
+              // after it: FactNote renders a block, so a marker placed after
+              // it drops onto a line of its own below the badge instead of
+              // sitting at the end of the text, which is where the marker
+              // sits on every other claim in the guide.
+              <FactNote
+                id={block.id}
+                fallback={block.fallback}
+                withMarker
+              />
             ) : (
               <>
                 <Text as="span">{getFact(block.id).claim}</Text>{" "}

@@ -1,12 +1,21 @@
 import { Table, Box, Text, Heading, VStack } from "@chakra-ui/react";
-import { readFactUnchecked } from "@/content/arrival-facts";
+import {
+  checkedSummary,
+  readFactUnchecked,
+  type CheckedSummary,
+} from "@/content/arrival-facts";
 
 interface Row {
   topic: string;
   exchange: string;
   degree: string;
   doctoral: string;
-  /** Register ids this row summarises. Rendered as provenance and checked at build. */
+  /**
+   * Register ids this row summarises. Checked at build, and the source of the
+   * one provenance line under the table: its date is computed from these
+   * entries' `checked` values, and it stops asserting a date at all once any
+   * of them expires. Nothing here prints a per-row citation.
+   */
   factIds: string[];
 }
 
@@ -18,8 +27,9 @@ const TABLE_HEADING_ID = "audience-table-heading";
 // pass. The check below fails the build if a row cites an id that was
 // renamed or removed from the register, so a stale row cannot go unnoticed.
 //
-// Any exact figure in a cell must also appear in the register, so that the
-// provenance rendered below the table covers it.
+// Any exact figure in a cell must also appear in the register entry that the
+// row cites, so that every figure on this table has a source and a checked
+// date standing behind it even though the cells themselves print neither.
 const ROWS: Row[] = [
   {
     topic: "Föli student travel card",
@@ -62,8 +72,12 @@ const ROWS: Row[] = [
   {
     topic: "Housing",
     exchange: "TYS, on a fixed-term contract tied to the semester.",
+    // "the student union's own house" would read as any reader's own union on
+    // a page that tells every institution in the city to find its own.
+    // Tavasthem is ÅAS's, which is why the register marks the fact
+    // `institution: "abo-akademi"`, so the cell names the institution.
     degree:
-      "TYS, or Tavasthem, the student union's own house in the centre. Tavasthem leases run for a minimum of 12 months.",
+      "TYS, or Tavasthem, the Åbo Akademi student union's own house in the centre. Tavasthem leases run for a minimum of 12 months.",
     doctoral: "As for degree students.",
     factIds: ["tysApplication", "tavasthem"],
   },
@@ -95,13 +109,49 @@ const ROWS: Row[] = [
   },
 ];
 
+/** Every register entry the rows above summarise, in row order. */
+export const AUDIENCE_TABLE_FACT_IDS: string[] = ROWS.flatMap(
+  (row) => row.factIds,
+);
+
 // Fails the build if a row cites a register id that was renamed or removed.
 // This is the check Wave 1 lacked, which let six register entries go dead.
-ROWS.forEach((row) =>
-  row.factIds.forEach((id) => {
-    readFactUnchecked(id);
-  }),
-);
+AUDIENCE_TABLE_FACT_IDS.forEach((id) => {
+  readFactUnchecked(id);
+});
+
+/**
+ * The one provenance line under the table, derived from the register rather
+ * than written down here.
+ *
+ * The per-row citation blocks this table used to print were trimmed to a
+ * single line for visual density. The trim was about density, not about
+ * cutting the table loose from the register: a hardcoded date would go on
+ * asserting that these rows are current long after the entries behind them
+ * lapsed, which is the one failure the register's expiry dates exist to
+ * prevent. So the date comes from the cited entries' own `checked` values,
+ * and once any of them is past its `expires` date this states that instead of
+ * a date, the same way the per-fact "Awaiting re-verification" badge does.
+ */
+function provenanceLine(summary: CheckedSummary): string {
+  if (summary.expired || !summary.earliest || !summary.latest) {
+    return (
+      "At least one row is past the date it was due to be checked again, " +
+      "so treat the whole table as unverified and confirm anything that " +
+      "matters with the provider."
+    );
+  }
+
+  const when =
+    summary.earliest === summary.latest
+      ? `on ${summary.earliest}`
+      : `between ${summary.earliest} and ${summary.latest}`;
+
+  return (
+    `Every row was checked against the official sources ${when}. ` +
+    "Rules change, so confirm anything critical with the provider."
+  );
+}
 
 /**
  * The exchange / degree / doctoral branching table. Merging these audiences
@@ -109,6 +159,10 @@ ROWS.forEach((row) =>
  * so this table is deliberately the first substantive block on the page.
  */
 export function AudienceTable() {
+  // Computed per render rather than at module load, so a static export takes
+  // the expiry state from the moment the page is built.
+  const provenance = provenanceLine(checkedSummary(AUDIENCE_TABLE_FACT_IDS));
+
   return (
     <VStack alignItems="stretch" gap="4" w="full">
       <Heading as="h2" size="xl" id={TABLE_HEADING_ID}>
@@ -208,8 +262,7 @@ export function AudienceTable() {
         </VStack>
       </Box>
       <Text fontSize="xs" color="fg.muted">
-        Every row was checked against the official sources on 1 August 2026.
-        Rules change, so confirm anything critical with the provider.
+        {provenance}
       </Text>
     </VStack>
   );

@@ -13,6 +13,17 @@ interface FactNoteProps {
   id: string;
   /** Shown instead of the claim when the fact is awaiting owner confirmation. */
   fallback: string;
+  /**
+   * Renders the `InstitutionMarker` inline at the end of the text, in the same
+   * position a caller that renders the claim itself would put it.
+   *
+   * It has to be rendered from in here rather than after the component: this
+   * component's own output is a block, so a marker placed after it lands on a
+   * line of its own underneath, which is not where the same marker sits next
+   * to any other claim in the guide. Off by default, because
+   * app/(frontend)/arriving/page.tsx does not use markers at all.
+   */
+  withMarker?: boolean;
 }
 
 /**
@@ -50,13 +61,22 @@ export function InstitutionMarker({ id }: { id: string }) {
  * renders its claim, only the fallback, so an unverified value cannot reach
  * the published page.
  */
-export function FactNote({ id, fallback }: FactNoteProps) {
+export function FactNote({ id, fallback, withMarker }: FactNoteProps) {
   const fact = readFactUnchecked(id);
+  const marker = withMarker ? (
+    <>
+      {" "}
+      <InstitutionMarker id={id} />
+    </>
+  ) : null;
 
   if (fact.status === "owner-confirm") {
     return (
       <VStack alignItems="flex-start" gap="1">
-        <Text color="fg.muted">{fallback}</Text>
+        <Text color="fg.muted">
+          {fallback}
+          {marker}
+        </Text>
         <Badge colorPalette="esn.orange" size="sm">
           Awaiting confirmation
         </Badge>
@@ -66,7 +86,10 @@ export function FactNote({ id, fallback }: FactNoteProps) {
 
   return (
     <VStack alignItems="flex-start" gap="1">
-      <Text>{fact.claim}</Text>
+      <Text>
+        {fact.claim}
+        {marker}
+      </Text>
       <FactSource id={id} />
     </VStack>
   );
