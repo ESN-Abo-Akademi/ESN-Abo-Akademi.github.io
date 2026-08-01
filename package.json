@@ -8,7 +8,8 @@
     "build:static": "bash scripts/build-static.sh",
     "start": "next start",
     "lint": "eslint",
-    "check:facts": "node --test scripts/check-facts.test.mjs"
+    "check:facts:unit": "node --test scripts/check-facts.test.mjs",
+    "check:facts": "node --experimental-strip-types -e \"import('./content/arrival-facts.ts').then(m=>process.stdout.write(m.factsAsJson()))\" > /tmp/esn-facts.json && node scripts/check-facts.mjs /tmp/esn-facts.json"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.34.0",

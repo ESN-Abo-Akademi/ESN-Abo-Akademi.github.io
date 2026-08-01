@@ -17,18 +17,21 @@ export function findUnsourcedFacts(facts) {
   );
 }
 
+export function findFactsMissingOwner(facts) {
+  return Object.values(facts).filter(
+    (fact) => fact.status === "verified" && !fact.owner,
+  );
+}
+
 // CLI mode: node scripts/check-facts.mjs <path-to-facts.json>
 //
 // The register itself is TypeScript, and this script deliberately does not
 // depend on a TS loader. The Next build already type-checks the register.
-// To run the CLI, dump the register to JSON first:
-//
-//   npx tsx -e "import('./content/arrival-facts.ts').then(m => \
-//     console.log(JSON.stringify(m.ARRIVAL_FACTS)))" > /tmp/facts.json
-//   node scripts/check-facts.mjs /tmp/facts.json
+// Run `npm run check:facts` to dump the real register via
+// content/arrival-facts.ts#factsAsJson and validate it in one step.
 //
 // If that ever stops working, delete this CLI block. The exported functions
-// and their tests are the part worth keeping.
+// and their tests (`npm run check:facts:unit`) are the part worth keeping.
 if (import.meta.url === `file://${process.argv[1]}`) {
   const { readFileSync } = await import("node:fs");
   const path = process.argv[2];
@@ -47,6 +50,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   for (const fact of expired) {
     console.warn(`EXPIRED:   ${fact.id} expired ${fact.expires}, re-verify it`);
   }
+  for (const fact of findFactsMissingOwner(facts)) {
+    console.error(`NO OWNER:  ${fact.id} is verified but nobody owns re-checking it`);
+  }
 
   const pending = Object.values(facts).filter(
     (f) => f.status === "owner-confirm",
@@ -55,7 +61,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.warn(`PENDING:   ${fact.id} is awaiting owner confirmation`);
   }
 
-  if (unsourced.length > 0) process.exit(1);
+  if (unsourced.length > 0 || findFactsMissingOwner(facts).length > 0)
+    process.exit(1);
   console.log(
     `Checked ${Object.keys(facts).length} facts. ${expired.length} expired, ${pending.length} pending.`,
   );

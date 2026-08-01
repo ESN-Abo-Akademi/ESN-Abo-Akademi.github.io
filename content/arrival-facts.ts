@@ -18,6 +18,12 @@ export interface Fact {
   expires: string | null;
   audiences: Audience[];
   status: FactStatus;
+  /** Who re-verifies this in August and December. A role, not a person, so it survives board turnover. */
+  owner: string;
+  /** How fast this rots. "high" means re-check it every intake without fail. */
+  volatility: "low" | "medium" | "high";
+  /** Which published surfaces use this fact. Keeps dead register entries visible. */
+  usedIn: string[];
 }
 
 const ALL: Audience[] = ["exchange", "degree", "doctoral"];
@@ -32,6 +38,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["arriving"],
   },
   officeHours: {
     id: "officeHours",
@@ -41,6 +50,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: null,
     audiences: ALL,
     status: "owner-confirm",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["arriving"],
   },
   esncardPrice: {
     id: "esncardPrice",
@@ -50,6 +62,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: null,
     audiences: ALL,
     status: "owner-confirm",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["arriving"],
   },
   dnaSim: {
     id: "dnaSim",
@@ -60,6 +75,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "medium",
+    usedIn: ["arriving"],
   },
   arrivalAutumn2026: {
     id: "arrivalAutumn2026",
@@ -71,6 +89,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["arriving"],
   },
   arrivalSpring2027: {
     id: "arrivalSpring2027",
@@ -82,6 +103,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["arriving"],
   },
   foliStudentCard: {
     id: "foliStudentCard",
@@ -92,6 +116,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "medium",
+    usedIn: ["arriving"],
   },
   foliCardCost: {
     id: "foliCardCost",
@@ -102,6 +129,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["arriving"],
   },
   healthExchange: {
     id: "healthExchange",
@@ -112,6 +142,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ["exchange"],
     status: "verified",
+    owner: "board",
+    volatility: "medium",
+    usedIn: [],
   },
   healthDegree: {
     id: "healthDegree",
@@ -122,6 +155,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ["degree"],
     status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["arriving"],
   },
   healthDoctoral: {
     id: "healthDoctoral",
@@ -132,6 +168,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ["doctoral"],
     status: "verified",
+    owner: "board",
+    volatility: "medium",
+    usedIn: [],
   },
   emergency: {
     id: "emergency",
@@ -142,6 +181,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["arriving"],
   },
   startingPackage: {
     id: "startingPackage",
@@ -152,6 +194,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["arriving"],
   },
   tysApplication: {
     id: "tysApplication",
@@ -162,6 +207,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["arriving"],
   },
   tysKeyLocker: {
     id: "tysKeyLocker",
@@ -172,6 +220,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["arriving"],
   },
   livingCosts: {
     id: "livingCosts",
@@ -183,6 +234,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["arriving"],
   },
   banking: {
     id: "banking",
@@ -194,6 +248,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ["exchange"],
     status: "verified",
+    owner: "board",
+    volatility: "medium",
+    usedIn: [],
   },
   studentUnion: {
     id: "studentUnion",
@@ -204,6 +261,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "medium",
+    usedIn: ["arriving"],
   },
   campusSport: {
     id: "campusSport",
@@ -214,6 +274,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: [],
   },
   library: {
     id: "library",
@@ -224,6 +287,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: [],
   },
   exchangeContact: {
     id: "exchangeContact",
@@ -235,6 +301,126 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     expires: "2026-12-15",
     audiences: ALL,
     status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["arriving"],
+  },
+  mealSubsidy: {
+    id: "mealSubsidy",
+    claim:
+      "From 1 January 2026 the Kela meal subsidy is 2.80 euro per meal, so a subsidised student lunch costs at most 3.10 euro. Special lunches cost 4.50 to 5.90 euro. You get one subsidised meal per day by showing a digital student card from Frank, Kide.app, Slice or Tuudo, a physical SYL or SAMOK card, or a Kela meal subsidy card issued by your institution if you have no student card. Digital ISIC cards and postgraduate cards are not accepted.",
+    source: "https://www.kela.fi/meal-subsidy",
+    checked: "2026-08-01",
+    expires: "2026-12-15",
+    audiences: ["exchange", "degree"],
+    status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["survival-guide"],
+  },
+  mealSubsidyDoctoral: {
+    id: "mealSubsidyDoctoral",
+    claim:
+      "Students completing a licentiate or doctoral degree are not entitled to the Kela meal subsidy, and postgraduate student cards are not accepted for it.",
+    source: "https://www.kela.fi/meal-subsidy",
+    checked: "2026-08-01",
+    expires: "2026-12-15",
+    audiences: ["doctoral"],
+    status: "verified",
+    owner: "board",
+    volatility: "medium",
+    usedIn: ["survival-guide"],
+  },
+  daylight: {
+    id: "daylight",
+    claim:
+      "December in Turku (Åbo) averages 5.9 hours of daylight. On the shortest day, 21 December 2026, there are 5 hours and 50 minutes. The latest sunrise is 09:35 and the earliest sunset is 15:22. The longest day of the year has 19 hours and 10 minutes, which is 13 hours 20 minutes more than the shortest.",
+    source: "https://www.timeanddate.com/sun/finland/turku",
+    checked: "2026-08-01",
+    expires: "2027-06-01",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["survival-guide"],
+  },
+  reflector: {
+    id: "reflector",
+    claim:
+      "Finnish road traffic law requires pedestrians to use a reflector in the dark, although no penalty is applied for not using one. A driver on low beams sees a pedestrian without a reflector at about 50 metres, and one wearing a reflector at about 350 metres. Reflectors cost a couple of euro and are sold in most supermarkets.",
+    source: "https://www.liikenneturva.fi/en/road-safety/reflector/",
+    checked: "2026-08-01",
+    expires: "2027-06-01",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["survival-guide"],
+  },
+  vaskiLibrary: {
+    id: "vaskiLibrary",
+    claim:
+      "A personal Vaski library card is free from any Vaski library in the Turku (Åbo) region. Bring photo identification. The card covers borrowing, events, customer computers and printing across the whole network.",
+    source: "https://vaski.finna.fi/Content/asiakkaana?lng=en-gb",
+    checked: "2026-08-01",
+    expires: "2027-06-01",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["survival-guide"],
+  },
+  nyyti: {
+    id: "nyyti",
+    claim:
+      "Nyyti ry supports students' mental health and offers material and groups in English, including a one to one loneliness service run with HelsinkiMissio that gives five sessions with a professional, nationwide and remote.",
+    source: "https://www.nyyti.fi/en/",
+    checked: "2026-08-01",
+    expires: "2027-06-01",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["survival-guide"],
+  },
+  internationalHouse: {
+    id: "internationalHouse",
+    claim:
+      "International House Turku brings together counselling and guidance for international newcomers in the Turku (Åbo) region. It is the right place for problems that are outside what ESN or your university can help with.",
+    source: "https://www.turku.fi/en/integration-services",
+    checked: "2026-08-01",
+    expires: "2027-06-01",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["survival-guide"],
+  },
+  languageCentre: {
+    id: "languageCentre",
+    claim:
+      "The Åbo Akademi Language Centre teaches Swedish at levels 1 to 4 and Finnish at levels 1 to 2. Exchange students, researchers and other international students can take these courses. Check current fees and available places with the Language Centre directly.",
+    source: "https://www.abo.fi/en/language-centre/courses-and-language-tests/",
+    checked: "2026-08-01",
+    expires: "2026-12-15",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "medium",
+    usedIn: ["survival-guide"],
+  },
+  alcohol: {
+    id: "alcohol",
+    claim:
+      "Grocery shops and kiosks sell fermented drinks up to 8 percent, raised from 5.5 percent by a 2024 reform. Ready to drink mixes and long drinks stay capped at 5.5 percent. Anything stronger comes only from Alko, the state monopoly. There are time restrictions on when alcohol can be sold, and the rules changed again in 2026, so check the current position rather than relying on a printed time.",
+    source: "https://yle.fi/a/74-20232920",
+    checked: "2026-08-01",
+    expires: "2026-12-15",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "high",
+    usedIn: ["survival-guide"],
   },
 };
 
@@ -270,4 +456,9 @@ export function getFact(id: string): Fact {
     );
   }
   return fact;
+}
+
+/** Serialises the register so scripts/check-facts.mjs can validate the real data. */
+export function factsAsJson(): string {
+  return JSON.stringify(ARRIVAL_FACTS, null, 2);
 }

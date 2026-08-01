@@ -1,6 +1,10 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { findExpiredFacts, findUnsourcedFacts } from "./check-facts.mjs";
+import {
+  findExpiredFacts,
+  findUnsourcedFacts,
+  findFactsMissingOwner,
+} from "./check-facts.mjs";
 
 const facts = {
   fresh: {
@@ -70,4 +74,64 @@ test("findUnsourcedFacts returns verified facts that lack a source", () => {
 
 test("findUnsourcedFacts does not flag owner-confirm facts", () => {
   assert.deepEqual(findUnsourcedFacts(facts).map((f) => f.id), []);
+});
+
+test("findExpiredFacts flags a high-volatility fact whose expiry has passed", () => {
+  const facts = {
+    alcohol: {
+      id: "alcohol",
+      claim: "Grocery shops sell fermented drinks up to 8 percent",
+      source: "https://yle.fi/a/74-20232920",
+      checked: "2026-08-01",
+      expires: "2026-12-15",
+      audiences: ["exchange"],
+      status: "verified",
+      owner: "board",
+      volatility: "high",
+      usedIn: ["survival-guide"],
+    },
+  };
+  assert.deepEqual(
+    findExpiredFacts(facts, new Date("2027-01-01")).map((f) => f.id),
+    ["alcohol"],
+  );
+});
+
+test("findFactsMissingOwner flags a verified fact with no owner", () => {
+  const facts = {
+    orphan: {
+      id: "orphan",
+      claim: "Something nobody is responsible for",
+      source: "https://example.org/",
+      checked: "2026-08-01",
+      expires: "2026-12-15",
+      audiences: ["exchange"],
+      status: "verified",
+      owner: "",
+      volatility: "low",
+      usedIn: ["survival-guide"],
+    },
+  };
+  assert.deepEqual(
+    findFactsMissingOwner(facts).map((f) => f.id),
+    ["orphan"],
+  );
+});
+
+test("findFactsMissingOwner ignores owner-confirm facts", () => {
+  const facts = {
+    pending: {
+      id: "pending",
+      claim: "ESNcard price",
+      source: null,
+      checked: null,
+      expires: null,
+      audiences: ["exchange"],
+      status: "owner-confirm",
+      owner: "",
+      volatility: "low",
+      usedIn: [],
+    },
+  };
+  assert.deepEqual(findFactsMissingOwner(facts).map((f) => f.id), []);
 });
