@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import Section from "@/components/ui/section";
 import { getFact } from "@/content/arrival-facts";
+import "./print.css";
 
 export const metadata: Metadata = {
   title: "First-week checklist",
@@ -42,7 +43,7 @@ const FIRST_WEEK = [
 
 export default function ChecklistPage() {
   return (
-    <Section py={{ base: "8", md: "12" }}>
+    <Section id="checklist-print-page" py={{ base: "8", md: "12" }}>
       <VStack alignItems="stretch" gap="6" w="full">
         <Box>
           <Heading as="h1" size="2xl">

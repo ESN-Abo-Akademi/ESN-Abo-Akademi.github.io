@@ -1,0 +1,56 @@
+/* Print-only styles for the first-week checklist (Task 6).
+ *
+ * Hides the site-wide sticky navbar, the two ESN colour stripes, and the
+ * site footer so the checklist prints as a single clean A4 page, without
+ * editing the shared LayoutWrapper/Navbar/Footer components those chrome
+ * elements come from (see components/ui/layout-wrapper.tsx).
+ *
+ * Scoping: this stylesheet is imported only by
+ * app/(frontend)/arriving/checklist/page.tsx, so Next.js only bundles it
+ * for the /arriving/checklist route. As a second, independent safeguard,
+ * every rule below is also gated on the presence of the
+ * #checklist-print-page marker, which only this page's <Section> renders
+ * (via the `id` prop). That marker has no other purpose.
+ *
+ * Structure this relies on (from LayoutWrapper): body's single top-level
+ * child is a stack with exactly four direct children, in order: the
+ * sticky header block (colour stripe + navbar), the block that renders
+ * this page's own content, the footer block, and the closing colour
+ * stripe. Only the second of those four contains #checklist-print-page.
+ *
+ * Rather than naming Chakra's generated utility classes (e.g. css-xxxxxx,
+ * an implementation detail, not a stable public API), the primary rule
+ * hides every one of those four direct children EXCEPT the one that
+ * contains this page's own marker. That removes the header and footer as
+ * whole blocks -- including their borders and background colours -- so
+ * nothing is left behind.
+ */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  /* Primary rule: hide every direct child of the root layout stack that
+     is not part of this page's own content block. */
+  body > div:has(#checklist-print-page) > *:not(:has(#checklist-print-page)) {
+    display: none !important;
+  }
+
+  /* Defense in depth: also hide the navbar landmark and the ESN colour
+     stripes (rendered with an inline linear-gradient backgroundImage;
+     see Stripe() in layout-wrapper.tsx) directly. Both are harmless
+     no-ops today, since the rule above already removes their containing
+     blocks entirely, but they keep this stylesheet correct even if that
+     structure changes. */
+  body:has(#checklist-print-page) nav,
+  body:has(#checklist-print-page) [style*="linear-gradient"] {
+    display: none !important;
+  }
+
+  #checklist-print-page {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
