@@ -36,7 +36,8 @@ const FIRST_WEEK = [
   "Pay the student union fee if you are joining",
   "Collect the starting package, receipts in hand",
   "Buy bedding, it is not in the package",
-  "Come to the ESN office for your ESNcard and free SIM",
+  "Buy your ESN membership on Kide.app, then bring the confirmation, ID and proof of student status to the ESN office to collect your ESNcard",
+  "Ask at the office about the free DNA SIM, including what it covers and what data costs",
   "Read the Föli rules before queuing for a travel card",
   "Save 112 and install the 112 Suomi app",
 ];
