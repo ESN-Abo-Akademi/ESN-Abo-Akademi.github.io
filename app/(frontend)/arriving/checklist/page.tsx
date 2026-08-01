@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   Box,
   Heading,
+  Image,
   List,
   Text,
   VStack,
@@ -95,10 +96,24 @@ export default function ChecklistPage() {
           <Heading as="h2" size="sm" mb="2">
             Find us
           </Heading>
-          <Text fontSize="sm">{getFact("officeAddress").claim}</Text>
-          <Text fontSize="sm" color="fg.muted">
-            Current office hours are on Instagram, @esnaboakademi.
-          </Text>
+          <HStack alignItems="flex-start" gap="4" justifyContent="space-between">
+            <VStack alignItems="flex-start" gap="0" flex="1" minW="0">
+              <Text fontSize="sm">{getFact("officeAddress").claim}</Text>
+              <Text fontSize="sm" color="fg.muted">
+                Current office hours are on Instagram, @esnaboakademi.
+              </Text>
+            </VStack>
+            <VStack alignItems="center" gap="0" flexShrink="0">
+              <Image
+                src="/photos/esn-instagram-qr.png"
+                alt="QR code linking to the ESN Åbo Akademi Instagram, @esnaboakademi"
+                boxSize="14"
+              />
+              <Text fontSize="2xs" color="fg.muted" textAlign="center" whiteSpace="nowrap">
+                Hours & tickets
+              </Text>
+            </VStack>
+          </HStack>
         </Box>
 
         <HStack justifyContent="space-between" fontSize="xs" color="fg.muted">

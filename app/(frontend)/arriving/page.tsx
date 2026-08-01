@@ -8,6 +8,7 @@ import {
   Heading,
   HStack,
   Icon,
+  Image,
   Link as ChakraLink,
   List,
   Text,
@@ -324,38 +325,56 @@ export default function ArrivingPage() {
       </Section>
 
       <Section backgroundColor="bg.alternate" py="12">
-        <VStack alignItems="flex-start" gap="5" maxW="3xl">
-          <Heading as="h2" size="xl">
-            Come and find us
-          </Heading>
-          <Text>{getFact("officeAddress").claim}</Text>
-          <FactSource id="officeAddress" />
-          <FactNote
-            id="officeHours"
-            fallback="Office hours change every semester, so we publish the current ones on Instagram rather than here. Check @esnaboakademi before you walk over."
-          />
-          <FactNote
-            id="esncardPrice"
-            fallback="The current membership price, what it includes and how to pay are on our membership page. Check there rather than relying on a number copied onto this page."
-          />
-          <HStack gap="3" flexWrap="wrap">
-            <Button asChild colorPalette="esn.darkBlue" borderRadius="md">
-              <NextLink href="/membership">Get your membership</NextLink>
-            </Button>
-            <Button asChild variant="outline" borderRadius="md">
-              <ChakraLink
-                href="https://www.instagram.com/esnaboakademi/"
-                target="_blank"
-                rel="noreferrer">
-                @esnaboakademi
-              </ChakraLink>
-            </Button>
-          </HStack>
-          <Text color="fg.muted">
-            We also work closely with the other ESN sections in Turku (Åbo), and
-            you are welcome at their events too.
-          </Text>
-        </VStack>
+        <Grid
+          gridTemplateColumns={{ base: "1fr", md: "3fr 2fr" }}
+          gap="8"
+          w="full"
+          alignItems="start">
+          <VStack alignItems="flex-start" gap="5" maxW="3xl">
+            <Heading as="h2" size="xl">
+              Come and find us
+            </Heading>
+            <Text>{getFact("officeAddress").claim}</Text>
+            <FactSource id="officeAddress" />
+            <FactNote
+              id="officeHours"
+              fallback="Office hours change every semester, so we publish the current ones on Instagram rather than here. Check @esnaboakademi before you walk over."
+            />
+            <Text>{getFact("esncardPrice").claim}</Text>
+            <FactSource id="esncardPrice" />
+            <HStack gap="3" flexWrap="wrap">
+              <Button asChild colorPalette="esn.darkBlue" borderRadius="md">
+                <NextLink href="/membership">Get your membership</NextLink>
+              </Button>
+              <Button asChild variant="outline" borderRadius="md">
+                <ChakraLink
+                  href="https://www.instagram.com/esnaboakademi/"
+                  target="_blank"
+                  rel="noreferrer">
+                  @esnaboakademi
+                </ChakraLink>
+              </Button>
+            </HStack>
+            <Text color="fg.muted">
+              We also work closely with the other ESN sections in Turku (Åbo), and
+              you are welcome at their events too.
+            </Text>
+          </VStack>
+          <VStack alignItems="stretch" gap="2">
+            <Image
+              src="/photos/esn-hike-winter.jpg"
+              alt="A group of ESN Åbo Akademi students on a winter hike in a snowy forest near Turku, one of them wearing the blue ESN ÅA overall"
+              borderRadius="lg"
+              w="full"
+              fit="cover"
+              aspectRatio="4/3"
+            />
+            <Text fontSize="xs" color="fg.muted">
+              ESN Åbo Akademi students on a winter hike. This is the community
+              you are joining.
+            </Text>
+          </VStack>
+        </Grid>
       </Section>
     </>
   );

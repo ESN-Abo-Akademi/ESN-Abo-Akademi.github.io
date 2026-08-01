@@ -56,15 +56,16 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
   },
   esncardPrice: {
     id: "esncardPrice",
-    claim: "Price of the ESNcard from ESN Åbo Akademi.",
-    source: null,
-    checked: null,
-    expires: null,
+    claim:
+      "The ESNcard costs 10 euro and is valid for 12 months. Buy it at the ESN Åbo Akademi office. A free DNA prepaid SIM card is included. Register it at esncard.org and search Finland to see every partner deal.",
+    source: "owner-confirmed:2026-08-01",
+    checked: "2026-08-01",
+    expires: "2026-12-15",
     audiences: ALL,
-    status: "owner-confirm",
+    status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   dnaSim: {
     id: "dnaSim",
