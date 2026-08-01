@@ -118,7 +118,7 @@ const AUGUST_EVENTS: CalendarEvent[] = [
     weekday: "Thursday",
     title: "Welcome Picnic",
     format: "From 15:00",
-    detail: "Kupittaa Park · location to be confirmed",
+    detail: "Kupittaa Park",
     description: "A relaxed welcome picnic for new exchange students.",
     color: "esn.green",
   },
@@ -127,23 +127,35 @@ const AUGUST_EVENTS: CalendarEvent[] = [
     days: [29],
     dateLabel: "29 August 2026",
     weekday: "Saturday",
-    title: "Hike, Picnic & Sauna",
-    format: "From 14:00",
-    detail: "Ispoinen · meeting point to be confirmed",
+    title: "Hike & Sauna",
+    format: "From 15:00",
+    detail: "Ispoinen · sauna €7 per person",
     description:
-      "An afternoon outdoors combining an Ispoinen hike, a picnic, and a Finnish sauna.",
+      "An afternoon hike at Ispoinen followed by a swimsuit-friendly sauna by the sea.",
     color: "esn.cyan",
+  },
+  {
+    day: 30,
+    days: [30],
+    dateLabel: "30 August 2026",
+    weekday: "Sunday",
+    title: "City Tour",
+    format: "Time announced on Instagram",
+    detail: "Meet at the ESN ÅA office, Geologicum",
+    description:
+      "A guided walking tour of Turku (Åbo) with the ESN team. Dress for the weather.",
+    color: "esn.green",
   },
   {
     day: 31,
     days: [31],
     dateLabel: "31 August 2026",
     weekday: "Monday",
-    title: "First Week in Finland Sitz",
+    title: "Hello Turku (Åbo)! Sitz",
     format: "19:00–22:00",
-    detail: "Venue and registration to be confirmed",
+    detail: "Geologicum",
     description:
-      "A traditional student dinner with singing to welcome exchange students to their first week in Finland.",
+      "A traditional sitz — a formal dinner with singing — to welcome exchange students to their first week in Finland. Dress code: traditional dress from your country, or similar.",
     color: "esn.magenta",
   },
   {
@@ -151,9 +163,9 @@ const AUGUST_EVENTS: CalendarEvent[] = [
     days: [31],
     dateLabel: "31 August 2026",
     weekday: "Monday",
-    title: "First Week Sitz Afterparty",
+    title: "Hello Turku! Sitz Afterparty",
     format: "From 23:00",
-    detail: "Venue to be confirmed",
+    detail: "Bar Ihku or Lygas · final venue on Instagram",
     description: "The official afterparty following the welcome sitz.",
     color: "esn.orange",
   },
@@ -167,7 +179,7 @@ const SEPTEMBER_EVENTS: CalendarEvent[] = [
     weekday: "Thursday",
     title: "Board Games Evening",
     format: "18:00–21:00",
-    detail: "Venue to be confirmed",
+    detail: "ESN ÅA office, Geologicum",
     description:
       "An easy-going evening of childhood favourites, including UNO, Ludo, and Carrom tournaments.",
     color: "esn.cyan",
@@ -179,7 +191,7 @@ const SEPTEMBER_EVENTS: CalendarEvent[] = [
     weekday: "Thursday",
     title: "UG Klub Afterparty",
     format: "From 22:00",
-    detail: "Venue to be confirmed",
+    detail: "UG Klub",
     description: "Continue the evening together after board games.",
     color: "esn.orange",
   },
@@ -196,18 +208,6 @@ const SEPTEMBER_EVENTS: CalendarEvent[] = [
     color: "esn.darkBlue",
   },
   {
-    day: 5,
-    days: [5],
-    dateLabel: "5 September 2026 · provisional",
-    weekday: "Saturday",
-    title: "Welcome Week Party",
-    format: "Time to be confirmed",
-    detail: "Venue to be confirmed",
-    description:
-      "A proposed joint start-of-semester party with ESN Uni Turku. Final confirmation will follow.",
-    color: "esn.magenta",
-  },
-  {
     day: 10,
     days: [10],
     dateLabel: "10 September 2026",
@@ -218,6 +218,18 @@ const SEPTEMBER_EVENTS: CalendarEvent[] = [
     description:
       "Meet Åbo Akademi's student associations and hear a short English-language introduction to ESN Åbo Akademi.",
     color: "esn.green",
+  },
+  {
+    day: 10,
+    days: [10],
+    dateLabel: "10 September 2026",
+    weekday: "Thursday",
+    title: "Actives Night",
+    format: "18:00–20:00",
+    detail: "Saaristobaari · to be confirmed",
+    description:
+      "A social night for ESN ÅA's active volunteers — if you have been helping out, or want to start, this one is for you.",
+    color: "esn.orange",
   },
   {
     day: 11,
@@ -237,33 +249,33 @@ const SEPTEMBER_EVENTS: CalendarEvent[] = [
     weekday: "Friday",
     title: "Parainen Apple Market",
     format: "13:00–21:00",
-    detail: "Parainen · transport details to be confirmed",
+    detail: "Parainen (Pargas) · travel with a Föli bus ticket",
     description:
       "A day trip to the traditional apple market in Parainen, also known as Pargas.",
     color: "esn.green",
   },
   {
-    day: 26,
-    days: [26],
-    dateLabel: "26 September 2026",
-    weekday: "Saturday",
+    day: 23,
+    days: [23],
+    dateLabel: "23 September 2026",
+    weekday: "Wednesday",
     title: "Costume Sitz",
     format: "18:00–22:00",
-    detail: "Venue and registration to be confirmed",
+    detail: "Geologicum · registration to be confirmed",
     description:
-      "A themed traditional student dinner with costumes, singing, and traffic-light colours.",
+      "A themed traditional student dinner with costumes and singing — wear a colour to match your traffic-light status. Afterparty not included.",
     color: "esn.magenta",
   },
   {
-    day: 26,
-    days: [26],
-    dateLabel: "26 September 2026 · provisional",
-    weekday: "Saturday",
+    day: 23,
+    days: [23],
+    dateLabel: "23 September 2026 · provisional",
+    weekday: "Wednesday",
     title: "VIP / Traffic Light Party",
     format: "Time to be confirmed",
-    detail: "Venue to be confirmed",
+    detail: "Lygas · to be confirmed",
     description:
-      "A proposed collaboration with ESN Uni Turku; the final format and organiser are still being confirmed.",
+      "A proposed joint party with ESN Uni Turku — if the collaboration does not land, it becomes our own traffic-light party.",
     color: "esn.orange",
   },
   {
@@ -277,6 +289,204 @@ const SEPTEMBER_EVENTS: CalendarEvent[] = [
     description:
       "An adventure trip to the Lofoten islands organised by Timetravels, from €475. Book on the Timetravels website — see our Trips page.",
     color: "esn.darkBlue",
+  },
+];
+
+const OCTOBER_EVENTS: CalendarEvent[] = [
+  {
+    day: 6,
+    days: [6, 7, 8],
+    dateLabel: "6–8 October 2026",
+    weekday: "Tuesday–Thursday",
+    title: "Cottage Trip",
+    format: "2 nights · to be confirmed",
+    detail: "Vienola",
+    description:
+      "A cottage getaway with the ESN crowd — sauna, games, and cabin life. Details will be confirmed closer to the date.",
+    color: "esn.cyan",
+  },
+  {
+    day: 6,
+    days: [6, 7, 8, 9, 10, 11],
+    dateLabel: "6–11 October 2026",
+    weekday: "Tuesday–Sunday",
+    title: "Baltics Trip",
+    format: "5 nights · on sale now",
+    detail: "Tallinn · Riga · Vilnius",
+    description:
+      "The Baltic capitals with Timetravels, from €339, including an overnight ferry. Book on the Timetravels website — see our Trips page.",
+    color: "esn.darkBlue",
+  },
+  {
+    day: 8,
+    days: [8, 9, 10, 11],
+    dateLabel: "8–11 October 2026",
+    weekday: "Thursday–Sunday",
+    title: "NEP Trondheim",
+    format: "For ESN volunteers",
+    detail: "Trondheim, Norway",
+    description:
+      "The Northern European Platform — an ESN training and networking event for volunteers from across the region.",
+    color: "esn.green",
+  },
+  {
+    day: 14,
+    days: [14],
+    dateLabel: "14 October 2026",
+    weekday: "Wednesday",
+    title: "Climbing Workshop",
+    format: "Details to be confirmed",
+    detail: "Venue to be confirmed",
+    description: "An indoor climbing session — details coming soon.",
+    color: "esn.cyan",
+  },
+  {
+    day: 23,
+    days: [23],
+    dateLabel: "23 October 2026",
+    weekday: "Friday",
+    title: "Kurjenrahka Hike",
+    format: "13:00–17:00",
+    detail: "Kurjenrahka National Park · transport to be confirmed",
+    description:
+      "A group hike through the bogs and forests of Kurjenrahka National Park before the winter dark sets in.",
+    color: "esn.green",
+  },
+  {
+    day: 30,
+    days: [30],
+    dateLabel: "30 October 2026",
+    weekday: "Friday",
+    title: "Harry Potter / Halloween Sitz",
+    format: "Evening · time to be confirmed",
+    detail: "Venue to be confirmed",
+    description:
+      "The autumn edition of our famous themed sitz — Halloween meets Hogwarts, the night before All Saints' Day, so no classes the next morning.",
+    color: "esn.magenta",
+  },
+];
+
+const NOVEMBER_EVENTS: CalendarEvent[] = [
+  {
+    day: 7,
+    days: [7, 8, 9],
+    dateLabel: "7–9 November 2026",
+    weekday: "Saturday–Monday",
+    title: "Pirates of the Baltic Sea #28",
+    format: "National ESN cruise",
+    detail: "Baltic Sea · Helsinki–Stockholm",
+    description:
+      "ESN Finland's legendary national cruise — 1,500+ students on one ship. Tickets via cruise.pobs.fi; see our Trips page.",
+    color: "esn.darkBlue",
+  },
+  {
+    day: 20,
+    days: [20],
+    dateLabel: "20 November 2026",
+    weekday: "Friday",
+    title: "Winter Sitz",
+    format: "18:00–22:00",
+    detail: "Venue to be confirmed",
+    description:
+      "A winter-themed sitz dinner to warm up the darkest stretch of the semester.",
+    color: "esn.magenta",
+  },
+  {
+    day: 20,
+    days: [20],
+    dateLabel: "20 November 2026",
+    weekday: "Friday",
+    title: "Winter Sitz Afterparty",
+    format: "From 23:00",
+    detail: "Venue to be confirmed",
+    description: "The afterparty following the Winter Sitz.",
+    color: "esn.orange",
+  },
+  {
+    day: 21,
+    days: [21, 22, 23, 24, 25, 26, 27],
+    dateLabel: "21–27 November 2026",
+    weekday: "Saturday–Friday",
+    title: "Lapland · Kilpisjärvi Trip",
+    format: "6 nights · on sale now",
+    detail: "Rovaniemi · Kilpisjärvi · Levi",
+    description:
+      "Far beyond the Arctic Circle with Timetravels, from €439 — prime Northern Lights season. See our Trips page.",
+    color: "esn.darkBlue",
+  },
+  {
+    day: 27,
+    days: [27],
+    dateLabel: "27 November 2026",
+    weekday: "Friday",
+    title: "Movie Night & Patch Sewing",
+    format: "18:00–23:00",
+    detail: "Venue to be confirmed",
+    description:
+      "A cosy night in: a film on the big screen while you finally sew those patches onto your overalls.",
+    color: "esn.cyan",
+  },
+];
+
+const DECEMBER_EVENTS: CalendarEvent[] = [
+  {
+    day: 4,
+    days: [4],
+    dateLabel: "4 December 2026",
+    weekday: "Friday",
+    title: "Vaarniemi Nature Trail Hike",
+    format: "12:00–18:00",
+    detail: "Vaarniemi / Kyyrlä–Toijainen trail · transport to be confirmed",
+    description:
+      "A winter group hike — December daylight in Turku (Åbo) ends around 15:30, so bring a headlamp for the last stretch.",
+    color: "esn.green",
+  },
+  {
+    day: 9,
+    days: [9],
+    dateLabel: "9 December 2026",
+    weekday: "Wednesday",
+    title: "Sledging Day",
+    format: "12:00–14:00",
+    detail: "Location announced on Instagram",
+    description:
+      "Grab a sled and join us on one of Turku (Åbo)'s free sledging hills.",
+    color: "esn.cyan",
+  },
+  {
+    day: 17,
+    days: [17],
+    dateLabel: "17 December 2026",
+    weekday: "Thursday",
+    title: "Christmas + Farewell Sitz",
+    format: "18:00–22:00",
+    detail: "Venue to be confirmed",
+    description:
+      "A Christmas-themed sitz and term-end celebration — the big goodbye before the holidays.",
+    color: "esn.magenta",
+  },
+  {
+    day: 17,
+    days: [17],
+    dateLabel: "17 December 2026",
+    weekday: "Thursday",
+    title: "Farewell Sitz Afterparty",
+    format: "From 23:00",
+    detail: "Venue to be confirmed",
+    description: "The afterparty following the Christmas sitz.",
+    color: "esn.orange",
+  },
+  {
+    day: 25,
+    days: [25],
+    dateLabel: "25 December 2026 · provisional",
+    weekday: "Friday",
+    title: "Christmas Cottage Trip",
+    format: "Dates to be confirmed",
+    detail: "Vienola",
+    description:
+      "A cosy Christmas celebration at the cottage with ESN friends, for everyone spending the holidays in Finland.",
+    color: "esn.cyan",
   },
 ];
 
@@ -692,6 +902,46 @@ export default function EventsPage() {
         badgeColor="esn.magenta"
         backgroundColor="bg.alternate"
         description="Socials, student-culture events, an association fair, and a proposed Lofoten trip. Items marked provisional still need final confirmation from venues or partner organisations."
+      />
+
+      <MonthCalendar
+        month="October"
+        year={2026}
+        daysInMonth={31}
+        events={OCTOBER_EVENTS}
+        leadingDays={[28, 29, 30]}
+        leadingMonth="September"
+        trailingDays={[1]}
+        trailingMonth="November"
+        badgeColor="esn.cyan"
+        description="Trips, a national ESN event, and the autumn's big themed sitz. Several venues are still being confirmed."
+      />
+
+      <MonthCalendar
+        month="November"
+        year={2026}
+        daysInMonth={30}
+        events={NOVEMBER_EVENTS}
+        leadingDays={[26, 27, 28, 29, 30, 31]}
+        leadingMonth="October"
+        trailingDays={[1, 2, 3, 4, 5, 6]}
+        trailingMonth="December"
+        badgeColor="esn.magenta"
+        backgroundColor="bg.alternate"
+        description="The national cruise, the Winter Sitz, and the Lapland trip — the heart of the winter season."
+      />
+
+      <MonthCalendar
+        month="December"
+        year={2026}
+        daysInMonth={31}
+        events={DECEMBER_EVENTS}
+        leadingDays={[30]}
+        leadingMonth="November"
+        trailingDays={[1, 2, 3]}
+        trailingMonth="January"
+        badgeColor="esn.cyan"
+        description="Winter hikes, sledging, and the farewell sitz that closes the semester."
       />
 
       <Section py="12">
