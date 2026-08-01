@@ -48,7 +48,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         p="0"
         m="0"
         backgroundColor="bg"
-        position="sticky"
+        position={{ base: "static", md: "sticky" }}
         top="0"
         zIndex="1">
         <Stripe />

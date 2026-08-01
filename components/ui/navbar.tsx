@@ -65,9 +65,9 @@ export default function Navbar({ ...props }: ContainerProps) {
 
   return (
     <Section backgroundColor="bg.default" {...props} py="0">
-      <HStack as="nav" justifyContent="space-between" h="24" gap="4">
+      <HStack as="nav" justifyContent="space-between" h={{ base: "16", md: "24" }} gap="4">
         <Link href="/" onClick={() => setOpen(false)}>
-          <Image src="/esn-abo.png" alt="ESN Åbo Akademi" h="20" />
+          <Image src="/esn-abo.png" alt="ESN Åbo Akademi" h={{ base: "12", md: "20" }} />
         </Link>
         <List.Root
           as="ul"
