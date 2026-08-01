@@ -56,10 +56,16 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     volatility: "high",
     usedIn: ["arriving", "survival-guide"],
   },
+  // The DNA SIM is deliberately NOT described here. This entry used to read
+  // "A free DNA prepaid SIM card is included", an unqualified "free" that
+  // also contradicted `dnaSim` below, where the same offer carries the
+  // qualification to ask at the desk what it includes and what data costs.
+  // One statement, qualified, in one place. Both surfaces that render this
+  // fact render `dnaSim` alongside it, so nothing is lost by the removal.
   esncardPrice: {
     id: "esncardPrice",
     claim:
-      "The ESNcard costs 10 euro and is valid for 12 months. Collect it at the ESN Åbo Akademi office. A free DNA prepaid SIM card is included. Register it at esncard.org and search Finland to see every partner deal.",
+      "The ESNcard costs 10 euro and is valid for 12 months. Collect it at the ESN Åbo Akademi office. Register it at esncard.org and search Finland to see every partner deal.",
     source: "owner-confirmed:2026-08-01",
     checked: "2026-08-01",
     expires: "2026-12-15",
@@ -269,11 +275,38 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     volatility: "medium",
     usedIn: ["arriving", "survival-guide"],
   },
+  // 🔴 Read this before you touch the claim below in a re-verification.
+  //
+  // ÅAS publishes member benefits as a flat, unconditional list. The
+  // membership page says the student card gets you "subsidised student
+  // lunches, cheaper train and bus tickets etc.", and the membership-benefits
+  // page lists "Trains, buses, local transport" with no eligibility rules
+  // attached at all. That list is NOT safe to repeat, because three separate
+  // register entries contradict it by audience:
+  //   - foliStudentCard: the Föli LOCAL travel card excludes a one-semester
+  //     exchange student (nine-month, degree-leading requirement).
+  //   - mealSubsidyDoctoral: the Kela meal subsidy excludes doctoral and
+  //     licentiate students.
+  //   - the same ÅAS membership page says postgraduate members get discounts
+  //     "but not on buses", so even ÅAS's own list branches.
+  // An earlier version of this claim ended "...and access to student lunch
+  // and travel discounts", which inherited that defect and contradicted the
+  // audience table four pages earlier in the printed guide.
+  //
+  // So the claim stops at what membership gives everyone who has it, the
+  // student card, and sends the reader to the audience table for the rest.
+  // Do NOT re-add "travel discounts", "local transport" or "student lunch"
+  // here just because the source page still lists them unconditionally.
+  //
+  // Source moved off the ÅAS homepage to the membership page, which is the
+  // page that actually carries the benefits list, the compulsory-by-law
+  // sentence, the three-month rule for exchange students, the voluntary
+  // postgraduate route, and, in its footer, the address and phone number.
   studentUnion: {
     id: "studentUnion",
     claim:
-      "Åbo Akademis Studentkår (ÅAS) is at Kåren, Tavastgatan 22, 20500 Åbo, phone 02 215 4650. Degree students are members automatically under Finnish law. Exchange students join by paying the fee, which gives a Finnish student card through the Frank App and access to student lunch and travel discounts.",
-    source: "https://studentkaren.fi/en/",
+      "Åbo Akademis Studentkår (ÅAS) is at Kåren, Tavastgatan 22, 20500 Åbo, phone 02 215 4650. Membership is compulsory by law for degree students, so they belong automatically. Exchange students studying in Finland for three months or more can join by paying the fee, and postgraduate students can join voluntarily. Membership is what gets you a Finnish student card, through the Frank App or another student card app. ÅAS lists further member discounts, but not every one of them is open to every kind of student, so check the table at the top of this page before you count on one.",
+    source: "https://studentkaren.fi/en/students/membership/",
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
@@ -295,10 +328,22 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     volatility: "high",
     usedIn: ["survival-guide"],
   },
+  // Each address is given in both languages because the cited page gives only
+  // the Finnish forms (Tehtaankatu 2, Porthaninkatu 3) while the buildings are
+  // known on campus by their Swedish ones. The Swedish forms are abo.fi's own,
+  // from the news item "The new Astra building in Turku also houses course
+  // books" (30 January 2026):
+  // https://www.abo.fi/en/news/the-new-astra-building-in-turku-also-houses-course-books/
+  //
+  // Do NOT re-add a date for the move to Astra. This claim used to say the
+  // books moved "at the start of 2026", which the cited page does not support:
+  // it says only that the course books are in Astra, with no date and no
+  // mention of a move. A re-verifier following the link could not confirm it.
+  // The reader needs to know where the books are now, not when they moved.
   library: {
     id: "library",
     claim:
-      "The Åbo Akademi library in Turku (Åbo) is in Arken, Fabriksgatan 2. Course books moved to the new Astra building at Porthansgatan 3 at the start of 2026. Check current opening hours on the library site.",
+      "The Åbo Akademi library in Turku (Åbo) is in Arken, Fabriksgatan 2, which is Tehtaankatu 2 in Finnish. Course books are in the Astra building at Porthansgatan 3, Porthaninkatu 3 in Finnish, where lending is self-service. Check current opening hours on the library site.",
     source: "https://www.abo.fi/en/library/contact/",
     checked: "2026-08-01",
     expires: "2026-12-15",
@@ -463,13 +508,25 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
   // lines. The category archive rotates its contents, so it is not citable.
   // Do not swap this source for a year's announcement post.
   //
-  // lillaWappen cites a different, more specific ÅAS page (see its own
-  // source field below). Task 4 review found that the shared explainer
-  // supports the chair's autumn line but not, as directly, the "cap is put
-  // away until Wappen" clause; the Little Walpurgis page states that part
-  // almost verbatim ("they put the hat away until the next May"). Do not
-  // merge the two facts back onto one source without re-checking that this
-  // clause still holds.
+  // lillaWappen cites a different, more specific ÅAS page:
+  // https://studentkaren.fi/en/labour-day/little-walpurgis/
+  // That page is what supports the "cap is put away until Wappen" clause,
+  // but 🔴 READ ITS WORDING CAREFULLY BEFORE RE-VERIFYING. It says the
+  // students "put the hat away until the next May". WAPPEN IS 30 APRIL. In
+  // that sentence "the next May" means the next May Day period, the festival,
+  // NOT the day the cap goes back on: the cap goes on at Vårdberget on the
+  // evening of 30 April, which is May Eve. Do not "correct" either claim to
+  // 1 May, or to "May", on the strength of that sentence. That collapse is
+  // exactly the error this project has already made three times.
+  //
+  // The 30 April versus 1 May distinction is carried by the other ÅAS page,
+  // the one cited on `wappen` above:
+  // https://studentkaren.fi/en/labour-day/a-few-have-asked-and-some-wonder-what-do-you-do-on-may-day-in-abo/
+  // which states it in as many words ("In Swedish, Vappen usually refers to
+  // 30 April and May Day usually refers to the 1st of May").
+  //
+  // Both ÅAS pages are needed to check these two facts. Do not merge them
+  // onto one source.
   //
   // Do not pin a calendar date on Lilla Wappen. ÅAS describes it both as the
   // last day of September and as the last Saturday, which coincided in 2023
@@ -538,6 +595,31 @@ export function getFact(id: string): Fact {
     );
   }
   return fact;
+}
+
+/**
+ * True once a fact's `expires` date has passed, so a surface can say the claim
+ * is awaiting re-verification instead of going on asserting it under a stale
+ * checked date. This is the spec's central mitigation for the December
+ * re-verification simply not happening.
+ *
+ * `now` defaults to the current time, which on a static export is BUILD time.
+ * That is intended: rebuilding the site is exactly the moment the board can
+ * act on being told a claim is overdue.
+ *
+ * The comparison is deliberately byte-for-byte the same rule as
+ * findExpiredFacts in scripts/check-facts.mjs, so the page and the check
+ * script can never disagree about whether a fact has lapsed. Both compare
+ * against the start of the expiry day, so the expiry date itself is not yet
+ * past. Covered by scripts/check-facts.test.mjs.
+ */
+export function isFactExpired(
+  fact: Pick<Fact, "status" | "expires">,
+  now: Date = new Date(),
+): boolean {
+  if (fact.status === "owner-confirm") return false;
+  if (!fact.expires) return false;
+  return new Date(fact.expires) < now;
 }
 
 /** Serialises the register so scripts/check-facts.mjs can validate the real data. */

@@ -7,7 +7,7 @@ import { Text, Link as ChakraLink, Badge, VStack } from "@chakra-ui/react";
 // discards the return value rather than rendering it, so it does not need
 // this file's fallback handling. Anywhere that wants to render a claim must
 // use getFact, which throws on an unconfirmed fact.
-import { readFactUnchecked } from "@/content/arrival-facts";
+import { isFactExpired, readFactUnchecked } from "@/content/arrival-facts";
 
 interface FactNoteProps {
   id: string;
@@ -46,6 +46,13 @@ export function FactNote({ id, fallback }: FactNoteProps) {
  * The "checked on, with source" line that every published number carries.
  * A non-http source (for example "owner-confirmed:2026-08-01") renders the
  * checked date with no link, because there is no public page to point at.
+ *
+ * Once a fact is past its `expires` date the checked date is replaced by an
+ * "Awaiting re-verification" badge, in the same treatment FactNote already
+ * uses for a fact awaiting owner confirmation. Without this the guide would
+ * keep asserting a lapsed claim as current under a stale date, which is the
+ * one failure the register's expiry dates exist to prevent. The source link
+ * stays, because that is the link a re-verifier needs.
  */
 export function FactSource({ id }: { id: string }) {
   const fact = readFactUnchecked(id);
@@ -55,7 +62,13 @@ export function FactSource({ id }: { id: string }) {
 
   return (
     <Text fontSize="xs" color="fg.muted">
-      Checked {fact.checked}
+      {isFactExpired(fact) ? (
+        <Badge colorPalette="esn.orange" size="sm">
+          Awaiting re-verification
+        </Badge>
+      ) : (
+        <>Checked {fact.checked}</>
+      )}
       {isExternal ? (
         <>
           {" · "}

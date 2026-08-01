@@ -60,8 +60,11 @@ const ROWS: Row[] = [
   {
     topic: "Student union membership",
     exchange: "Optional. Join by paying the fee, which unlocks the student card.",
-    degree: "Automatic under Finnish law.",
-    doctoral: "As for degree students.",
+    degree: "Automatic. Membership is compulsory by law.",
+    // Not "as for degree students": ÅAS says licentiate and doctoral
+    // students join voluntarily, exactly as exchange students do. The
+    // compulsory-by-law rule covers degree students only.
+    doctoral: "Optional, as for exchange students. Join by paying the fee.",
     factIds: ["studentUnion"],
   },
   {

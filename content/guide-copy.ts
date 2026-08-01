@@ -78,6 +78,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
     ],
     notes: [
       "Turku is the Finnish name for the city and Åbo is the Swedish name. Same place, two languages. You will meet both on signs, on tickets and in our own name.",
+      "Streets carry both names too, and the two versions of one street often look nothing like each other. A street sign, a bus display and a map app may each show you a different one, and addresses in this guide and elsewhere are written sometimes in one language and sometimes in the other. If an address does not match what is in front of you, check the other language before you decide you are lost.",
       "If you need a residence permit, start that application before anything else on this page. Most things here can be rushed later. Immigration cannot.",
       "Pack layers rather than one heavy coat. Buildings here are warm and the outdoors is not, and you spend your day moving between the two.",
       "Bring the medication you rely on and its prescription. Setting up a repeat prescription in a new country takes longer than you expect.",
@@ -188,7 +189,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         after: "vaskiLibrary",
       },
       {
-        text: "Do not assume everything will happen in English. Check the language of instruction for your own programme before you arrive, and ask your department what it handles in English.",
+        text: "Say something the first time a room slides out of English and you lose the thread. Asking people to switch back is ordinary here and nobody will think less of you for it. Sitting quietly through a whole term is the thing that actually goes wrong.",
         after: "languageOfInstruction",
       },
       {

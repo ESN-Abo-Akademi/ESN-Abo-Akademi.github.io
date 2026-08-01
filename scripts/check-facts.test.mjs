@@ -5,6 +5,10 @@ import {
   findUnsourcedFacts,
   findFactsMissingOwner,
 } from "./check-facts.mjs";
+// The predicate the PAGE uses, imported from the register itself. It has to
+// agree with findExpiredFacts above at the boundary, or the check script and
+// the published page would disagree about whether a claim has lapsed.
+import { isFactExpired } from "../content/arrival-facts.ts";
 
 const facts = {
   fresh: {
@@ -116,6 +120,30 @@ test("findFactsMissingOwner flags a verified fact with no owner", () => {
     findFactsMissingOwner(facts).map((f) => f.id),
     ["orphan"],
   );
+});
+
+test("isFactExpired treats the expiry date itself as not yet expired", () => {
+  const fact = { status: "verified", expires: "2026-12-15" };
+  assert.equal(isFactExpired(fact, new Date("2026-12-15")), false);
+  assert.equal(isFactExpired(fact, new Date("2026-12-16")), true);
+});
+
+test("isFactExpired agrees with findExpiredFacts at the same boundary", () => {
+  const onTheDay = new Date("2026-07-01");
+  assert.equal(isFactExpired(facts.stale, onTheDay), false);
+  assert.deepEqual(findExpiredFacts(facts, onTheDay).map((f) => f.id), []);
+
+  const dayAfter = new Date("2026-07-02");
+  assert.equal(isFactExpired(facts.stale, dayAfter), true);
+  assert.deepEqual(findExpiredFacts(facts, dayAfter).map((f) => f.id), [
+    "stale",
+  ]);
+});
+
+test("isFactExpired never flags a fact with no expiry date", () => {
+  const far = new Date("2030-01-01");
+  assert.equal(isFactExpired(facts.pending, far), false);
+  assert.equal(isFactExpired({ status: "verified", expires: null }, far), false);
 });
 
 test("findFactsMissingOwner ignores owner-confirm facts", () => {
