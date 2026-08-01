@@ -51,7 +51,7 @@ export default function SurvivalGuidePage() {
             help, and the traditions you will meet along the way.
           </Text>
           <Text color="fg.muted">
-            Written for students at Åbo Akademi University, in the order you
+            Written for students in Turku (Åbo), in the order you
             will actually need it. Where the answer depends on what kind of
             student you are, it says so, starting with the table below.
           </Text>
