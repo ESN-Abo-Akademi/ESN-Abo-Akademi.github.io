@@ -158,4 +158,31 @@
     orphans: 3;
     widows: 3;
   }
+
+  /* The "Åbo Akademi" marker (components/ui/fact-note.tsx) tells a reader
+     at another institution which claims are not about them. The PDF is the
+     copy that actually circulates, so the marker has to survive printing,
+     and it cannot rely on a background colour: Chrome drops backgrounds
+     from print output unless the page asks for them, which would leave a
+     `subtle` badge as unmarked dark-on-white text indistinguishable from
+     the sentence it qualifies. The badge is already `variant="outline"`
+     for that reason; these rules pin the border and the ink down
+     explicitly rather than trusting whatever the palette resolves to, and
+     ask for exact colour so the border is not dropped either. Never let it
+     split from its claim. */
+  .institution-marker {
+    /* Both colours spelled out rather than left to `currentColor` or to a
+       Chakra token: this is the one rule standing between the marker and a
+       PDF in which it is invisible, and the CSS minifier drops
+       `currentColor` from the `border` shorthand as a redundant initial
+       value. #2e3192 is esn.darkBlue.500 in components/ui/theme.ts. On
+       screen the badge keeps its own outline-variant colours; this rule
+       only applies when printing. */
+    border: 1px solid #2e3192 !important;
+    color: #2e3192 !important;
+    background: transparent !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    break-inside: avoid;
+  }
 }

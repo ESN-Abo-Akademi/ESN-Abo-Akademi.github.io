@@ -23,7 +23,7 @@ import "./print.css";
 export const metadata: Metadata = {
   title: "Survival guide",
   description:
-    "The full ESN Åbo Akademi survival guide for new students at Åbo Akademi University in Turku (Åbo): before you travel, arrival night, your first week, living here, getting around and getting help, and Åbo Akademi culture explained.",
+    "The full ESN Åbo Akademi survival guide for new students in Turku (Åbo), whichever institution you study at: before you travel, arrival night, your first week, living here, getting around and getting help, and student traditions explained. Anything specific to Åbo Akademi is marked as such.",
 };
 
 const EDITION = "Edition 1";
@@ -51,9 +51,12 @@ export default function SurvivalGuidePage() {
             help, and the traditions you will meet along the way.
           </Text>
           <Text color="fg.muted">
-            Written for students in Turku (Åbo), in the order you
-            will actually need it. Where the answer depends on what kind of
-            student you are, it says so, starting with the table below.
+            Written for every student in Turku (Åbo), whichever institution
+            you study at, in the order you will actually need it. Most of it
+            is the same wherever you are enrolled. Where the answer depends
+            on what kind of student you are, it says so, starting with the
+            table below, and anything specific to Åbo Akademi carries a
+            marker.
           </Text>
           <Text fontSize="sm" fontWeight="bold" color="fg.muted">
             {EDITION} · Facts checked {LAST_CHECKED}

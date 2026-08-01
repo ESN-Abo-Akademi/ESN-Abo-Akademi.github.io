@@ -1,5 +1,9 @@
 import { Heading, List, Text, VStack } from "@chakra-ui/react";
-import { FactNote, FactSource } from "@/components/ui/fact-note";
+import {
+  FactNote,
+  FactSource,
+  InstitutionMarker,
+} from "@/components/ui/fact-note";
 import { getFact } from "@/content/arrival-facts";
 import {
   sectionBlocks,
@@ -25,9 +29,19 @@ interface GuideSectionProps {
  * fact is safe to publish, so it renders through `getFact` plus
  * `FactSource`), the same pattern app/(frontend)/arriving/page.tsx uses.
  *
+ * Either way the fact block also carries an `InstitutionMarker`, which
+ * renders the "Åbo Akademi" flag for a claim that is true only there and
+ * nothing at all for the rest. The guide is written for every student in
+ * Turku (Åbo); the marker is what stops a reader at another institution
+ * taking an Åbo Akademi term date or library as their own. What to look
+ * for instead is prose, so it lives in content/guide-copy.ts next to the
+ * fact it qualifies, not here.
+ *
  * No prose is authored here. Every user-visible string comes from
  * `section` (itself sourced from content/guide-copy.ts) or from the fact
- * register.
+ * register. The marker's own word, "Åbo Akademi", is the name of an
+ * institution rather than copy, and it is written once in
+ * components/ui/fact-note.tsx.
  *
  * Three print-only class names, none with any effect on screen (see
  * app/(frontend)/survival-guide/print.css for the rules):
@@ -72,10 +86,14 @@ export function GuideSection({ section }: GuideSectionProps) {
             {block.kind === "note" ? (
               <Text as="span">{block.text}</Text>
             ) : block.fallback !== undefined ? (
-              <FactNote id={block.id} fallback={block.fallback} />
+              <>
+                <FactNote id={block.id} fallback={block.fallback} />
+                <InstitutionMarker id={block.id} />
+              </>
             ) : (
               <>
-                <Text as="span">{getFact(block.id).claim}</Text>
+                <Text as="span">{getFact(block.id).claim}</Text>{" "}
+                <InstitutionMarker id={block.id} />
                 <FactSource id={block.id} />
               </>
             )}

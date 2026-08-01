@@ -16,6 +16,36 @@ interface FactNoteProps {
 }
 
 /**
+ * The quiet "Åbo Akademi" marker that a fact carries when it is true only at
+ * Åbo Akademi, or is ESN Åbo Akademi's own. Renders nothing at all for a fact
+ * that holds for any student in the city, which is most of the register.
+ *
+ * The guide is written for every student in Turku (Åbo), so a reader at
+ * another institution needs to be able to see, at a glance, which lines are
+ * not about them. `content/guide-copy.ts` carries the prose that names what
+ * to look for instead; this is only the flag.
+ *
+ * Deliberately `variant="outline"`: the printed PDF is the copy that gets
+ * forwarded, and a border and dark text survive printing whether or not the
+ * browser is printing background colours. `institution-marker` is the hook
+ * app/(frontend)/survival-guide/print.css uses to pin that down; it has no
+ * effect on screen.
+ */
+export function InstitutionMarker({ id }: { id: string }) {
+  if (readFactUnchecked(id).institution === "all") return null;
+
+  return (
+    <Badge
+      colorPalette="esn.darkBlue"
+      variant="outline"
+      size="sm"
+      className="institution-marker">
+      Åbo Akademi
+    </Badge>
+  );
+}
+
+/**
  * Renders a fact from the register. A fact with status "owner-confirm" never
  * renders its claim, only the fallback, so an unverified value cannot reach
  * the published page.

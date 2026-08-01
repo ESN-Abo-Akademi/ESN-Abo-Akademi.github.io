@@ -23,12 +23,22 @@ const TABLE_HEADING_ID = "audience-table-heading";
 const ROWS: Row[] = [
   {
     topic: "Föli student travel card",
+    // Not "not eligible": see the long note on `foliStudentCard` in the
+    // register. Föli's nine-month test is met by a full academic year, its
+    // own worked example of one is September to May, and it grants the
+    // discount to partial-degree students on the same terms. A flat denial
+    // asserts more than the page does, so this cell branches on the length
+    // of the studies and sends the reader to Föli.
     exchange:
-      "One-semester exchange: not eligible — Föli requires at least nine months of degree-leading study. Full-year exchanges (September–May) can qualify; confirm at a Föli service point.",
+      "Depends on your studies. Föli asks for full-time study of at least nine months in total, so a full academic year can qualify and a single semester may not. Ask Föli about your own case before you buy a card.",
     degree:
       "Eligible if you are 20 or over, studying full time toward a degree, and registered in the Föli region.",
+    // This exclusion, unlike the exchange one, is explicit on the page and
+    // is not softened: "The student card will not be granted to:
+    // Post-graduate students ... such as licentiate or doctorate students".
+    // The Licentiate in Medicine exception is stated in the same sentence.
     doctoral:
-      "Not eligible as a rule — Föli's student discount excludes postgraduate study.",
+      "Not eligible. Föli excludes licentiate and doctorate students, apart from students of a Licentiate in Medicine.",
     factIds: ["foliStudentCard"],
   },
   {
@@ -60,7 +70,15 @@ const ROWS: Row[] = [
   {
     topic: "Student union membership",
     exchange: "Optional. Join by paying the fee, which unlocks the student card.",
-    degree: "Automatic. Membership is compulsory by law.",
+    // This guide is read by students across Turku (Åbo), and "compulsory by
+    // law" is not true of all of them: the Universities Act makes membership
+    // compulsory for university degree students, and a university of applied
+    // sciences is not a university for that purpose. The cell says which rule
+    // it is stating and sends everyone else to their own union, rather than
+    // publishing a claim about an institution ESN Åbo Akademi cannot
+    // re-verify.
+    degree:
+      "Automatic at Åbo Akademi, where membership is compulsory by law for university degree students. If you study elsewhere in Turku (Åbo), check with your own student union.",
     // Not "as for degree students": ÅAS says licentiate and doctoral
     // students join voluntarily, exactly as exchange students do. The
     // compulsory-by-law rule covers degree students only.
@@ -190,8 +208,8 @@ export function AudienceTable() {
         </VStack>
       </Box>
       <Text fontSize="xs" color="fg.muted">
-        Every row was checked against the official sources on 1 August 2026 —
-        rules can change, so confirm anything critical with the provider.
+        Every row was checked against the official sources on 1 August 2026.
+        Rules change, so confirm anything critical with the provider.
       </Text>
     </VStack>
   );

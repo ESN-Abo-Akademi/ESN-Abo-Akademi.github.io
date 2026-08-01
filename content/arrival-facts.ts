@@ -9,6 +9,27 @@
 export type FactStatus = "verified" | "owner-confirm";
 export type Audience = "exchange" | "degree" | "doctoral";
 
+/**
+ * Whether a claim holds for any student in Turku (Åbo), or only at Åbo
+ * Akademi. The guide is written for every student in the city, so a claim
+ * that is true only at one institution has to say so on the page rather
+ * than leave a reader at another one to find out the hard way.
+ *
+ * "abo-akademi" covers two things that look different but behave the same
+ * way for a reader: facts about Åbo Akademi University (its term dates, its
+ * library, its student system) and facts about ESN Åbo Akademi itself (our
+ * office, our ESNcard, our SIM cards). Both are marked, and the guide's
+ * opening note explains what the marker means.
+ *
+ * Do NOT mark a fact "abo-akademi" just because we found it on abo.fi or
+ * because the claim names Åbo Akademi. `livingCosts` is Åbo Akademi's own
+ * published estimate and `banking` is Åbo Akademi's own advice, but both
+ * describe something that holds for anyone arriving in Finland, and both
+ * already carry that attribution in the claim itself. The test is who the
+ * claim is TRUE for, not who published it.
+ */
+export type Institution = "all" | "abo-akademi";
+
 export interface Fact {
   id: string;
   claim: string;
@@ -19,6 +40,8 @@ export interface Fact {
   /** ISO date after which the claim must not be published unchecked. */
   expires: string | null;
   audiences: Audience[];
+  /** Who the claim is true for: any student in the city, or only at Åbo Akademi. */
+  institution: Institution;
   status: FactStatus;
   /** Who re-verifies this in August and December. A role, not a person, so it survives board turnover. */
   owner: string;
@@ -39,6 +62,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -51,6 +75,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: null,
     expires: null,
     audiences: ALL,
+    institution: "abo-akademi",
     status: "owner-confirm",
     owner: "board",
     volatility: "high",
@@ -70,6 +95,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -83,6 +109,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "medium",
@@ -97,6 +124,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -111,19 +139,54 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "high",
     usedIn: ["arriving", "survival-guide"],
   },
+  // 🔴 Read this before you restore a flat "exchange students are not
+  // eligible" to the claim below. That sentence was here, and it over-read
+  // the source.
+  //
+  // Föli's exclusion list ends with the bare line "Students studying
+  // abroad." An earlier version of this claim repeated it and then drew a
+  // conclusion the page does not draw: "so a one-semester exchange student
+  // does not qualify." In a Finnish transit authority's eligibility list,
+  // read next to the criterion directly above it ("The student studies at
+  // ... an institute of higher education located in Finland"), that line
+  // most plausibly means people enrolled at an institution ABROAD. An
+  // incoming exchange student is enrolled at an institution in Finland.
+  // The positive criterion is stated below instead of the ambiguous
+  // negative, because in a guide read by incoming students the negative
+  // invites exactly the misreading it caused here.
+  //
+  // Two further things on the page cut against a flat denial:
+  //   - the nine-month test is met by a full academic year, and Föli's own
+  //     worked example of an academic year is "September to May", which is
+  //     what a full-year exchange runs.
+  //   - "Student discount is also granted if ... Partial degree students
+  //     (on a full-time basis and the total duration of your studies is at
+  //     least one academic year (9 months))" is a separate route that does
+  //     not require the studies to lead to a degree at the Finnish
+  //     institution at all.
+  // So the honest answer is that it depends on the length and kind of the
+  // studies, and the actionable instruction is to ask Föli first.
+  //
+  // The postgraduate exclusion, by contrast, IS explicit and must not be
+  // softened: "The student card will not be granted to: Post-graduate
+  // students of universities and other institutes of higher education,
+  // such as licentiate or doctorate students." Keep the Licentiate in
+  // Medicine exception with it; the page states that in the same sentence.
   foliStudentCard: {
     id: "foliStudentCard",
     claim:
-      "The Föli student travel-card discount requires full-time study leading to a qualification or degree lasting at least one academic year (minimum nine months), a home or temporary address in the Föli region, and age 20 or over. Students studying abroad are excluded, so a one-semester exchange student does not qualify. An ESNcard is accepted as proof of student status but does not create eligibility. The student discount never applies to single tickets.",
+      "The Föli student travel-card discount requires full-time study at an educational institution in Finland, studies that under normal circumstances lead to a qualification or degree, an estimated total duration of at least one academic year of at least nine months (Föli's own example is September to May), a home or temporary address in the Föli region, and age 20 or over. Föli also grants the discount to partial-degree students on those same full-time, nine-month terms. Whether an exchange student meets all of this depends on how long and what kind of studies you are doing, and a single semester in particular may not, so check your own case with Föli before you buy a card or queue at a service point. Licentiate and doctorate students are excluded, apart from students of a Licentiate in Medicine. An ESNcard is accepted as proof of student status but does not create eligibility. The student discount never applies to single tickets.",
     source: "https://www.foli.fi/en/tickets/travel-cards/students",
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "medium",
@@ -137,6 +200,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -150,6 +214,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ["exchange"],
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "medium",
@@ -163,6 +228,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ["degree"],
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -176,6 +242,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ["doctoral"],
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "medium",
@@ -189,6 +256,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -202,6 +270,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -215,6 +284,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -228,6 +298,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -242,6 +313,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ["degree", "doctoral"],
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "medium",
@@ -256,6 +328,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -270,6 +343,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ["exchange"],
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "medium",
@@ -310,19 +384,26 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "medium",
     usedIn: ["arriving", "survival-guide"],
   },
+  // Widened from "CampusSport covers Åbo Akademi students", which was true
+  // but read as though it were an Åbo Akademi service. The cited page names
+  // all four institutions in one sentence, so a guide written for every
+  // student in the city can say so. Do not narrow it back: the four are what
+  // the source says, and it says nothing about any other institution.
   campusSport: {
     id: "campusSport",
     claim:
-      "CampusSport covers Åbo Akademi students and gives access to gyms, group classes and ball games. Check the current fee on the CampusSport site before paying.",
+      "CampusSport is shared by the University of Turku, Turku University of Applied Sciences, Åbo Akademi University and Novia University of Applied Sciences, and gives their degree, exchange and open studies students access to gyms, group classes and ball games. Postgraduate students pay the staff price. Check the current fee on the CampusSport site before paying.",
     source: "https://www.campussport.fi/en/prices/",
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -348,6 +429,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -362,6 +444,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -375,6 +458,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ["exchange", "degree"],
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -388,6 +472,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ["doctoral"],
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "medium",
@@ -401,6 +486,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2027-06-01",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -414,6 +500,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2027-06-01",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -427,6 +514,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2027-06-01",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -440,6 +528,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2027-06-01",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -453,6 +542,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2027-06-01",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -466,6 +556,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2027-06-01",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -479,6 +570,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "medium",
@@ -492,6 +584,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2026-12-15",
     audiences: ALL,
+    institution: "all",
     status: "verified",
     owner: "board",
     volatility: "high",
@@ -540,6 +633,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2027-03-01",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "low",
@@ -553,6 +647,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     checked: "2026-08-01",
     expires: "2027-03-01",
     audiences: ALL,
+    institution: "abo-akademi",
     status: "verified",
     owner: "board",
     volatility: "low",

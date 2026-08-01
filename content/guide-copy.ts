@@ -24,10 +24,29 @@
 // which `getFact` refuses to publish: render those with `FactNote` and this
 // string. The fallback is copy, so it lives here and not in a component.
 //
+// WHO THIS IS FOR. Every student in Turku (Åbo), whichever institution they
+// study at, not only students at Åbo Akademi. That is a rule about the
+// writing, not just the framing: the spine of this guide stays
+// institution-neutral, and a fact that holds only at Åbo Akademi carries the
+// register's `institution: "abo-akademi"` flag, which renders as a marker
+// next to the claim.
+//
+// A marker on its own still leaves a reader at another institution stuck, so
+// where an Åbo Akademi fact would strand them, this file carries a short
+// prose pointer bound to that fact, naming the equivalent to go and find:
+// their own student union, their own student system and WiFi, their own
+// library, their own term dates. Those pointers carry NO numbers, addresses,
+// URLs or opening hours for any other institution, deliberately. ESN Åbo
+// Akademi cannot re-verify facts it does not control and will not hear about
+// when they change, so publishing them would create exactly the rot the
+// register exists to prevent. Name the thing; let the reader look it up.
+//
 // Editorial rules that bind this file: no em dashes, `Turku (Åbo)` on first
 // mention, no competing cafe, nightlife, restaurant or day-trip lists, no
 // advice stated as universal where the register branches it by student type,
-// and the other Turku sections are never named or counted.
+// and the other Turku sections are never named or counted. Naming other
+// institutions and their student unions (TYY, Novium, TUAS) is fine and is
+// required by the rule above; that last rule is about ESN sections only.
 //
 // See docs/superpowers/specs/2026-08-01-esn-aa-arrival-content-design.md
 
@@ -77,6 +96,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       "banking",
     ],
     notes: [
+      "This guide is for every student in Turku (Åbo), whichever institution you study at. Most of what follows is the same wherever you are enrolled, because it comes from the city, from Kela, from Föli, or from services the institutions run together. Where something is specific to Åbo Akademi, or to us, it carries an Åbo Akademi marker, and the line next to it tells you what to go and find at your own institution instead.",
       "Turku is the Finnish name for the city and Åbo is the Swedish name. Same place, two languages. You will meet both on signs, on tickets and in our own name.",
       "Streets carry both names too, and the two versions of one street often look nothing like each other. A street sign, a bus display and a map app may each show you a different one, and addresses in this guide and elsewhere are written sometimes in one language and sometimes in the other. If an address does not match what is in front of you, check the other language before you decide you are lost.",
       "If you need a residence permit, start that application before anything else on this page. Most things here can be rushed later. Immigration cannot.",
@@ -84,6 +104,10 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       "Bring the medication you rely on and its prescription. Setting up a repeat prescription in a new country takes longer than you expect.",
       "Leave room in the bag. You will buy bedding, a reflector and probably a set of overalls in your first weeks.",
       "Collect every signature and stamp your home university might want while you are still on the same campus as the people who sign things.",
+      {
+        text: "Those two dates are Åbo Akademi's. Term dates, Arrival Day and orientation all differ from one institution to another, sometimes by a week or more, so take yours from your own institution and use these only for the shape of the semester. Everything else on this page keys off your own dates, not these.",
+        after: "arrivalSpring2027",
+      },
       {
         text: "Apply on the day the window opens, not on the day your acceptance letter arrives. Those are two different dates, and the rooms go early.",
         after: "tysApplication",
@@ -146,7 +170,15 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       "Write down who to ask for what: your tutor for daily questions, the international coordinators for courses and credits, your housing provider for the flat, and us for the rest.",
       "Bring your receipts when you collect the starting package, on paper or as a screenshot that opens without WiFi.",
       {
+        text: "Every institution has its own student system, its own IT account and its own campus WiFi. Peppi and Eduroam are Åbo Akademi's. Whatever yours are called, you get them at orientation and almost everything else digital hangs off them, so log in on the first day rather than the day you need them. Your own international office, not ours, is the one that signs your paperwork.",
+        after: "exchangeContact",
+      },
+      {
         text: "Whether you join the student union or already belong to it depends on what kind of student you are, so read your row before you queue at a desk. Either way, settle it in your first week, because the starting package and the student card both assume it is done.",
+        after: "studentUnion",
+      },
+      {
+        text: "Åbo Akademi's student union is ÅAS. Every institution in the city has its own, and TYY, Novium and TUAS are the three that run the starting package store together with ÅAS. Find yours, because your membership, your fee and your student card come from it and not from us.",
         after: "studentUnion",
       },
       {
@@ -171,7 +203,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
     id: "living-here",
     title: "Living here",
     intro:
-      "Your quarter is small. Almost everything you need day to day sits in the few streets around the Cathedral and the Åbo Akademi buildings, and this section is about learning that square properly: the few minutes of walking you will do every day for a year.",
+      "Your quarter is small. Whichever campus you are attached to, almost everything you need day to day sits in a few streets around it, and for Åbo Akademi that is the square by the Cathedral. This section is about learning yours properly: the few minutes of walking you will do every day for a year.",
     factIds: [
       "library",
       "vaskiLibrary",
@@ -180,6 +212,10 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       "languageCentre",
     ],
     notes: [
+      {
+        text: "Every institution in Turku (Åbo) has its own library and its own course book collection, and Arken and Astra are Åbo Akademi's. Find yours in the first week. A course book you borrow is a course book you did not buy, and the reading lists all assume you found the shelf.",
+        after: "library",
+      },
       "Start with Kårkaféerna, the student union's own cafés. They are inside the quarter, they are run for students rather than for visitors, and you can sit in one with a laptop all afternoon.",
       "Ask whoever is behind the counter what they would order, and ask the person next to you in the queue where they go on a Thursday. We do not print our own list of places here, because anything we printed would have moved on by the time you read it, and because asking is how you end up with company rather than an address.",
       "For what is on in the city, use Turku's own event listings. For what is on with us, our events page is the live one, and it is worth coming to the first few even when you are tired. The people you meet in your first weeks tend to be the people you travel with in spring.",
