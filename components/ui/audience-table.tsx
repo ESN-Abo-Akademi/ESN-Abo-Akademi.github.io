@@ -1,27 +1,26 @@
 import { Table, Box, Text, Heading, HStack, VStack } from "@chakra-ui/react";
 import { FactSource } from "@/components/ui/fact-note";
+import { readFactUnchecked } from "@/content/arrival-facts";
 
 interface Row {
   topic: string;
   exchange: string;
   degree: string;
   doctoral: string;
+  /** Register ids this row summarises. Rendered as provenance and checked at build. */
+  factIds: string[];
 }
 
 const TABLE_HEADING_ID = "audience-table-heading";
 
-// Each cell below is a deliberately terser summary of register entries in
-// content/arrival-facts.ts. The register is the source of truth; when it is
-// re-verified in December, update the matching rows here in the same pass.
-//
-//   Föli student travel card  ->  foliStudentCard
-//   Healthcare                ->  healthExchange, healthDegree, healthDoctoral
-//   Housing                   ->  tysApplication (Tavasthem has no entry yet)
-//   Student union membership  ->  studentUnion
-//   Banking                   ->  banking
+// Each cell below is a deliberately terser summary of the register entries
+// listed in that row's factIds. The register is the source of truth; when it
+// is re-verified in December, update the matching rows here in the same
+// pass. The check below fails the build if a row cites an id that was
+// renamed or removed from the register, so a stale row cannot go unnoticed.
 //
 // Any exact figure in a cell must also appear in the register, so that the
-// provenance line below the table covers it.
+// provenance rendered below the table covers it.
 const ROWS: Row[] = [
   {
     topic: "Föli student travel card",
@@ -30,6 +29,16 @@ const ROWS: Row[] = [
     degree:
       "Eligible if you are 20 or over, studying full time toward a degree, and registered in the Föli region.",
     doctoral: "Check your own eligibility against the Föli criteria.",
+    factIds: ["foliStudentCard"],
+  },
+  {
+    topic: "Student lunch (Kela meal subsidy)",
+    exchange:
+      "Eligible. A subsidised lunch costs at most 3.10 euro with a Frank, Kide.app, Slice or Tuudo card.",
+    degree: "Eligible on the same terms.",
+    doctoral:
+      "Not eligible. Postgraduate student cards are not accepted for the meal subsidy.",
+    factIds: ["mealSubsidy", "mealSubsidyDoctoral"],
   },
   {
     topic: "Healthcare",
@@ -38,6 +47,7 @@ const ROWS: Row[] = [
     degree:
       "Pay the Kela fee of 35.35 euro per term (2026) and use FSHS. Exempt if you hold social security cover in another EU or EEA country, Switzerland, Great Britain or Northern Ireland, but you may still use FSHS.",
     doctoral: "No Kela fee, and no FSHS access.",
+    factIds: ["healthExchange", "healthDegree", "healthDoctoral"],
   },
   {
     topic: "Housing",
@@ -45,12 +55,14 @@ const ROWS: Row[] = [
     degree:
       "TYS, or Tavasthem, the student union's own house in the centre. Tavasthem leases run for a minimum of 12 months.",
     doctoral: "As for degree students.",
+    factIds: ["tysApplication", "tavasthem"],
   },
   {
     topic: "Student union membership",
     exchange: "Optional. Join by paying the fee, which unlocks the student card.",
     degree: "Automatic under Finnish law.",
     doctoral: "As for degree students.",
+    factIds: ["studentUnion"],
   },
   {
     topic: "Banking",
@@ -58,8 +70,17 @@ const ROWS: Row[] = [
       "Åbo Akademi advises against opening a Finnish account for a single semester. Wise or Revolut are the usual answer.",
     degree: "A Finnish account is normal and worth opening.",
     doctoral: "As for degree students.",
+    factIds: ["banking"],
   },
 ];
+
+// Fails the build if a row cites a register id that was renamed or removed.
+// This is the check Wave 1 lacked, which let six register entries go dead.
+ROWS.forEach((row) =>
+  row.factIds.forEach((id) => {
+    readFactUnchecked(id);
+  }),
+);
 
 /**
  * The exchange / degree / doctoral branching table. Merging these audiences
@@ -103,22 +124,22 @@ export function AudienceTable() {
           </Table.Body>
         </Table.Root>
       </Box>
-      <VStack alignItems="flex-start" gap="1">
+      <VStack alignItems="flex-start" gap="3">
         <Text fontSize="xs" color="fg.muted">
-          Where the rows with a rule or a figure in them come from:
+          Where each row above comes from:
         </Text>
-        <HStack gap="2" alignItems="baseline">
-          <Text fontSize="xs" color="fg.muted">
-            Föli eligibility:
-          </Text>
-          <FactSource id="foliStudentCard" />
-        </HStack>
-        <HStack gap="2" alignItems="baseline">
-          <Text fontSize="xs" color="fg.muted">
-            Kela healthcare fee:
-          </Text>
-          <FactSource id="healthDegree" />
-        </HStack>
+        {ROWS.map((row) => (
+          <VStack key={row.topic} alignItems="flex-start" gap="1">
+            <Text fontSize="xs" fontWeight="bold" color="fg.muted">
+              {row.topic}
+            </Text>
+            <HStack gap="3" flexWrap="wrap">
+              {row.factIds.map((id) => (
+                <FactSource key={id} id={id} />
+              ))}
+            </HStack>
+          </VStack>
+        ))}
       </VStack>
     </VStack>
   );

@@ -144,7 +144,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: [],
+    usedIn: ["arriving"],
   },
   healthDegree: {
     id: "healthDegree",
@@ -170,7 +170,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: [],
+    usedIn: ["arriving"],
   },
   emergency: {
     id: "emergency",
@@ -222,6 +222,20 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "low",
+    usedIn: ["arriving"],
+  },
+  tavasthem: {
+    id: "tavasthem",
+    claim:
+      "Tavasthem, the student union's own student housing in central Turku (Åbo), signs all leases for a minimum period of 12 months.",
+    source:
+      "https://studentkaren.fi/en/students/residences/tavasthem-student-housing/",
+    checked: "2026-08-01",
+    expires: "2026-12-15",
+    audiences: ["degree", "doctoral"],
+    status: "verified",
+    owner: "board",
+    volatility: "medium",
     usedIn: ["arriving"],
   },
   livingCosts: {
@@ -316,7 +330,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["survival-guide"],
+    usedIn: ["survival-guide", "arriving"],
   },
   mealSubsidyDoctoral: {
     id: "mealSubsidyDoctoral",
@@ -329,7 +343,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: ["survival-guide"],
+    usedIn: ["survival-guide", "arriving"],
   },
   daylight: {
     id: "daylight",
@@ -427,10 +441,13 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
 /**
  * Reads a fact of any status, including one still awaiting owner confirmation.
  *
- * Only the FactNote and FactSource components in components/ui/fact-note.tsx
- * may call this. They are the two places that know how to render an
- * unconfirmed fact safely, by showing a fallback and never the claim. Page
- * code must use getFact, which refuses unconfirmed facts outright.
+ * The FactNote and FactSource components in components/ui/fact-note.tsx are
+ * the only places that render a fact's claim from this call, and they do so
+ * safely by showing a fallback and never the claim for an unconfirmed fact.
+ * components/ui/audience-table.tsx also calls this directly, but only to
+ * confirm each factId still exists in the register; it discards the return
+ * value rather than rendering it. Anywhere else that wants to render a claim
+ * must use getFact, which refuses unconfirmed facts outright.
  */
 export function readFactUnchecked(id: string): Fact {
   const fact = ARRIVAL_FACTS[id];
