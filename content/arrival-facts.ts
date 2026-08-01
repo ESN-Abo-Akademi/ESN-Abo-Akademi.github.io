@@ -1,5 +1,7 @@
-// Arrival fact register. Every published claim on /arriving lives here with
-// its provenance. Page components read this file and never hardcode a fact.
+// Arrival fact register. Every published claim on /arriving and in the
+// survival guide lives here with its provenance. Page components read this
+// file and never hardcode a fact. `usedIn` names the surfaces that render
+// each entry, so a claim nothing uses stays visible instead of rotting.
 //
 // Re-verify every August and December, six weeks before each intake.
 // See docs/superpowers/specs/2026-08-01-esn-aa-arrival-content-design.md
@@ -40,7 +42,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "low",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   officeHours: {
     id: "officeHours",
@@ -52,7 +54,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "owner-confirm",
     owner: "board",
     volatility: "high",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   esncardPrice: {
     id: "esncardPrice",
@@ -78,7 +80,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   arrivalAutumn2026: {
     id: "arrivalAutumn2026",
@@ -92,7 +94,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   arrivalSpring2027: {
     id: "arrivalSpring2027",
@@ -106,7 +108,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   foliStudentCard: {
     id: "foliStudentCard",
@@ -119,7 +121,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   foliCardCost: {
     id: "foliCardCost",
@@ -132,7 +134,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   healthExchange: {
     id: "healthExchange",
@@ -145,7 +147,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   healthDegree: {
     id: "healthDegree",
@@ -158,7 +160,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   healthDoctoral: {
     id: "healthDoctoral",
@@ -171,7 +173,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   emergency: {
     id: "emergency",
@@ -184,7 +186,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "low",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   startingPackage: {
     id: "startingPackage",
@@ -197,7 +199,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   tysApplication: {
     id: "tysApplication",
@@ -210,7 +212,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   tysKeyLocker: {
     id: "tysKeyLocker",
@@ -223,7 +225,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "low",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   tavasthem: {
     id: "tavasthem",
@@ -251,7 +253,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   banking: {
     id: "banking",
@@ -265,7 +267,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   studentUnion: {
     id: "studentUnion",
@@ -278,7 +280,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   campusSport: {
     id: "campusSport",
@@ -291,7 +293,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: [],
+    usedIn: ["survival-guide"],
   },
   library: {
     id: "library",
@@ -304,7 +306,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "low",
-    usedIn: [],
+    usedIn: ["survival-guide"],
   },
   exchangeContact: {
     id: "exchangeContact",
@@ -318,7 +320,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "low",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   mealSubsidy: {
     id: "mealSubsidy",
@@ -331,7 +333,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
-    usedIn: ["survival-guide", "arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   mealSubsidyDoctoral: {
     id: "mealSubsidyDoctoral",
@@ -344,7 +346,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: ["survival-guide", "arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   daylight: {
     id: "daylight",
@@ -411,6 +413,19 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     volatility: "low",
     usedIn: ["survival-guide"],
   },
+  languageOfInstruction: {
+    id: "languageOfInstruction",
+    claim:
+      "Åbo Akademi describes itself as the Swedish-language multidisciplinary academic university in Finland. Which language a given course, service or form actually runs in varies, so check the language of instruction for your own programme and ask your department what it handles in English.",
+    source: "https://www.abo.fi/en/about-abo-akademi-university/",
+    checked: "2026-08-01",
+    expires: "2027-06-01",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["survival-guide"],
+  },
   languageCentre: {
     id: "languageCentre",
     claim:
@@ -435,6 +450,36 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "high",
+    usedIn: ["survival-guide"],
+  },
+  // The two entries below exist because a draft of the guide put Wappen on
+  // 1 May. The student celebration is the evening before. Sources that name
+  // both days next to each other make this easy to collapse, so the date and
+  // the day-after distinction are pinned here rather than left to prose.
+  wappen: {
+    id: "wappen",
+    claim:
+      "Wappen falls on 30 April, May Eve, and not on 1 May. Åbo Akademis Studentkår gathers students at Vårdberget in Turku (Åbo) that evening together with YLE, and the chair of the board calls on students to put their caps on. A May Day dinner at Kåren follows the same night. 1 May is May Day itself, the day after. Check the year's start time with ÅAS before you go.",
+    source: "https://studentkaren.fi/en/category/labour-day/",
+    checked: "2026-08-01",
+    expires: "2027-03-01",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "low",
+    usedIn: ["survival-guide"],
+  },
+  lillaWappen: {
+    id: "lillaWappen",
+    claim:
+      "Lilla Wappen is held at the end of September at Kåren, a sit-down dinner run by Åbo Akademis Studentkår together with several subject associations. The chair announces that autumn has arrived, and students turn their student caps inside out, where they stay until spring. The date, the dress code and the ticket sale are published by ÅAS each year.",
+    source: "https://studentkaren.fi/en/category/labour-day/",
+    checked: "2026-08-01",
+    expires: "2027-03-01",
+    audiences: ALL,
+    status: "verified",
+    owner: "board",
+    volatility: "low",
     usedIn: ["survival-guide"],
   },
 };
