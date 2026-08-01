@@ -86,6 +86,9 @@ export default function ArrivingPage() {
             <Button asChild variant="outline" borderRadius="md">
               <NextLink href="/events">See what is on</NextLink>
             </Button>
+            <Button asChild variant="outline" borderRadius="md">
+              <NextLink href="/survival-guide">Survival guide</NextLink>
+            </Button>
           </HStack>
           <Text fontSize="xs" color="fg.muted">
             Facts on this page were last checked on {LAST_CHECKED}. Facts
