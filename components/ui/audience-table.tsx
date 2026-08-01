@@ -1,5 +1,4 @@
-import { Table, Box, Text, Heading, HStack, VStack } from "@chakra-ui/react";
-import { FactSource } from "@/components/ui/fact-note";
+import { Table, Box, Text, Heading, VStack } from "@chakra-ui/react";
 import { readFactUnchecked } from "@/content/arrival-facts";
 
 interface Row {
@@ -25,10 +24,11 @@ const ROWS: Row[] = [
   {
     topic: "Föli student travel card",
     exchange:
-      "Not eligible. A one-semester exchange fails the nine-month, degree-leading requirement.",
+      "One-semester exchange: not eligible — Föli requires at least nine months of degree-leading study. Full-year exchanges (September–May) can qualify; confirm at a Föli service point.",
     degree:
       "Eligible if you are 20 or over, studying full time toward a degree, and registered in the Föli region.",
-    doctoral: "Check your own eligibility against the Föli criteria.",
+    doctoral:
+      "Not eligible as a rule — Föli's student discount excludes postgraduate study.",
     factIds: ["foliStudentCard"],
   },
   {
@@ -189,23 +189,10 @@ export function AudienceTable() {
           ))}
         </VStack>
       </Box>
-      <VStack alignItems="flex-start" gap="3">
-        <Text fontSize="xs" color="fg.muted">
-          Where each row above comes from:
-        </Text>
-        {ROWS.map((row) => (
-          <VStack key={row.topic} alignItems="flex-start" gap="1">
-            <Text fontSize="xs" fontWeight="bold" color="fg.muted">
-              {row.topic}
-            </Text>
-            <HStack gap="3" flexWrap="wrap">
-              {row.factIds.map((id) => (
-                <FactSource key={id} id={id} />
-              ))}
-            </HStack>
-          </VStack>
-        ))}
-      </VStack>
+      <Text fontSize="xs" color="fg.muted">
+        Every row was checked against the official sources on 1 August 2026 —
+        rules can change, so confirm anything critical with the provider.
+      </Text>
     </VStack>
   );
 }

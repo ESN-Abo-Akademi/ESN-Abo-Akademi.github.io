@@ -55,25 +55,9 @@ export default function SurvivalGuidePage() {
             will actually need it. Where the answer depends on what kind of
             student you are, it says so, starting with the table below.
           </Text>
-          <Box
-            borderWidth="1px"
-            borderColor="esn.orange.500"
-            borderRadius="md"
-            p="4"
-            w="full">
-            <Text fontWeight="bold">
-              {EDITION}. Facts checked {LAST_CHECKED}.
-            </Text>
-            <Text fontSize="sm" color="fg.muted" mt="1">
-              This guide gets saved, printed and forwarded, so a copy can
-              outlive the facts in it. We re-check the whole register every
-              August and December, before each new intake. The current
-              edition always lives at esnabo.org/survival-guide: if you were
-              handed this as a screenshot, a PDF or a link in a group chat,
-              check the live page for anything that looks like it might have
-              moved on since.
-            </Text>
-          </Box>
+          <Text fontSize="sm" fontWeight="bold" color="fg.muted">
+            {EDITION} · Facts checked {LAST_CHECKED}
+          </Text>
           <HStack gap="3" flexWrap="wrap">
             <Button asChild colorPalette="esn.darkBlue" borderRadius="md">
               <NextLink href="/arriving">
