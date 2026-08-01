@@ -29,9 +29,25 @@ interface GuideSectionProps {
  * `section` (itself sourced from content/guide-copy.ts) or from the fact
  * register.
  *
- * `className="guide-print-block"` is the hook app/(frontend)/survival-guide/print.css
- * uses for `break-inside: avoid`, so one section does not split awkwardly
- * across a page boundary when printed. It has no effect on screen.
+ * Three print-only class names, none with any effect on screen (see
+ * app/(frontend)/survival-guide/print.css for the rules):
+ *
+ * - `guide-print-block` on the outer wrapper, for the orphans/widows
+ *   backstop only. It does NOT carry `break-inside: avoid`: a whole
+ *   section (heading, intro and every fact) routinely runs to more than
+ *   one printed page, and Chrome's fragmentation engine responds to
+ *   `break-inside: avoid` on a box taller than a page by deferring the
+ *   *entire* box to the top of the next page rather than laying out what
+ *   fits, which left a near-blank sheet behind it. Verified by rendering
+ *   the PDF and looking at the page, not by reasoning about the CSS.
+ * - `guide-print-heading` on the small heading-plus-intro group, which
+ *   *is* bounded (two short text nodes), so `break-inside: avoid` there is
+ *   safe and keeps the title glued to its lead sentence.
+ * - `guide-print-item` on every `List.Item`: the real per-item unit (a
+ *   bound note, or a claim plus its own `FactSource`) that must never
+ *   split, keeping a "Checked ... source" line from stranding on its own
+ *   page. Unlike the section as a whole, one item is always small enough
+ *   for `break-inside: avoid` to behave.
  */
 export function GuideSection({ section }: GuideSectionProps) {
   return (
@@ -40,15 +56,19 @@ export function GuideSection({ section }: GuideSectionProps) {
       gap="4"
       w="full"
       className="guide-print-block">
-      <Heading as="h2" size="xl">
-        {section.title}
-      </Heading>
-      <Text color="fg.muted" maxW="3xl">
-        {section.intro}
-      </Text>
+      <VStack alignItems="stretch" gap="4" className="guide-print-heading">
+        <Heading as="h2" size="xl">
+          {section.title}
+        </Heading>
+        <Text color="fg.muted" maxW="3xl">
+          {section.intro}
+        </Text>
+      </VStack>
       <List.Root gap="3" ps="5">
         {sectionBlocks(section).map((block, index) => (
-          <List.Item key={`${section.id}-${block.kind}-${index}`}>
+          <List.Item
+            key={`${section.id}-${block.kind}-${index}`}
+            className="guide-print-item">
             {block.kind === "note" ? (
               <Text as="span">{block.text}</Text>
             ) : block.fallback !== undefined ? (

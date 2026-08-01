@@ -26,10 +26,26 @@
  * nothing is left behind.
  *
  * UNLIKE THE CHECKLIST, this guide is deliberately multi-page: it is not
- * forced onto one sheet. `break-inside: avoid` on `.guide-print-block`
- * (rendered by components/ui/guide-section.tsx, one per GUIDE_SECTIONS
- * entry) only keeps a single section from splitting awkwardly across a
- * page boundary.
+ * forced onto one sheet, and most of the six GUIDE_SECTIONS run to more
+ * than one printed page each. That rules out `break-inside: avoid` on a
+ * whole section: verified by rendering the PDF and looking at the actual
+ * pages, applying it to the full heading-intro-list block left a
+ * near-blank page behind every oversized section, because Chrome responds
+ * to an unfittable `avoid` box by deferring the entire thing to the top of
+ * the next page rather than laying out what fits. So the granularity here
+ * is deliberately mixed:
+ *
+ * - `.guide-print-heading` (heading plus intro, a small bounded group)
+ *   gets `break-inside: avoid` for real, because two short text nodes
+ *   always fit on one page.
+ * - `.guide-print-item` (one `List.Item`: a bound note, or a claim plus
+ *   its own `FactSource`) gets the same, for the same reason -- this is
+ *   what actually stops a claim landing on a different page from its
+ *   source line, or a lone bullet stranding on an otherwise blank sheet.
+ * - `.guide-print-block`, the outer section wrapper, carries no
+ *   break-inside rule at all, only the orphans/widows backstop. The list
+ *   inside it is free to break between items, which is what keeps this a
+ *   genuinely multi-page document instead of one full of gaps.
  */
 
 @media print {
@@ -62,10 +78,37 @@
     margin: 0 !important;
   }
 
-  /* Keep one section together where the page allows it. This is guidance
-     for the page-break algorithm, not a guarantee: a section longer than
-     one page still splits, which is correct. */
-  .guide-print-block {
+  /* A section heading must never end up alone at the foot of a page with
+     its own content pushed onto the next one: keep the heading together
+     with its own intro sentence (a small, always-one-page group, unlike
+     the section as a whole -- see the file header for why the same rule
+     on the full section backfired), and refuse a break immediately after
+     that group too, so it cannot be the very last thing on a page either. */
+  .guide-print-heading {
     break-inside: avoid;
+    break-after: avoid;
+  }
+
+  .guide-print-block h2 {
+    break-after: avoid;
+  }
+
+  /* The unit that actually must not split: one rendered block, which is
+     either a bound note or a claim together with its own "Checked ...
+     source" line. Without this, a claim and its FactSource can land on
+     opposite pages, or a single bullet can be pushed onto an otherwise
+     blank sheet by its taller neighbour. The list itself (List.Root, not
+     targeted here) is still free to break between items, so the guide
+     stays the multi-page document it is meant to be. */
+  .guide-print-item {
+    break-inside: avoid;
+  }
+
+  /* Backstop: never strand a single line of a paragraph at the top or
+     bottom of a page, for anything that still ends up splitting. */
+  .guide-print-block,
+  .guide-print-block * {
+    orphans: 3;
+    widows: 3;
   }
 }
