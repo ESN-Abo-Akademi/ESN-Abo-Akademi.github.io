@@ -1,0 +1,71 @@
+/* Print-only styles for the survival guide.
+ *
+ * Same proven pattern as app/(frontend)/arriving/checklist/print.css:
+ * hides the site-wide sticky navbar, the two ESN colour stripes, and the
+ * site footer, without editing the shared LayoutWrapper/Navbar/Footer
+ * components those chrome elements come from.
+ *
+ * Scoping: this stylesheet is imported only by
+ * app/(frontend)/survival-guide/page.tsx, so Next.js only bundles it for
+ * the /survival-guide route. As a second, independent safeguard, every
+ * rule below is also gated on the presence of the
+ * #survival-guide-print-page marker, which only this page's outer <Box>
+ * renders (via the `id` prop). That marker has no other purpose.
+ *
+ * Structure this relies on (from LayoutWrapper): body's single top-level
+ * child is a stack with exactly four direct children, in order: the
+ * sticky header block (colour stripe + navbar), the block that renders
+ * this page's own content, the footer block, and the closing colour
+ * stripe. Only the second of those four contains #survival-guide-print-page.
+ *
+ * Rather than naming Chakra's generated utility classes (e.g. css-xxxxxx,
+ * an implementation detail, not a stable public API), the primary rule
+ * hides every one of those four direct children EXCEPT the one that
+ * contains this page's own marker. That removes the header and footer as
+ * whole blocks -- including their borders and background colours -- so
+ * nothing is left behind.
+ *
+ * UNLIKE THE CHECKLIST, this guide is deliberately multi-page: it is not
+ * forced onto one sheet. `break-inside: avoid` on `.guide-print-block`
+ * (rendered by components/ui/guide-section.tsx, one per GUIDE_SECTIONS
+ * entry) only keeps a single section from splitting awkwardly across a
+ * page boundary.
+ */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  /* Primary rule: hide every direct child of the root layout stack that
+     is not part of this page's own content block. */
+  body
+    > div:has(#survival-guide-print-page)
+    > *:not(:has(#survival-guide-print-page)) {
+    display: none !important;
+  }
+
+  /* Defense in depth: also hide the navbar landmark and the ESN colour
+     stripes (rendered with an inline linear-gradient backgroundImage;
+     see Stripe() in layout-wrapper.tsx) directly. Both are harmless
+     no-ops today, since the rule above already removes their containing
+     blocks entirely, but they keep this stylesheet correct even if that
+     structure changes. */
+  body:has(#survival-guide-print-page) nav,
+  body:has(#survival-guide-print-page) [style*="linear-gradient"] {
+    display: none !important;
+  }
+
+  #survival-guide-print-page {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Keep one section together where the page allows it. This is guidance
+     for the page-break algorithm, not a guarantee: a section longer than
+     one page still splits, which is correct. */
+  .guide-print-block {
+    break-inside: avoid;
+  }
+}

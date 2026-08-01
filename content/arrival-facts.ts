@@ -59,7 +59,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
   esncardPrice: {
     id: "esncardPrice",
     claim:
-      "The ESNcard costs 10 euro and is valid for 12 months. Buy it at the ESN Åbo Akademi office. A free DNA prepaid SIM card is included. Register it at esncard.org and search Finland to see every partner deal.",
+      "The ESNcard costs 10 euro and is valid for 12 months. Collect it at the ESN Åbo Akademi office. A free DNA prepaid SIM card is included. Register it at esncard.org and search Finland to see every partner deal.",
     source: "owner-confirmed:2026-08-01",
     checked: "2026-08-01",
     expires: "2026-12-15",
@@ -239,7 +239,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     status: "verified",
     owner: "board",
     volatility: "medium",
-    usedIn: ["arriving"],
+    usedIn: ["arriving", "survival-guide"],
   },
   livingCosts: {
     id: "livingCosts",
@@ -457,11 +457,19 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
   // both days next to each other make this easy to collapse, so the date and
   // the day-after distinction are pinned here rather than left to prose.
   //
-  // Both cite the same ÅAS explainer, deliberately. It is an evergreen page
-  // rather than a dated announcement, and it is the one page that carries the
-  // 30 April versus 1 May distinction, both of the chair's lines, and the cap
-  // season in one place. The category archive rotates its contents, so it is
-  // not citable. Do not swap either source for a year's announcement post.
+  // wappen cites the shared ÅAS explainer, deliberately. It is an evergreen
+  // page rather than a dated announcement, and it is the one page that
+  // carries the 30 April versus 1 May distinction and both of the chair's
+  // lines. The category archive rotates its contents, so it is not citable.
+  // Do not swap this source for a year's announcement post.
+  //
+  // lillaWappen cites a different, more specific ÅAS page (see its own
+  // source field below). Task 4 review found that the shared explainer
+  // supports the chair's autumn line but not, as directly, the "cap is put
+  // away until Wappen" clause; the Little Walpurgis page states that part
+  // almost verbatim ("they put the hat away until the next May"). Do not
+  // merge the two facts back onto one source without re-checking that this
+  // clause still holds.
   //
   // Do not pin a calendar date on Lilla Wappen. ÅAS describes it both as the
   // last day of September and as the last Saturday, which coincided in 2023
@@ -484,8 +492,7 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
     id: "lillaWappen",
     claim:
       "Lilla Wappen falls at the end of September and closes the cap season. The chair of Åbo Akademis Studentkår tells students that autumn is here and that caps go inside out, and after that the cap is put away until Wappen in the spring. ÅAS publishes the year's date, venue and ticket sale, all of which move from year to year.",
-    source:
-      "https://studentkaren.fi/en/labour-day/a-few-have-asked-and-some-wonder-what-do-you-do-on-may-day-in-abo/",
+    source: "https://studentkaren.fi/en/labour-day/little-walpurgis/",
     checked: "2026-08-01",
     expires: "2027-03-01",
     audiences: ALL,
