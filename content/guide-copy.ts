@@ -19,6 +19,11 @@
 // an id outside the section's `factIds` throws at module load rather than
 // silently dropping the note.
 //
+// A fact block may also carry a `fallback`, taken from the section's
+// `factFallbacks`. It is set for facts still awaiting owner confirmation,
+// which `getFact` refuses to publish: render those with `FactNote` and this
+// string. The fallback is copy, so it lives here and not in a component.
+//
 // Editorial rules that bind this file: no em dashes, `Turku (Åbo)` on first
 // mention, no competing cafe, nightlife, restaurant or day-trip lists, no
 // advice stated as universal where the register branches it by student type,
@@ -42,6 +47,13 @@ export interface GuideSection {
   intro: string;
   /** Register fact ids rendered inside this section, in order. */
   factIds: string[];
+  /**
+   * Prose to show instead of a fact still awaiting owner confirmation, keyed
+   * by fact id. `getFact` refuses to publish such a fact and `FactNote`
+   * requires a fallback, so the fallback is copy and belongs in this file
+   * rather than hardcoded in a component.
+   */
+  factFallbacks?: Record<string, string>;
   /** Short prose items that are guidance rather than sourced fact. */
   notes: GuideNote[];
 }
@@ -49,7 +61,7 @@ export interface GuideSection {
 /** One renderable item, in the order it belongs under the intro. */
 export type GuideBlock =
   | { kind: "note"; text: string }
-  | { kind: "fact"; id: string };
+  | { kind: "fact"; id: string; fallback?: string };
 
 export const GUIDE_SECTIONS: GuideSection[] = [
   {
@@ -70,10 +82,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       "Pack layers rather than one heavy coat. Buildings here are warm and the outdoors is not, and you spend your day moving between the two.",
       "Bring the medication you rely on and its prescription. Setting up a repeat prescription in a new country takes longer than you expect.",
       "Leave room in the bag. You will buy bedding, a reflector and probably a set of overalls in your first weeks.",
-      {
-        text: "Collect every signature and stamp your home university might want while you are still on the same campus as the people who sign things.",
-        after: "arrivalSpring2027",
-      },
+      "Collect every signature and stamp your home university might want while you are still on the same campus as the people who sign things.",
       {
         text: "Apply on the day the window opens, not on the day your acceptance letter arrives. Those are two different dates, and the rooms go early.",
         after: "tysApplication",
@@ -127,6 +136,10 @@ export const GUIDE_SECTIONS: GuideSection[] = [
       "officeHours",
       "dnaSim",
     ],
+    factFallbacks: {
+      officeHours:
+        "Our opening hours change every semester, so we do not print them here. The current ones are on our Instagram, @esnaboakademi. Check before you walk over.",
+    },
     notes: [
       "Go to orientation even if you think you already know the material. It is where your credentials, your tutor and about half your friends come from.",
       "Write down who to ask for what: your tutor for daily questions, the international coordinators for courses and credits, your housing provider for the flat, and us for the rest.",
@@ -140,7 +153,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
         after: "mealSubsidyDoctoral",
       },
       {
-        text: "Buy the membership first, then bring the confirmation, your identification and proof of student status to the office, and a board member will issue the card.",
+        text: "Buy the ESN membership on Kide.app first. Then bring the confirmation, your identification and proof of student status to the office, and a board member will issue the card. This is ours, and it is a separate thing from student union membership.",
         after: "esncardPrice",
       },
       {
@@ -157,7 +170,7 @@ export const GUIDE_SECTIONS: GuideSection[] = [
     id: "living-here",
     title: "Living here",
     intro:
-      "Your quarter is small. Almost everything you need day to day sits within five minutes' walk of the Cathedral and the Åbo Akademi buildings, and learning that square properly is worth more than any list of places you would visit once.",
+      "Your quarter is small. Almost everything you need day to day sits in the few streets around the Cathedral and the Åbo Akademi buildings, and learning that square properly is worth more than any list of places you would visit once.",
     factIds: [
       "library",
       "vaskiLibrary",
@@ -253,22 +266,35 @@ export function sectionBlocks(section: GuideSection): GuideBlock[] {
     ...section.notes
       .filter((note): note is string => typeof note === "string")
       .map((text): GuideBlock => ({ kind: "note", text })),
-    ...section.factIds.flatMap((id): GuideBlock[] => [
-      { kind: "fact", id },
-      ...boundTo(id),
-    ]),
+    ...section.factIds.flatMap((id): GuideBlock[] => {
+      const fallback = section.factFallbacks?.[id];
+      return [
+        fallback === undefined
+          ? { kind: "fact", id }
+          : { kind: "fact", id, fallback },
+        ...boundTo(id),
+      ];
+    }),
   ];
 }
 
-// Fails the build if a note binds to a fact its section does not render,
-// which would otherwise drop the note without a word. Same guard as the one
+// Fails the build if a note binds to a fact its section does not render, or
+// if a fallback is written for a fact the section does not render. Either
+// would otherwise be dropped without a word. Same guard as the one
 // AudienceTable runs over its own rows.
-GUIDE_SECTIONS.forEach((section) =>
+GUIDE_SECTIONS.forEach((section) => {
   section.notes.forEach((note) => {
     if (typeof note !== "string" && !section.factIds.includes(note.after)) {
       throw new Error(
         `Section "${section.id}" binds a note to "${note.after}", which is not in its factIds.`,
       );
     }
-  }),
-);
+  });
+  Object.keys(section.factFallbacks ?? {}).forEach((id) => {
+    if (!section.factIds.includes(id)) {
+      throw new Error(
+        `Section "${section.id}" has a fallback for "${id}", which is not in its factIds.`,
+      );
+    }
+  });
+});

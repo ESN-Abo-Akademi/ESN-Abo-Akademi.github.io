@@ -456,11 +456,22 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
   // 1 May. The student celebration is the evening before. Sources that name
   // both days next to each other make this easy to collapse, so the date and
   // the day-after distinction are pinned here rather than left to prose.
+  //
+  // Both cite the same ÅAS explainer, deliberately. It is an evergreen page
+  // rather than a dated announcement, and it is the one page that carries the
+  // 30 April versus 1 May distinction, both of the chair's lines, and the cap
+  // season in one place. The category archive rotates its contents, so it is
+  // not citable. Do not swap either source for a year's announcement post.
+  //
+  // Do not pin a calendar date on Lilla Wappen. ÅAS describes it both as the
+  // last day of September and as the last Saturday, which coincided in 2023
+  // and in few other years. "The end of September" is the only durable form.
   wappen: {
     id: "wappen",
     claim:
-      "Wappen falls on 30 April, May Eve, and not on 1 May. Åbo Akademis Studentkår gathers students at Vårdberget in Turku (Åbo) that evening together with YLE, and the chair of the board calls on students to put their caps on. A May Day dinner at Kåren follows the same night. 1 May is May Day itself, the day after. Check the year's start time with ÅAS before you go.",
-    source: "https://studentkaren.fi/en/category/labour-day/",
+      "Wappen falls on 30 April, May Eve, and not on 1 May. In Swedish, Vappen usually means 30 April and May Day usually means 1 May, which is where the confusion comes from. Students gather at Vårdberget in Turku (Åbo), called Vartiovuorenmäki in Finnish, where the choirs Brahe Djäknar and Florakören sing and the chair of Åbo Akademis Studentkår tells students that spring is here and to put their caps on. The student cap is worn from that day until Lilla Wappen. Check the year's start time with ÅAS.",
+    source:
+      "https://studentkaren.fi/en/labour-day/a-few-have-asked-and-some-wonder-what-do-you-do-on-may-day-in-abo/",
     checked: "2026-08-01",
     expires: "2027-03-01",
     audiences: ALL,
@@ -472,8 +483,9 @@ export const ARRIVAL_FACTS: Record<string, Fact> = {
   lillaWappen: {
     id: "lillaWappen",
     claim:
-      "Lilla Wappen is held at the end of September at Kåren, a sit-down dinner run by Åbo Akademis Studentkår together with several subject associations. The chair announces that autumn has arrived, and students turn their student caps inside out, where they stay until spring. The date, the dress code and the ticket sale are published by ÅAS each year.",
-    source: "https://studentkaren.fi/en/category/labour-day/",
+      "Lilla Wappen falls at the end of September and closes the cap season. The chair of Åbo Akademis Studentkår tells students that autumn is here and that caps go inside out, and after that the cap is put away until Wappen in the spring. ÅAS publishes the year's date, venue and ticket sale, all of which move from year to year.",
+    source:
+      "https://studentkaren.fi/en/labour-day/a-few-have-asked-and-some-wonder-what-do-you-do-on-may-day-in-abo/",
     checked: "2026-08-01",
     expires: "2027-03-01",
     audiences: ALL,
