@@ -42,17 +42,18 @@ function Stripe() {
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <VStack minH="dvh" minW="dvw" gap="0">
+    <VStack className="site-chrome" minH="dvh" minW="dvw" gap="0">
       <Container
+        className="site-nav-surface"
         fluid
         p="0"
         m="0"
-        backgroundColor="bg"
-        position={{ base: "static", md: "sticky" }}
+        backgroundColor="transparent"
+        position="sticky"
         top="0"
-        zIndex="1">
+        zIndex="sticky">
         <Stripe />
-        <Navbar borderBottom="1px solid" borderBottomColor="gray.200" />
+        <Navbar />
       </Container>
       <Box flex="1" w="full">
         {children}

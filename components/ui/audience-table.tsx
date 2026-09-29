@@ -173,6 +173,13 @@ export function AudienceTable() {
         international student gets the same answer. Several important ones
         differ. Find your column and use that.
       </Text>
+      <Text
+        className="mobile-scroll-hint"
+        display={{ base: "block", md: "none" }}
+        fontSize="sm"
+        color="fg.muted">
+        Swipe sideways to compare all student types.
+      </Text>
       {/* On-screen table, unchanged. `overflowX="auto"` plus the fixed
           `minW` below is correct for screen, where the reader can scroll a
           narrow viewport sideways -- that behaviour was reviewed and
@@ -184,7 +191,13 @@ export function AudienceTable() {
           printing, via that class name -- it has no effect on screen and no
           effect at all on /arriving, which renders this same component but
           never loads that stylesheet. */}
-      <Box overflowX="auto" w="full" className="audience-table-scroll">
+      <Box
+        overflowX="auto"
+        w="full"
+        className="audience-table-scroll mobile-scroll-region"
+        role="region"
+        aria-label="Student type comparison table"
+        tabIndex={0}>
         <Table.Root
           size="sm"
           striped

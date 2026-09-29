@@ -8,16 +8,17 @@ export default function NavItem({ href, children, ...props }: LinkProps) {
   const currentPath = usePathname();
   const isActive = currentPath === href;
   return (
-    <Link href={href || ""}>
+    <Link
+      className="nav-item"
+      href={href || ""}
+      aria-current={isActive ? "page" : undefined}>
       <ChakraLink
         as="span"
         width="max-content"
         textDecoration={"none"}
         fontWeight={isActive ? "bold" : "normal"}
-        borderBottom="2px solid transparent"
         {...(isActive
           ? {
-              borderBottomColor: "border.primary",
               colorPalette: "esn.darkBlue",
             }
           : null)}

@@ -29,6 +29,7 @@ import {
 import Section from "@/components/ui/section";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/esncard/" },
   title: "ESNcard Benefits",
   description:
     "Learn about international and local ESNcard benefits available to ESN Åbo Akademi members.",

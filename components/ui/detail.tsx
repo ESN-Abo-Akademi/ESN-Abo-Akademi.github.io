@@ -8,7 +8,6 @@ import {
   Badge,
   Button,
   Icon,
-  Image,
   For,
   type StackProps,
 } from "@chakra-ui/react";
@@ -94,14 +93,17 @@ export function TripDetail({
           <HeroVideo src={videoURL} poster={imageURL ?? ""} />
         ) : (
           imageURL && (
-            <Image
+            // A native image keeps Chakra's generated style class out of the
+            // server/client boundary and avoids the hydration mismatch that
+            // occurred on the Events page. These images are presentation-only
+            // and lazy-loaded below the fold.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              className="trip-detail-image"
               alt=""
-              position="absolute"
-              inset="0"
-              w="full"
-              h="full"
-              fit="cover"
               src={imageURL}
+              loading="lazy"
+              decoding="async"
             />
           )
         )}

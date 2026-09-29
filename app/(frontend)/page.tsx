@@ -105,14 +105,14 @@ export default function Home() {
       <HomeHero stats={STATS} />
 
       {/* Trips Section */}
-      <Section py="12">
+      <Section className="content-section" py="12">
         <VStack alignItems="flex-start" gap="8" w="full">
           <HStack w="full" justifyContent="space-between">
-            <Heading as="h2" size="xl">
+            <Heading className="section-heading" as="h2" size="xl">
               Autumn 2026 trips
             </Heading>
             <Text asChild color="link">
-              <NextLink href="/trips">View all →</NextLink>
+              <NextLink className="section-link" href="/trips">View all →</NextLink>
             </Text>
           </HStack>
 
@@ -137,14 +137,14 @@ export default function Home() {
       </Section>
 
       {/* Events Section */}
-      <Section>
+      <Section className="content-section">
         <VStack alignItems="flex-start" gap="8" w="full">
           <HStack w="full" justifyContent="space-between">
-            <Heading as="h2" size="xl">
+            <Heading className="section-heading" as="h2" size="xl">
               Upcoming events
             </Heading>
             <Text asChild color="link">
-              <NextLink href="/events">View calendar →</NextLink>
+              <NextLink className="section-link" href="/events">View calendar →</NextLink>
             </Text>
           </HStack>
 
@@ -154,7 +154,7 @@ export default function Home() {
             gap="4">
             <For each={EVENTS}>
               {(event) => (
-                <Card.Root key={event.title}>
+                <Card.Root className="apple-card event-card" key={event.title}>
                   <Card.Body>
                     <HStack gap="2" mb="2">
                       <Box w="3" h="3" borderRadius="full" bg={event.dot} />
@@ -199,6 +199,7 @@ export default function Home() {
                   rel="noreferrer"
                   _hover={{ textDecoration: "none" }}>
                   <HStack
+                    className="partner-chip"
                     px="5"
                     py="2.5"
                     borderWidth="1px"
@@ -210,6 +211,7 @@ export default function Home() {
                 </ChakraLink>
               ))}
               <HStack
+                className="partner-chip"
                 px="5"
                 py="2.5"
                 borderWidth="1px"
@@ -239,6 +241,7 @@ export default function Home() {
                   rel="noreferrer"
                   _hover={{ textDecoration: "none" }}>
                   <HStack
+                    className="partner-chip"
                     px="5"
                     py="2.5"
                     borderWidth="1px"
@@ -268,7 +271,7 @@ export default function Home() {
 
       {/* Instagram follow strip */}
       <Section py="0">
-        <VStack alignItems="center" gap="2">
+        <VStack className="instagram-callout" alignItems="center" gap="2">
           <ChakraLink
             href="https://www.instagram.com/esnaboakademi/"
             target="_blank"

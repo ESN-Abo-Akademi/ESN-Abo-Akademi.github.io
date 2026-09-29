@@ -2,9 +2,14 @@ import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 
 const config = defineConfig({
   globalCss: {
-    "h1, h2, h3, h4": {
+    "h1, h2": {
       fontWeight: "700",
-      letterSpacing: "0.01em",
+      letterSpacing: "-0.02em",
+      textWrap: "balance",
+    },
+    "h3, h4": {
+      fontWeight: "700",
+      letterSpacing: "-0.01em",
     },
   },
   theme: {

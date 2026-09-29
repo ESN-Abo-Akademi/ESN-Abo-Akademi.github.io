@@ -14,6 +14,7 @@ import { getFact } from "@/content/arrival-facts";
 import "./print.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/arriving/checklist/" },
   title: "First-week checklist",
   description:
     "A one-page checklist of everything to sort out in your first week as a new student in Turku (Åbo).",

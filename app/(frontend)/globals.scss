@@ -1,1 +1,462 @@
 @use "tailwindcss";
+
+:root {
+  color-scheme: light dark;
+  --esn-ink: #12143a;
+  --esn-paper: #f6f7fb;
+  --esn-glass: rgba(255, 255, 255, 0.74);
+  --esn-glass-strong: rgba(255, 255, 255, 0.9);
+  --esn-hairline: rgba(46, 49, 146, 0.12);
+  --esn-shadow-soft: 0 18px 60px rgba(18, 20, 58, 0.1);
+  --esn-shadow-lift: 0 24px 70px rgba(18, 20, 58, 0.16);
+  --esn-spring: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(0, 174, 239, 0.09), transparent 34rem),
+    radial-gradient(circle at 88% 44%, rgba(236, 0, 140, 0.055), transparent 30rem),
+    var(--esn-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  color: white;
+  background: #2e3192;
+}
+
+:where(a, button, [role="button"]) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+:where(a, button, [role="button"]):focus-visible {
+  outline: 3px solid #00aeef;
+  outline-offset: 3px;
+}
+
+.site-chrome {
+  isolation: isolate;
+}
+
+.site-nav-surface {
+  background: var(--esn-glass) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.72) !important;
+  box-shadow: 0 8px 32px rgba(18, 20, 58, 0.07);
+  backdrop-filter: blur(24px) saturate(170%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+}
+
+.pressable {
+  min-height: 44px;
+  transition:
+    transform 180ms var(--esn-spring),
+    box-shadow 220ms var(--esn-spring),
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.mobile-menu-button {
+  min-width: 44px;
+  width: 44px;
+}
+
+.site-logo-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.45rem;
+  border-radius: 1rem;
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.mobile-scroll-region {
+  overscroll-behavior-inline: contain;
+  scrollbar-color: rgba(46, 49, 146, 0.36) transparent;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-scroll-hint {
+  margin-bottom: -0.75rem;
+  font-weight: 600;
+}
+
+.pressable:active {
+  transform: scale(0.97);
+  transition-duration: 90ms;
+}
+
+.nav-item {
+  position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding-inline: 0.6rem;
+  border-radius: 999px;
+  color: inherit;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms var(--esn-spring);
+}
+
+.nav-item:hover,
+.nav-item[aria-current="page"] {
+  color: #2e3192;
+  background: rgba(46, 49, 146, 0.08);
+  text-decoration: none;
+}
+
+.nav-item:active {
+  transform: scale(0.97);
+}
+
+.mobile-nav-panel {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem !important;
+  border: 1px solid var(--esn-hairline);
+  border-radius: 1.5rem;
+  background: var(--esn-glass-strong);
+  box-shadow: var(--esn-shadow-soft);
+}
+
+.home-hero {
+  min-height: clamp(42rem, 82svh, 56rem);
+  display: grid;
+  align-items: center;
+  border-radius: 0 0 clamp(2rem, 6vw, 5rem) clamp(2rem, 6vw, 5rem);
+  box-shadow: 0 28px 90px rgba(18, 20, 58, 0.2);
+}
+
+.home-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 0;
+  height: 8rem;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgba(18, 20, 58, 0.3));
+}
+
+.hero-copy {
+  max-width: 42rem;
+  text-wrap: balance;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(18, 20, 58, 0.32);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+}
+
+.hero-actions {
+  flex-wrap: wrap;
+}
+
+.hero-actions > * {
+  min-height: 48px;
+  border-radius: 999px !important;
+  padding-inline: 1.4rem !important;
+}
+
+.hero-stats {
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1.35rem;
+  background: rgba(18, 20, 58, 0.3);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+.content-section {
+  position: relative;
+}
+
+.content-section:first-of-type {
+  padding-top: clamp(4rem, 8vw, 7rem) !important;
+}
+
+.section-heading {
+  letter-spacing: -0.025em !important;
+  text-wrap: balance;
+}
+
+.section-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding-inline: 0.85rem;
+  border-radius: 999px;
+  font-weight: 700;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms var(--esn-spring);
+}
+
+.section-link:hover {
+  background: rgba(0, 174, 239, 0.1);
+  text-decoration: none;
+}
+
+.section-link:active {
+  transform: scale(0.97);
+}
+
+.apple-card {
+  overflow: hidden;
+  border: 1px solid rgba(46, 49, 146, 0.1) !important;
+  border-radius: 1.6rem !important;
+  background: rgba(255, 255, 255, 0.86) !important;
+  box-shadow: 0 12px 36px rgba(18, 20, 58, 0.08);
+  transform: translateZ(0);
+  transition:
+    transform 360ms var(--esn-spring),
+    box-shadow 360ms var(--esn-spring),
+    border-color 180ms ease;
+}
+
+.trip-card [data-part="footer"],
+.trip-card > .chakra-card__footer {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.event-card {
+  min-height: 9.5rem;
+}
+
+.event-card [data-part="body"],
+.event-card > .chakra-card__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.trip-detail-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.membership-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: min(100%, 58rem);
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 2rem !important;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(0, 174, 239, 0.35), transparent 20rem),
+    linear-gradient(135deg, #12143a, #2e3192 64%, #373bb0) !important;
+  box-shadow: 0 24px 70px rgba(18, 20, 58, 0.22);
+}
+
+.membership-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 15rem;
+  height: 15rem;
+  right: -7rem;
+  bottom: -9rem;
+  border: 2.5rem solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.partner-chip {
+  min-height: 44px;
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.8);
+  transition:
+    transform 220ms var(--esn-spring),
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.partner-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(46, 49, 146, 0.28) !important;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.instagram-callout {
+  width: min(100%, 44rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid var(--esn-hairline);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: var(--esn-shadow-soft);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+.footer-surface {
+  border-top: 1px solid var(--esn-hairline);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 247, 255, 0.96)) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .apple-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(46, 49, 146, 0.2) !important;
+    box-shadow: var(--esn-shadow-lift);
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .site-nav-surface {
+    background: var(--esn-glass-strong) !important;
+  }
+
+  .home-hero {
+    min-height: auto;
+  }
+
+  .hero-stats {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem !important;
+    padding-inline: 0.55rem;
+  }
+
+  .hero-stats > * {
+    min-width: 0;
+    align-items: center !important;
+    text-align: center;
+  }
+
+  .hero-stats p {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .nav-item {
+    width: 100%;
+    justify-content: flex-start;
+    padding-inline: 1rem;
+  }
+
+  .membership-card [data-part="body"] > *,
+  .membership-card > .chakra-card__body > .chakra-stack {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+
+  .membership-card [data-part="body"] > * > *,
+  .membership-card > .chakra-card__body > .chakra-stack > .chakra-stack {
+    width: 100%;
+    align-items: flex-start !important;
+  }
+
+  .membership-card .pressable,
+  .flagship-actions,
+  .flagship-actions .pressable {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .pressable:active {
+    transform: none;
+  }
+
+  .apple-card,
+  .apple-card:hover,
+  .partner-chip,
+  .partner-chip:hover,
+  .nav-item,
+  .nav-item:active,
+  .section-link,
+  .section-link:active {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-nav-surface,
+  .hero-kicker,
+  .hero-stats,
+  .instagram-callout {
+    background: #fff !important;
+    color: var(--esn-ink) !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .site-nav-surface,
+  .hero-kicker,
+  .hero-stats {
+    border-color: currentColor !important;
+  }
+}
+
+.dark {
+  --esn-paper: #11131f;
+  --esn-glass: rgba(20, 22, 38, 0.78);
+  --esn-glass-strong: rgba(20, 22, 38, 0.94);
+  --esn-hairline: rgba(255, 255, 255, 0.12);
+
+  .site-logo-link {
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  .nav-item:hover,
+  .nav-item[aria-current="page"] {
+    color: #67d6ff;
+    background: rgba(0, 174, 239, 0.12);
+  }
+
+  .apple-card,
+  .partner-chip,
+  .instagram-callout {
+    background: rgba(30, 33, 52, 0.88) !important;
+  }
+
+  .trip-card [data-part="footer"],
+  .trip-card > .chakra-card__footer {
+    background: rgba(30, 33, 52, 0.96);
+  }
+
+  .footer-surface {
+    background: linear-gradient(180deg, #161827, #11131f) !important;
+  }
+}

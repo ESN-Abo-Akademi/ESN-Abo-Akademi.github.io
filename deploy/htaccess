@@ -8,13 +8,48 @@ ErrorDocument 404 /404.html
   Require all denied
 </FilesMatch>
 
+# The Drupal leftovers also advertise their own version to scanners
+# (CHANGELOG.txt announced "Drupal 7.74"). Deny the metadata files by name:
+# a blanket .txt rule would break Next.js route payloads and robots.txt.
+<FilesMatch "^(CHANGELOG|COPYRIGHT|INSTALL|LICENSE|MAINTAINERS|README|UPGRADE|USAGE)(\.[a-z]+)?\.txt$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^(composer\.(json|lock)|package(-lock)?\.json|web\.config|yarn\.lock|\.editorconfig|\.gitignore|\.env.*)$">
+  Require all denied
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
+
+  # Drupal application directories stay unreachable.
   RewriteRule ^(?:includes|misc|modules|profiles|scripts|sites|themes|vendor)(?:/|$) - [F,L]
+
+  # Bulk scrapers and commercial SEO crawlers. Search engines that students
+  # actually use (Google, Bing, DuckDuckGo, Apple) are deliberately absent
+  # from this list and must never be added to it.
+  RewriteCond %{HTTP_USER_AGENT} (GPTBot|CCBot|ClaudeBot|anthropic-ai|Bytespider|PetalBot|Amazonbot|meta-externalagent|AhrefsBot|SemrushBot|MJ12bot|DotBot|DataForSeoBot|ZoominfoBot|SeekportBot|serpstatbot|BLEXBot) [NC]
+  RewriteRule ^ - [F,L]
+
+  # Requests with no user agent at all are almost always scripted probes.
+  RewriteCond %{HTTP_USER_AGENT} ^$
+  RewriteRule ^ - [F,L]
 </IfModule>
 
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Fingerprinted build assets never change; long cache is safe.
+  <FilesMatch "\.(js|css|woff2|ttf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(jpg|jpeg|png|svg|webp|mp4)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    # HTML may be stored, but browsers must revalidate before using it. The
+    # fingerprinted CSS and JavaScript above remain safely cached for a year.
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
 </IfModule>

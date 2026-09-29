@@ -25,7 +25,7 @@ const CONTACT = [
 
 export default function Footer() {
   return (
-    <Section backgroundColor="bg.alternate" py="10">
+    <Section className="footer-surface" backgroundColor="bg.alternate" py="10">
       <Grid
         w="full"
         gridTemplateColumns={{ base: "1fr", sm: "1fr 1fr", md: "2fr 1fr 1fr" }}

@@ -62,10 +62,10 @@ export function PatchWall({
           gap="0.5"
           px="2"
           textAlign="center"
-          animation={`patchIn 0.55s ease-out ${index * 90}ms backwards`}
-          transition="transform 0.25s ease, box-shadow 0.25s ease"
+          animation={`patchIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) ${index * 75}ms backwards`}
+          transition="transform 0.36s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.36s cubic-bezier(0.22, 1, 0.36, 1)"
           _hover={{
-            transform: `rotate(${patch.rotate * 0.4}deg) rotateX(8deg) translateY(-6px) scale(1.05)`,
+            transform: `rotate(${patch.rotate * 0.45}deg) translateY(-4px) scale(1.025)`,
             boxShadow: "xl",
             zIndex: "1",
           }}

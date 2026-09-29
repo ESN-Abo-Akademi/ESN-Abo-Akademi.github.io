@@ -195,7 +195,12 @@ export type HeroProps = {
 
 export default function HomeHero({ stats }: HeroProps) {
   return (
-    <Box position="relative" w="full" overflow="hidden" bg="esn.darkBlue.900">
+    <Box
+      className="home-hero"
+      position="relative"
+      w="full"
+      overflow="hidden"
+      bg="esn.darkBlue.900">
       <HeroVideo
         src="/video/hero-home.mp4"
         poster="/video/hero-home-poster.jpg"
@@ -203,7 +208,7 @@ export default function HomeHero({ stats }: HeroProps) {
       <Box
         position="absolute"
         inset="0"
-        bgImage="linear-gradient(90deg, rgba(18,20,58,0.92) 0%, rgba(18,20,58,0.6) 55%, rgba(18,20,58,0.28) 100%)"
+        bgImage="linear-gradient(105deg, rgba(18,20,58,0.94) 0%, rgba(18,20,58,0.72) 48%, rgba(18,20,58,0.32) 100%)"
       />
       <Container
         maxW="1024px"
@@ -215,12 +220,14 @@ export default function HomeHero({ stats }: HeroProps) {
           direction={{ base: "column", md: "row" }}
           alignItems={{ base: "stretch", md: "center" }}>
           <VStack
+            className="hero-copy"
             alignItems="flex-start"
             justifyContent="flex-end"
             gap="4"
             minW="0"
             order={{ base: 2, md: 1 }}>
             <Text
+              className="hero-kicker"
               as="h3"
               fontSize="md"
               fontWeight="bold"
@@ -228,19 +235,29 @@ export default function HomeHero({ stats }: HeroProps) {
               color="esn.cyan.300">
               ÅBO AKADEMI · TURKU, FINLAND
             </Text>
-            <Heading as="h1" size="5xl" color="white">
+            <Heading
+              as="h1"
+              size="5xl"
+              color="white"
+              lineHeight="0.98"
+              letterSpacing="-0.025em">
               Your international community in Turku (Åbo)
             </Heading>
-            <Text color="whiteAlpha.900">
+            <Text
+              color="whiteAlpha.900"
+              fontSize={{ base: "md", md: "lg" }}
+              lineHeight="1.65"
+              maxW="38rem">
               Sauna nights, themed sitz parties, food nights, and trips across
               Finland and Europe, organised by students, for students in Turku
               (Åbo).
             </Text>
-            <HStack gap="4">
-              <Button asChild colorPalette="esn.cyan" size="lg">
+            <HStack className="hero-actions" gap="3">
+              <Button className="pressable" asChild colorPalette="esn.cyan" size="lg">
                 <Link href="/esncard">Get your ESNcard</Link>
               </Button>
               <Button
+                className="pressable"
                 asChild
                 variant="outline"
                 size="lg"
@@ -250,7 +267,7 @@ export default function HomeHero({ stats }: HeroProps) {
                 <Link href="/trips">Explore trips</Link>
               </Button>
             </HStack>
-            <HStack gap="8" mt="8" alignItems="flex-start">
+            <HStack className="hero-stats" gap="8" mt="7" alignItems="flex-start">
               <For each={stats}>
                 {(stat, index) => (
                   <VStack key={`stat-${index}`} alignItems="flex-start" gap="1">

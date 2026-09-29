@@ -37,6 +37,7 @@ import { EventsHero } from "@/components/ui/hero";
 import { TripDetail, type TripDetailProps } from "@/components/ui/detail";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/events/" },
   title: "Events",
   description:
     "Sitz parties, sauna nights, food nights, bar crawls, and the full autumn 2026 event calendar for exchange students in Turku (Åbo).",
@@ -151,22 +152,11 @@ const AUGUST_EVENTS: CalendarEvent[] = [
     days: [31],
     dateLabel: "31 August 2026",
     weekday: "Monday",
-    title: "Hello Turku (Åbo)! Sitz",
-    format: "19:00–22:00",
-    detail: "Geologicum",
+    title: "Welcome to Turku (Åbo) Party",
+    format: "Time to be confirmed",
+    detail: "Venue to be confirmed",
     description:
-      "A traditional sitz — a formal dinner with singing — to welcome exchange students to their first week in Finland. Dress code: traditional dress from your country, or similar.",
-    color: "esn.magenta",
-  },
-  {
-    day: 31,
-    days: [31],
-    dateLabel: "31 August 2026",
-    weekday: "Monday",
-    title: "Hello Turku! Sitz Afterparty",
-    format: "From 23:00",
-    detail: "Bar Ihku or Lygas · final venue on Instagram",
-    description: "The official afterparty following the welcome sitz.",
+      "A welcome party for new international students, bringing together an international atmosphere and the traditions of Turku student life.",
     color: "esn.orange",
   },
 ];
@@ -714,7 +704,21 @@ function MonthCalendar({
           </Text>
         </VStack>
 
-        <Box w="full" overflowX="auto" pb="2">
+        <Text
+          className="mobile-scroll-hint"
+          display={{ base: "block", md: "none" }}
+          fontSize="sm"
+          color="fg.muted">
+          Swipe sideways to see the full month.
+        </Text>
+        <Box
+          className="mobile-scroll-region"
+          w="full"
+          overflowX="auto"
+          pb="2"
+          role="region"
+          aria-label={`${month} ${year} calendar`}
+          tabIndex={0}>
           <Grid
             minW="760px"
             gridTemplateColumns="repeat(7, minmax(0, 1fr))"

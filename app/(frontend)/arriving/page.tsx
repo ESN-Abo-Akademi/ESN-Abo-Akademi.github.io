@@ -30,6 +30,7 @@ import { AudienceTable } from "@/components/ui/audience-table";
 import { getFact } from "@/content/arrival-facts";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/arriving/" },
   title: "Arriving in Turku (Åbo)",
   description:
     "What to do before you travel, on your arrival night, and in your first week as a new student at Åbo Akademi University in Turku (Åbo).",

@@ -25,6 +25,7 @@ import { checkedSummary } from "@/content/arrival-facts";
 import "./print.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/survival-guide/" },
   title: "Survival guide",
   description:
     "The full ESN Åbo Akademi survival guide for new students in Turku (Åbo), whichever institution you study at: before you travel, arrival night, your first week, living here, getting around and getting help, and student traditions explained. Anything specific to Åbo Akademi is marked as such.",

@@ -23,6 +23,7 @@ import {
 import Section from "@/components/ui/section";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/membership/" },
   title: "Membership",
   description:
     "Join ESN Åbo Akademi, purchase your membership and collect your ESNcard in Turku (Åbo).",

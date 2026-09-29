@@ -1,0 +1,140 @@
+name: Deploy to esnabo.org
+
+# Publishes the static site to the production web root over FTPS.
+#
+# How the timed reveal works, and why it is reliable:
+#
+#   1. The run starts EARLY (11:20 EEST). GitHub's scheduled runners are
+#      routinely 5-15 minutes late, so the start time is deliberately loose.
+#   2. Everything except index.html is uploaded immediately. None of it is
+#      linked from the live countdown page, so nothing changes for visitors.
+#   3. The job then sleeps until exactly 12:00:00 Europe/Helsinki and uploads
+#      index.html, which replaces the countdown page. Sleeping inside a run
+#      gives second-level precision that a cron trigger cannot.
+#   4. The countdown page reloads itself at 12:00:00 (its own script), so
+#      anyone watching lands on the new homepage at the same instant.
+#
+# Credentials come from repository secrets and are never printed. Set:
+#   FTP_HOST        e.g. ftp.esnabo.org
+#   FTP_USER        the FTP account user name
+#   FTP_PASSWORD    the FTP account password
+#   FTP_REMOTE_DIR  (optional) target directory, defaults to /public_html
+#
+# Run it by hand from the Actions tab at any time; with reveal_at set to
+# "now" it publishes immediately instead of waiting.
+
+on:
+  workflow_dispatch:
+    inputs:
+      reveal_at:
+        description: 'ISO time to swap the homepage, or "now"'
+        required: true
+        default: "2026-08-02T12:00:00+03:00"
+  schedule:
+    # 08:20 UTC = 11:20 EEST. Early on purpose - see note above.
+    - cron: "20 8 2 8 *"
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build:static
+
+      - name: Sanity-check the build
+        run: |
+          set -euo pipefail
+          test -f out/index.html
+          test -f out/.htaccess
+          test -f out/trips/index.html
+          # The site must never ship secrets or local paths.
+          ! grep -rqs "PAYLOAD_SECRET\|DATABASE_URL\|/Users/" out/
+          # Unconfirmed months must stay unpublished.
+          ! grep -qs "October Calendar" out/events/index.html
+          echo "Verified $(find out -name index.html | wc -l) pages"
+
+      - name: Upload everything except the homepage
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR || '/public_html' }}
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          # No --delete: the dormant Drupal installation is retained on the
+          # server so the July deployment stays reversible. This mirror only
+          # adds and overwrites.
+          lftp -c "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate no;
+            set net:max-retries 3;
+            open -u \"$FTP_USER\",\"$FTP_PASSWORD\" \"$FTP_HOST\";
+            mirror --reverse --parallel=4 --verbose \
+              --exclude-glob index.html out/ \"$FTP_REMOTE_DIR\";
+          "
+
+      - name: Wait for the reveal moment
+        run: |
+          set -euo pipefail
+          target='${{ github.event.inputs.reveal_at || '2026-08-02T12:00:00+03:00' }}'
+          if [ "$target" = "now" ]; then
+            echo "Publishing immediately."
+            exit 0
+          fi
+          target_epoch=$(date -d "$target" +%s)
+          now=$(date +%s)
+          wait=$(( target_epoch - now ))
+          if [ "$wait" -le 0 ]; then
+            echo "Reveal time already passed ($target). Publishing now."
+            exit 0
+          fi
+          echo "Waiting ${wait}s until $target ..."
+          sleep "$wait"
+
+      - name: Publish the homepage
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USER: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_REMOTE_DIR: ${{ secrets.FTP_REMOTE_DIR || '/public_html' }}
+        run: |
+          set -euo pipefail
+          lftp -c "
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate no;
+            set net:max-retries 3;
+            open -u \"$FTP_USER\",\"$FTP_PASSWORD\" \"$FTP_HOST\";
+            cd \"$FTP_REMOTE_DIR\";
+            put -O . out/index.html;
+          "
+          echo "Homepage published at $(date -u +%H:%M:%SZ)"
+
+      - name: Verify the live site
+        run: |
+          set -euo pipefail
+          sleep 5
+          for path in "" "trips/" "events/" "about/"; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "https://esnabo.org/$path")
+            echo "https://esnabo.org/$path -> $code"
+            test "$code" = "200"
+          done
+          curl -s https://esnabo.org/ | grep -q "Turku (Åbo)" \
+            && echo "Live site is serving the new homepage."

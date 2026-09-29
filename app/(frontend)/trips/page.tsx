@@ -21,6 +21,7 @@ import { TripDetail, type TripDetailProps } from "@/components/ui/detail";
 import { FlagshipTripCard } from "@/components/ui/card";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/trips/" },
   title: "Trips",
   description:
     "Autumn 2026 student trips from Turku (Åbo): Lofoten, Iceland, the Baltic capitals, and Northern Lapland, plus the Pirates of the Baltic Sea cruise.",

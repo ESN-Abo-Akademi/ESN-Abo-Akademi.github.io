@@ -64,9 +64,18 @@ export default function Navbar({ ...props }: ContainerProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <Section backgroundColor="bg.default" {...props} py="0">
-      <HStack as="nav" justifyContent="space-between" h={{ base: "16", md: "24" }} gap="4">
-        <Link href="/" onClick={() => setOpen(false)}>
+    <Section backgroundColor="transparent" {...props} py="0">
+      <HStack
+        as="nav"
+        aria-label="Primary navigation"
+        justifyContent="space-between"
+        h={{ base: "16", md: "20" }}
+        gap="4">
+        <Link
+          className="pressable site-logo-link"
+          href="/"
+          aria-label="ESN Åbo Akademi home"
+          onClick={() => setOpen(false)}>
           <Image src="/esn-abo.png" alt="ESN Åbo Akademi" h={{ base: "12", md: "20" }} />
         </Link>
         <List.Root
@@ -89,6 +98,7 @@ export default function Navbar({ ...props }: ContainerProps) {
         </List.Root>
         <HStack gap="2">
           <IconButton
+            className="pressable"
             asChild
             aria-label="ESN Åbo Akademi on Instagram"
             variant="ghost"
@@ -101,13 +111,15 @@ export default function Navbar({ ...props }: ContainerProps) {
             </a>
           </IconButton>
           <Button
+            className="pressable"
             asChild
             colorPalette="esn.darkBlue"
-            borderRadius="md"
+            borderRadius="full"
             display={{ base: "none", md: "inline-flex" }}>
             <Link href="/membership">Join Us</Link>
           </Button>
           <IconButton
+            className="pressable mobile-menu-button"
             aria-label={open ? "Close menu" : "Open menu"}
             variant="ghost"
             display={{ base: "inline-flex", md: "none" }}
@@ -118,7 +130,9 @@ export default function Navbar({ ...props }: ContainerProps) {
       </HStack>
       {open && (
         <VStack
+          className="mobile-nav-panel"
           as="nav"
+          aria-label="Mobile navigation"
           display={{ base: "flex", md: "none" }}
           alignItems="stretch"
           gap="3"
@@ -135,12 +149,12 @@ export default function Navbar({ ...props }: ContainerProps) {
               </NavItem>
             )}
           </For>
-          <Button asChild colorPalette="esn.darkBlue" borderRadius="md">
+          <Button className="pressable" asChild colorPalette="esn.darkBlue" borderRadius="full">
             <Link href="/membership" onClick={() => setOpen(false)}>
               Join Us
             </Link>
           </Button>
-          <Button asChild variant="outline" borderRadius="md">
+          <Button className="pressable" asChild variant="outline" borderRadius="full">
             <a
               href="https://www.instagram.com/esnaboakademi/"
               target="_blank"

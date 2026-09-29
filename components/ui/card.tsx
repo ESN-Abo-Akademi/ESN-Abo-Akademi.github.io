@@ -30,10 +30,14 @@ export function TripCard({
   badges,
   detail,
   imageSrc,
+  className,
   ...props
 }: TripCardProps) {
   return (
     <Card.Root
+      className={["apple-card", "trip-card", className]
+        .filter(Boolean)
+        .join(" ")}
       key={title}
       colorPalette={color}
       position="relative"
@@ -82,7 +86,7 @@ export function TripCard({
           {detail}
         </Text>
         <HStack w="full" justifyContent="space-between" mt="2">
-          <Button asChild size="sm" variant="ghost">
+          <Button className="pressable" asChild size="sm" variant="ghost">
             <NextLink href="/trips">
               View trip details{" "}
               <Icon>
@@ -96,9 +100,13 @@ export function TripCard({
   );
 }
 
-export function CTACard({ ...props }: CardRootProps) {
+export function CTACard({ className, ...props }: CardRootProps) {
   return (
-    <Card.Root colorPalette="esn.darkBlue" bg="colorPalette.solid" {...props}>
+    <Card.Root
+      className={["membership-card", className].filter(Boolean).join(" ")}
+      colorPalette="esn.darkBlue"
+      bg="colorPalette.solid"
+      {...props}>
       <Card.Body>
         <HStack direction="row" gap="8" alignItems="center">
           <VStack alignItems="flex-start" justifyContent="center">
@@ -112,7 +120,7 @@ export function CTACard({ ...props }: CardRootProps) {
             </Card.Description>
           </VStack>
           <VStack justifyContent="center">
-            <Button asChild size="lg" colorPalette="esn.cyan">
+            <Button className="pressable" asChild size="lg" colorPalette="esn.cyan" borderRadius="full">
               <NextLink href="/membership">
                 Get your membership
               </NextLink>
@@ -142,10 +150,12 @@ export function FlagshipTripCard({
   highlights,
   learnMoreLink,
   buyTicketsLink,
+  className,
   ...props
 }: FlagshipTripCardProps) {
   return (
     <Card.Root
+      className={["apple-card", className].filter(Boolean).join(" ")}
       colorPalette="esn.darkBlue"
       bg="colorPalette.solid"
       w="full"
@@ -191,8 +201,11 @@ export function FlagshipTripCard({
               </For>
             </HStack>
           </VStack>
-          <Stack direction={{ base: "row", md: "column" }} gap="2">
-            <Button asChild size="lg" colorPalette="esn.cyan">
+          <Stack
+            className="flagship-actions"
+            direction={{ base: "column", sm: "row", md: "column" }}
+            gap="2">
+            <Button className="pressable" asChild size="lg" colorPalette="esn.cyan" borderRadius="full">
               <ChakraLink asChild textDecoration="none">
                 <a href={buyTicketsLink} target="_blank" rel="noreferrer">
                   <Icon>
@@ -203,11 +216,13 @@ export function FlagshipTripCard({
               </ChakraLink>
             </Button>
             <Button
+              className="pressable"
               asChild
               size="lg"
               variant="outline"
               colorPalette="esn.cyan"
               color="white"
+              borderRadius="full"
               _hover={{ color: "colorPalette.fg" }}>
               <ChakraLink asChild textDecoration="none">
                 <a href={learnMoreLink} target="_blank" rel="noreferrer">

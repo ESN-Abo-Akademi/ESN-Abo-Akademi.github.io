@@ -22,6 +22,7 @@ import Section from "@/components/ui/section";
 import { AboutHero } from "@/components/ui/hero";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about/" },
   title: "About",
   description:
     "ESN Åbo Akademi, founded 1994, is Finland's second-oldest ESN section — meet the board, find our office in Turku (Åbo), and learn how to get involved.",
