@@ -76,11 +76,6 @@ const BOARD = [
   { name: "Saida Samadova", role: "President", color: "esn.magenta" },
   { name: "Kim Pekkonen", role: "Vice-President", color: "esn.cyan" },
   { name: "Aziz Ullah", role: "Treasurer", color: "esn.darkBlue" },
-  {
-    name: "Yasith Hirimburegama",
-    role: "Partnership Manager",
-    color: "esn.green",
-  },
   { name: "Somoy Tunu", role: "Trips Manager", color: "esn.orange" },
   { name: "Risti Rahaat", role: "Board Support", color: "esn.magenta" },
   { name: "Krishmi Apsara", role: "Board Support", color: "esn.cyan" },
