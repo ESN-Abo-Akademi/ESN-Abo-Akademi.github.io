@@ -76,8 +76,18 @@ const BOARD = [
   { name: "Saida Samadova", role: "President", color: "esn.magenta" },
   { name: "Kim Pekkonen", role: "Vice-President", color: "esn.cyan" },
   { name: "Somoy Tunu", role: "Trips Manager", color: "esn.orange" },
-  { name: "Risti Rahaat", role: "Board Support", color: "esn.magenta" },
-  { name: "Krishmi Apsara", role: "Board Support", color: "esn.cyan" },
+  { name: "Risti Rahat", role: "Event Manager", color: "esn.magenta" },
+  { name: "Lucie Bosquet", role: "Events Coordinator", color: "esn.cyan" },
+  {
+    name: "Abhishek Roy",
+    role: "Web Project Administrator",
+    color: "esn.darkBlue",
+  },
+  {
+    name: "Tooba Malik",
+    role: "Communications Support",
+    color: "esn.green",
+  },
 ];
 
 const MEMBERSHIP_BENEFITS = [
